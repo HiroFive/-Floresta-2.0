@@ -1,0 +1,26 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"~/*": [
+				"./src/*"
+			]
+		},
+		"outDir": "dist",
+		"sourceMap": true,
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"importHelpers": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"target": "es2017",
+		"module": "CommonJS",
+	},
+	"include": [
+		"src",
+		"psackage.json",
+		"package-lock.json"
+	],
+}
