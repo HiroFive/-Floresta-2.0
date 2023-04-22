@@ -1,0 +1,14 @@
+:host ::ng-deep {
+  .floresta-button.appearance-ghost.icon-start.icon-end {
+    @apply p-1;
+    nb-icon {
+      @apply h-7 w-7 text-gray-500;
+    }
+
+    &:hover {
+      nb-icon {
+        @apply text-primary-700;
+      }
+    }
+  }
+}

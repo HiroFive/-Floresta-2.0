@@ -1,1 +1,8 @@
-<a href="#" class="navigation-item" aria-current="page"> Home </a>
+<ng-container *ngIf="data.asButton; then asButton; else asLink"> </ng-container>
+<ng-template #asLink>
+  <a href="#" class="navigation-item" aria-current="page"> {{ data.label }} </a>
+</ng-template>
+
+<ng-template #asButton>
+  <app-button [label]="data.label" size="small"> </app-button>
+</ng-template>

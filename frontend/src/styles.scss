@@ -1,16 +1,22 @@
+@use 'themes' as *;
+@use '@nebular/theme/styles/globals' as *;
+@include nb-install() {
+  @include nb-theme-global();
+}
+
+@import './consts.scss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "./consts.scss"; 
-
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    box-sizing: border-box;
-    background-color: $shightWhite;
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  box-sizing: border-box;
+  background-color: $shightWhite;
 }

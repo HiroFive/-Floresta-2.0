@@ -1,0 +1,21 @@
+@forward '@nebular/theme/styles/theming';
+@use '@nebular/theme/styles/theming' as *;
+@use '@nebular/theme/styles/themes/default';
+@import './consts.scss';
+
+$nb-themes: nb-register-theme(
+  (
+    color-primary-focus: #007242,
+    color-primary-focus-border: #007242,
+    color-primary-300: $band-main,
+    button-filled-primary-background-color: $band-main,
+    button-filled-primary-border-color: $band-main,
+    button-filled-primary-hover-background-color: #007e4a,
+    button-filled-primary-hover-border-color: #007e4a,
+    button-filled-primary-active-background-color: #007242,
+    button-filled-primary-active-border-color: #007242,
+    //button-filled-medium-padding:,
+  ),
+  corporateTheme,
+  default
+);

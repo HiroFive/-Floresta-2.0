@@ -1,0 +1,17 @@
+<button
+  nbButton
+  class="floresta-button"
+  type="button"
+  [hero]="hero"
+  [status]="buttonStatus"
+  [ghost]="isGhost"
+  [shape]="shape"
+  [size]="size"
+  [disabled]="disabled"
+  (click)="onHandleClick($event)"
+>
+  <nb-icon *ngIf="icon" [icon]="icon" [status]="iconStatus"></nb-icon>
+  <ng-container *ngIf="label">
+    {{ label }}
+  </ng-container>
+</button>

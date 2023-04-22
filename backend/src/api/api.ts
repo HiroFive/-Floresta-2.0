@@ -1,6 +1,8 @@
 import { Router } from 'express';
+import { initUserApi } from './user.api';
+import { initRoleApi } from './role.api';
 
-const apis: any[] = [];
+const apis: any[] = [initUserApi, initRoleApi];
 
 const initApi = (app: Router): Router => {
   const apiRouter = Router();
