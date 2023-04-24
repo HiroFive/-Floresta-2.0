@@ -20,11 +20,16 @@ export class UserService {
   }
 
   public getUserById(id: string): Observable<IUser> {
-    return this.http.get<IUser>(`http://localhost:3001/api${rootApiPath.User}/${id}`);
+    return this.http.get<IUser>(
+      `http://localhost:3001/api${rootApiPath.User}/${id}`,
+    );
   }
 
   public createUser(body: any): Observable<IUser> {
-    return this.http.post<IUser>(`http://localhost:3001/api${rootApiPath.User}`, body);
+    return this.http.post<IUser>(
+      `http://localhost:3001/api${rootApiPath.User}`,
+      body,
+    );
   }
   public updateUser(id: string, body: FormData, callback?: () => void): void {
     this.http

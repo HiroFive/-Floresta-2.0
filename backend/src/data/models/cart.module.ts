@@ -16,9 +16,10 @@ const createCartModule = (orm: Sequelize): ModelCtor<cartInstance> => {
       },
       productIds: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: [],
       },
       userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,

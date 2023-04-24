@@ -1,10 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
-import { AuthWrapperService, UserService } from '../services';
+import {
+  AuthWrapperService,
+  LocalStorageService,
+  UserService,
+} from '../services';
 import { Store } from '@ngrx/store';
-import { ProfileActions } from '../store/actions';
+import { CartActions, ProfileActions } from '../store/actions';
 import { ProfileSelectors } from '../store/selectors';
 import { isEmpty } from 'lodash';
+import { USER_PROFILE } from '../common/local-storage-keys';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +22,7 @@ export class AppComponent implements OnDestroy, OnInit {
     private readonly authWrapperService: AuthWrapperService,
     private readonly store: Store<any>,
     private readonly userService: UserService,
+    private readonly localStorageService: LocalStorageService,
   ) {}
 
   ngOnInit() {
@@ -32,6 +38,11 @@ export class AppComponent implements OnDestroy, OnInit {
               user: this.userService.userTokenToProps(idToken),
             }),
           );
+        }
+
+        if (profile?.id) {
+          this.localStorageService.setItem(USER_PROFILE, profile);
+          this.store.dispatch(CartActions.getCartByUserId({ id: profile?.id }));
         }
       });
 

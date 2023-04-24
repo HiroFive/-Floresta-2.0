@@ -18,6 +18,10 @@ const orderItemModule = createOrderItemModule(sequelize);
 const paymentDetailModule = createPaymentDetailsModule(sequelize);
 const productModule = createProductModule(sequelize);
 
+cartModule.hasMany(cartItemModule, {
+  as: 'items',
+});
+
 userModule.belongsTo(roleModule, {
   foreignKey: 'roleId',
 });

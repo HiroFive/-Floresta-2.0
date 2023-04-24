@@ -1,6 +1,12 @@
-export const userAttribute = ['id', 'name', 'email', 'sub_id', 'role_id'];
+export const userAttribute = [
+  'id',
+  'name',
+  'email',
+  ['sub_id', 'subId'],
+  ['role_id', 'role'],
+];
 
-export const getUserParams = (type = '', additionalParams = {}) => {
+export const getUserParams = (type = '', additionalParams = {}): any => {
   const defaultParams = {
     attributes: userAttribute,
   };

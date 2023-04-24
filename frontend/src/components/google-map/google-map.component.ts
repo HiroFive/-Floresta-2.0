@@ -23,8 +23,8 @@ export class GoogleMapComponent implements OnInit {
   ngOnInit() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+        lat: 35,
+        lng: 33,
       };
     });
   }

@@ -22,7 +22,7 @@ const createRoleModule = (orm: Sequelize): ModelCtor<roleInstance> => {
       updatedAt: DataTypes.DATE,
     },
     {
-      tableName: 'roles',
+      tableName: 'role',
       underscored: true,
     },
   );

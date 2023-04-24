@@ -1,4 +1,4 @@
-export const cartItemAttribute = ['id', 'name'];
+export const cartItemAttribute = ['id', 'quantity'];
 
 export const getCartItemParams = (type = '', additionalParams = {}) => {
   const defaultParams = {

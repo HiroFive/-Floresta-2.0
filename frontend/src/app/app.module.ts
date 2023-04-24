@@ -19,23 +19,38 @@ import { NavbarComponent } from 'src/components/navbar';
 import { ButtonComponent } from '../components/button/button.component';
 import { NavigationItemComponent } from '../components/navbar/navigation-item/navigation-item.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { HomeComponent, ProfileComponent } from '../pages';
+import {
+  AdminComponentPage,
+  HomeComponentPage,
+  MapMarkSettingComponentPage,
+  NotFoundComponentPage,
+  ProfileComponentPage,
+} from '../pages';
 import { AuthModule } from '@auth0/auth0-angular';
-import { profileReducer } from '../store/reducers';
+import { cartReducer, profileReducer } from '../store/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { ProfileEffects } from '../store/effects';
+import { CartEffects, ProfileEffects } from '../store/effects';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapComponent } from '../components/google-map/google-map.component';
+import { AdminPanelSidebarComponent } from '../components/admin-panel-sidebar/admin-panel-sidebar.component';
+import { SidebarItemsComponent } from '../components/admin-panel-sidebar/sidebar-items/sidebar-items.component';
 
 @NgModule({
   declarations: [
+    // Components
     AppComponent,
     NavbarComponent,
     NavigationItemComponent,
     ButtonComponent,
-    HomeComponent,
-    ProfileComponent,
     GoogleMapComponent,
+    AdminPanelSidebarComponent,
+    SidebarItemsComponent,
+    // Pages
+    HomeComponentPage,
+    ProfileComponentPage,
+    NotFoundComponentPage,
+    AdminComponentPage,
+    MapMarkSettingComponentPage,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +65,7 @@ import { GoogleMapComponent } from '../components/google-map/google-map.componen
     NbIconModule,
     NbLayoutModule,
     NbEvaIconsModule,
-    StoreModule.forRoot({ ...profileReducer }),
+    StoreModule.forRoot({ ...profileReducer, ...cartReducer }),
     NbThemeModule.forRoot({ name: 'default2' }),
     AuthModule.forRoot({
       domain: 'dev-yn6tinfev7nut3ap.eu.auth0.com',
@@ -61,7 +76,7 @@ import { GoogleMapComponent } from '../components/google-map/google-map.componen
         redirect_uri: window.location.origin,
       },
     }),
-    EffectsModule.forRoot([ProfileEffects]),
+    EffectsModule.forRoot([ProfileEffects, CartEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: !true, // Restrict extension to log-only mode

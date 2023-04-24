@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { HttpCode, rootApiPath, userApiPath } from '../common/enums';
-import { userService } from '../services';
+import { cartService, userService } from '../services';
 import { checkIsFound } from '~/utils';
 
 const initUserApi = (apiRouter: Router): Router => {
@@ -21,6 +21,8 @@ const initUserApi = (apiRouter: Router): Router => {
   userRouter.post(userApiPath.ROOT, async (_req, res) => {
     try {
       const user = await userService.createNewUser(_req.body);
+      await cartService.createCartByUserId(user.id);
+
       res.status(HttpCode.OK).json(user);
     } catch (err) {
       const error = err?.errors?.[0] || 'error';

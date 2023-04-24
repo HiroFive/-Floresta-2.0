@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { INavigationItem } from '../../common/interfaces';
 import { AuthWrapperService } from '../../services';
 import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -32,12 +33,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private readonly unsubscribe$ = new Subject();
 
-  constructor(public authWrapperService: AuthWrapperService) {}
+  constructor(
+    public authWrapperService: AuthWrapperService,
+    private readonly router: Router,
+  ) {}
 
   ngOnInit() {
-    this.authWrapperService.isAuthenticated$.pipe(takeUntil(this.unsubscribe$)).subscribe((isAuthenticated) => {
-      this.isUserAuthenticated = isAuthenticated;
-    });
+    this.authWrapperService.isAuthenticated$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((isAuthenticated) => {
+        this.isUserAuthenticated = isAuthenticated;
+      });
+  }
+
+  profileButtonClick(): void {
+    this.router.navigate(['profile']);
+  }
+
+  adminPanelButtonClick(): void {
+    this.router.navigate(['admin']);
   }
 
   ngOnDestroy() {
