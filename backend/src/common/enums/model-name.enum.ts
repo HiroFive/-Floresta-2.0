@@ -7,6 +7,7 @@ enum ModelName {
   OrderDetails = 'order_details',
   OrderItem = 'order_item',
   PaymentDetails = 'payment_details',
+  MapMarker = 'map_marker',
 }
 
 export { ModelName };

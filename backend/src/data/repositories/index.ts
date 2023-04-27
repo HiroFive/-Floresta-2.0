@@ -6,6 +6,7 @@ import { OrderDetailsRepository } from './order-details.repository';
 import { OrderItemRepository } from './order-item.repository';
 import { PaymentDetailsRepository } from './payment-details.repository';
 import { ProductRepository } from './product.repository';
+import { MapMarkerRepository } from './map-marker.repository';
 
 const userRepository = new UserRepository();
 const roleRepository = new RoleRepository();
@@ -15,6 +16,7 @@ const orderDetailsRepository = new OrderDetailsRepository();
 const orderItemRepository = new OrderItemRepository();
 const paymentDetailsRepository = new PaymentDetailsRepository();
 const productRepository = new ProductRepository();
+const mapMarkerRepository = new MapMarkerRepository();
 
 export {
   userRepository,
@@ -25,4 +27,5 @@ export {
   orderItemRepository,
   paymentDetailsRepository,
   productRepository,
+  mapMarkerRepository,
 };

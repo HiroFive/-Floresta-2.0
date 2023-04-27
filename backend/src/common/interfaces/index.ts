@@ -6,3 +6,4 @@ export * from './order-details.interface';
 export * from './order-item.interface';
 export * from './payment-details.interface';
 export * from './product.interface';
+export * from './map-market.interface';

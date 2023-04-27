@@ -27,9 +27,17 @@ import {
   ProfileComponentPage,
 } from '../pages';
 import { AuthModule } from '@auth0/auth0-angular';
-import { cartReducer, profileReducer } from '../store/reducers';
+import {
+  cartReducer,
+  mapMarkerReducer,
+  profileReducer,
+} from '../store/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { CartEffects, ProfileEffects } from '../store/effects';
+import {
+  CartEffects,
+  MapMarkersEffects,
+  ProfileEffects,
+} from '../store/effects';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapComponent } from '../components/google-map/google-map.component';
 import { AdminPanelSidebarComponent } from '../components/admin-panel-sidebar/admin-panel-sidebar.component';
@@ -65,7 +73,11 @@ import { SidebarItemsComponent } from '../components/admin-panel-sidebar/sidebar
     NbIconModule,
     NbLayoutModule,
     NbEvaIconsModule,
-    StoreModule.forRoot({ ...profileReducer, ...cartReducer }),
+    StoreModule.forRoot({
+      ...profileReducer,
+      ...cartReducer,
+      ...mapMarkerReducer,
+    }),
     NbThemeModule.forRoot({ name: 'default2' }),
     AuthModule.forRoot({
       domain: 'dev-yn6tinfev7nut3ap.eu.auth0.com',
@@ -76,7 +88,7 @@ import { SidebarItemsComponent } from '../components/admin-panel-sidebar/sidebar
         redirect_uri: window.location.origin,
       },
     }),
-    EffectsModule.forRoot([ProfileEffects, CartEffects]),
+    EffectsModule.forRoot([ProfileEffects, CartEffects, MapMarkersEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: !true, // Restrict extension to log-only mode

@@ -27,7 +27,7 @@ const createProductModule = (orm: Sequelize): ModelCtor<productInstance> => {
         allowNull: false,
       },
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.REAL,
         allowNull: false,
       },
       createdAt: DataTypes.DATE,

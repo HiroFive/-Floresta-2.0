@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
+import { Store } from '@ngrx/store';
+import { MapMarkerActions } from '../../store/actions';
+import { MapMarkerSelectors, ProfileSelectors } from '../../store/selectors';
+import { filter, Subject, takeUntil } from 'rxjs';
+import { IMapMarker } from '../../common/interfaces';
 
 @Component({
   selector: 'app-google-map',
@@ -9,6 +14,9 @@ import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 export class GoogleMapComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
+
+  private readonly unsubscribe$ = new Subject();
+  constructor(private readonly store: Store<any>) {}
 
   zoom = 12;
   center: google.maps.LatLngLiteral;
@@ -21,6 +29,42 @@ export class GoogleMapComponent implements OnInit {
   infoContent = '';
 
   ngOnInit() {
+    this.store
+      .select(ProfileSelectors.getProfile)
+      .pipe(
+        filter((profile) => !!profile?.id),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe((profile) => {
+        this.store.dispatch(
+          MapMarkerActions.getMapMarkerByRoleId({ roleId: profile?.role }),
+        );
+      });
+
+    this.store
+      .select(MapMarkerSelectors.getMapMarkers)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((mapMarkers) => {
+        this.markers = mapMarkers?.map((mapMarker: IMapMarker) => {
+          return {
+            position: {
+              lat: mapMarker.lat,
+              lng: mapMarker.lng,
+            },
+            label: {
+              color: 'red',
+              text: 'Marker label ' + mapMarker.lat,
+            },
+            title: 'Marker title ' + mapMarker.lat,
+            info: 'Marker info ' + mapMarker.lat,
+            options: {
+              animation: google.maps.Animation.DROP,
+            },
+          };
+        });
+        console.log(mapMarkers);
+      });
+
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
         lat: 35,
@@ -39,6 +83,17 @@ export class GoogleMapComponent implements OnInit {
   }
 
   addMarker(lat: number, lng: number) {
+    this.store.dispatch(
+      MapMarkerActions.createMapMarker({
+        mapMarker: {
+          hidden: false,
+          lat,
+          lng,
+          productIds: [1],
+        },
+      }),
+    );
+
     this.markers.push({
       position: {
         lat,

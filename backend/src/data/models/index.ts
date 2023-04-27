@@ -8,6 +8,7 @@ import createOrderDetailsModule from './order-details.module';
 import createOrderItemModule from './order-item.module';
 import createPaymentDetailsModule from './payment-details.module';
 import createProductModule from './product.module';
+import createMapMarkerModule from './map-marker.module';
 
 const userModule = createUserModule(sequelize);
 const roleModule = createRoleModule(sequelize);
@@ -17,6 +18,7 @@ const orderDetailsModule = createOrderDetailsModule(sequelize);
 const orderItemModule = createOrderItemModule(sequelize);
 const paymentDetailModule = createPaymentDetailsModule(sequelize);
 const productModule = createProductModule(sequelize);
+const mapMarkerModule = createMapMarkerModule(sequelize);
 
 cartModule.hasMany(cartItemModule, {
   as: 'items',
@@ -35,4 +37,5 @@ export {
   orderItemModule,
   paymentDetailModule,
   productModule,
+  mapMarkerModule,
 };
