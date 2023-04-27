@@ -14,7 +14,6 @@ class MapMarkerRepository {
   }
 
   public createMapMarker(newMapMarker: IMapMarker): Promise<IMapMarker> {
-    console.log(newMapMarker);
     return mapMarkerModule.create(newMapMarker as any);
   }
 }
