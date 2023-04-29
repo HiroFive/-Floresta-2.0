@@ -16,6 +16,20 @@ class MapMarkerRepository {
   public createMapMarker(newMapMarker: IMapMarker): Promise<IMapMarker> {
     return mapMarkerModule.create(newMapMarker as any);
   }
+
+  public async updateById(id: number, data: IMapMarker): Promise<IMapMarker[]> {
+    const result = await mapMarkerModule.update(data, {
+      where: { id },
+      returning: true,
+    });
+    return result[1];
+  }
+
+  public deleteById(id: number): Promise<number> {
+    return mapMarkerModule.destroy({
+      where: { id },
+    });
+  }
 }
 
 export { MapMarkerRepository };

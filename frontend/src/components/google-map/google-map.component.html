@@ -3,21 +3,37 @@
   width="100%"
   [center]="center"
   [options]="options"
-  (mapClick)="click($event)"
+  (mapDblclick)="addMarker($event)"
 >
   <map-marker
-    #markerElem
+    #someMarker="mapMarker"
     *ngFor="let marker of markers"
     [position]="marker.position"
     [label]="marker.label"
     [title]="marker.title"
     [options]="marker.options"
-    (mapClick)="openInfo(markerElem, marker.info)"
+    (mapClick)="openInfo(someMarker, marker)"
   >
   </map-marker>
 
-  <map-info-window>{{ infoContent }}</map-info-window>
+  <map-info-window>
+    <div class="flex p-2 gap-x-2">
+      <app-button
+        [icon]="selectedMarker?.hidden ? 'eye-outline' : 'eye-off-outline'"
+        size="medium"
+        buttonStatus="info"
+        iconStatus="basic"
+        (onClick)="updateMapMarkerVisibility()"
+      />
+      <app-button
+        icon="trash-outline"
+        size="medium"
+        buttonStatus="danger"
+        iconStatus="basic"
+        (onClick)="deleteMapMarker()"
+      />
+    </div>
+  </map-info-window>
 </google-map>
 
 <button (click)="logCenter()">Log center</button>
-<!--<button (click)="addMarker()">Add marker</button>-->

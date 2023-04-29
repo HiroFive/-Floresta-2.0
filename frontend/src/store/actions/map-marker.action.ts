@@ -14,7 +14,7 @@ export const getMapMarkerByRoleIdFailed = createAction(
 );
 
 export const createMapMarker = createAction(
-  '[Map Marker]create Map Marker',
+  '[Map Marker] create Map Marker',
   props<{ mapMarker: IMapMarker }>(),
 );
 export const createMapMarkerSuccess = createAction(
@@ -23,4 +23,28 @@ export const createMapMarkerSuccess = createAction(
 );
 export const createMapMarkerFailed = createAction(
   '[Map Marker] create Map Marker Failed',
+);
+
+export const deleteMapMarker = createAction(
+  '[Map Marker] delete Map Marker',
+  props<{ id: number }>(),
+);
+export const deleteMapMarkerSuccess = createAction(
+  '[Map Marker] delete Map Marker Success',
+  props<{ id: number }>(),
+);
+export const deleteMapMarkerFailed = createAction(
+  '[Map Marker] delete Map Marker Failed',
+);
+
+export const updateMapMarkerVisibility = createAction(
+  '[Map Marker] update Map Marker Visibility',
+  props<{ id: number; isHidden: boolean }>(),
+);
+export const updateMapMarkerVisibilitySuccess = createAction(
+  '[Map Marker] update Map Marker Visibility Success',
+  props<{ id: number; isHidden: boolean }>(),
+);
+export const updateMapMarkerVisibilityFailed = createAction(
+  '[Map Marker] update Map Marker Visibility Failed',
 );

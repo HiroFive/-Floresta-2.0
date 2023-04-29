@@ -8,11 +8,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ButtonComponent {
   @Input() label?: string;
   @Input() icon?: string;
-  @Input() iconStatus?: 'primary' | 'success' | 'info' | 'warning' | 'danger' = 'primary';
+  @Input() iconStatus?:
+    | 'primary'
+    | 'success'
+    | 'info'
+    | 'warning'
+    | 'danger'
+    | 'basic' = 'primary';
   @Input() hero = false;
   @Input() shape: 'rectangle' | 'semi-round' | 'round' = 'round';
   @Input() size: 'giant' | 'large' | 'medium' | 'small' | 'tiny' = 'medium';
-  @Input() buttonStatus: 'primary' | 'success' | 'info' | 'warning' | 'danger' = 'primary';
+  @Input() buttonStatus: 'primary' | 'success' | 'info' | 'warning' | 'danger' =
+    'primary';
   @Input() isGhost: boolean = false;
   @Input() disabled = false;
   @Output() onClick = new EventEmitter();

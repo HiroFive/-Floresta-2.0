@@ -4,7 +4,13 @@
     nb-icon {
       @apply h-7 w-7 text-gray-500;
     }
+  }
 
+  nb-icon.status-basic {
+    color: #eeeeee;
+  }
+
+  .floresta-button.icon-start.status-primary.icon-end {
     &:hover {
       nb-icon {
         @apply text-primary-700;

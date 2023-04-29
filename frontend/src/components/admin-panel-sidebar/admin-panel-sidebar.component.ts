@@ -8,9 +8,24 @@ import { Component } from '@angular/core';
 export class AdminPanelSidebarComponent {
   sideBarItems = [
     {
-      link: 'admin/map-mark-setting',
+      link: 'orders',
+      icon: 'file-text-outline',
+      label: 'Замовлення',
+    },
+    {
+      link: 'map-mark-setting',
       icon: 'pin-outline',
-      label: 'Set Map markers',
+      label: 'Мітки',
+    },
+    {
+      link: 'products-setting',
+      icon: 'pricetags-outline',
+      label: 'Продукти',
+    },
+    {
+      link: 'users-setting',
+      icon: 'people-outline',
+      label: 'Користувачі',
     },
   ];
 }

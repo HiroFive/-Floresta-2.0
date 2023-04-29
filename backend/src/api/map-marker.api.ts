@@ -32,9 +32,35 @@ const initMapMarkerApi = (apiRouter: Router): Router => {
 
       res.status(HttpCode.OK).json(createdMapMarker);
     } catch (err) {
-      console.log(err);
       const error = err?.errors?.[0] || 'error';
       res.status(HttpCode.BAD_REQUEST).json({ message: error.message });
+    }
+  });
+
+  mapMarkerRouter.patch(mapMarkerApiPath.$ID, async (_req, res) => {
+    try {
+      const mapMarker = await mapMarkerService.updateMapMarker(
+        Number(_req?.params?.id || 0),
+        _req.body,
+      );
+      res.status(HttpCode.OK).json(mapMarker);
+    } catch (err) {
+      const error = err.errors[0];
+      res
+        .status(HttpCode.INTERNAL_SERVER_ERROR)
+        .json({ message: error.message });
+    }
+  });
+
+  mapMarkerRouter.delete(mapMarkerApiPath.$ID, async (_req, res) => {
+    try {
+      await mapMarkerService.deleteMapMarker(Number(_req?.params?.id || 0));
+      res.status(HttpCode.NO_CONTENT).json('Success');
+    } catch (err) {
+      const error = err.errors[0];
+      res
+        .status(HttpCode.INTERNAL_SERVER_ERROR)
+        .json({ message: error.message });
     }
   });
 

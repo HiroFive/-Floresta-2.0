@@ -12,14 +12,30 @@ export class MapMarketService {
 
   public getMapMarkerByRoleId(roleId: number): Observable<Array<IMapMarker>> {
     return this.http.get<Array<IMapMarker>>(
-      `http://localhost:3001/api${rootApiPath.Marker}?roleId=${roleId}`,
+      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Marker}?roleId=${roleId}`,
     );
   }
 
-  public createMapMarker(body: any): Observable<IMapMarker> {
+  public createMapMarker(body: IMapMarker): Observable<IMapMarker> {
     return this.http.post<IMapMarker>(
-      `http://localhost:3001/api${rootApiPath.Marker}`,
+      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Marker}`,
       body,
+    );
+  }
+
+  public updateMapMarkerVisibility(
+    id: number,
+    newVisibility: boolean,
+  ): Observable<IMapMarker> {
+    return this.http.patch<IMapMarker>(
+      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Marker}/${id}`,
+      { hidden: newVisibility },
+    );
+  }
+
+  public deleteMapMarkerById(id: number): Observable<void> {
+    return this.http.delete<void>(
+      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Marker}/${id}`,
     );
   }
 }

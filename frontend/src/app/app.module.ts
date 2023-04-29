@@ -8,7 +8,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import {
   NbButtonModule,
+  NbCheckboxModule,
   NbIconModule,
+  NbInputModule,
   NbLayoutModule,
   NbSpinnerModule,
   NbThemeModule,
@@ -42,6 +44,11 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapComponent } from '../components/google-map/google-map.component';
 import { AdminPanelSidebarComponent } from '../components/admin-panel-sidebar/admin-panel-sidebar.component';
 import { SidebarItemsComponent } from '../components/admin-panel-sidebar/sidebar-items/sidebar-items.component';
+import { ModalComponent } from '../components/modal/modal.component';
+import { AddMapMarkerComponent } from '../components/forms';
+import { FormInputComponent } from '../components/form-input/form-input.component';
+import { CheckboxComponent } from '../components/checkbox/checkbox.component';
+import { DeleteMapMarkerComponent } from '../components/forms/delete';
 
 @NgModule({
   declarations: [
@@ -53,6 +60,11 @@ import { SidebarItemsComponent } from '../components/admin-panel-sidebar/sidebar
     GoogleMapComponent,
     AdminPanelSidebarComponent,
     SidebarItemsComponent,
+    AddMapMarkerComponent,
+    CheckboxComponent,
+    FormInputComponent,
+    DeleteMapMarkerComponent,
+    ModalComponent,
     // Pages
     HomeComponentPage,
     ProfileComponentPage,
@@ -73,6 +85,8 @@ import { SidebarItemsComponent } from '../components/admin-panel-sidebar/sidebar
     NbIconModule,
     NbLayoutModule,
     NbEvaIconsModule,
+    NbInputModule,
+    NbCheckboxModule,
     StoreModule.forRoot({
       ...profileReducer,
       ...cartReducer,

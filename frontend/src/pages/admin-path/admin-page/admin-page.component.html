@@ -3,4 +3,8 @@
   <div class="w-full">
     <router-outlet></router-outlet>
   </div>
+
+  <section *ngIf="modalState.open" class="absolute">
+    <app-modal></app-modal>
+  </section>
 </section>

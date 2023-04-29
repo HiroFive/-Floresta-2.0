@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalService } from '../../../services';
 
 @Component({
   selector: 'app-admin-page',
@@ -7,10 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-page.component.scss'],
 })
 export class AdminComponentPage implements OnInit {
-  constructor(private readonly router: Router) {
+  modalState: { content: any; open: boolean; injector: any };
+  constructor(
+    private readonly router: Router,
+    private readonly modalService: ModalService,
+  ) {
     this.router.navigate(['admin', 'map-mark-setting']);
   }
   ngOnInit(): void {
-    console.log('admin-panel');
+    this.modalService.modalSource.subscribe(
+      (value: any) => (this.modalState = value),
+    );
   }
 }

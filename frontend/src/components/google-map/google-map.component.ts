@@ -1,10 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { Store } from '@ngrx/store';
 import { MapMarkerActions } from '../../store/actions';
 import { MapMarkerSelectors, ProfileSelectors } from '../../store/selectors';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { IMapMarker } from '../../common/interfaces';
+import { BaseMarker, Marker } from '../../common/classes';
+import { ModalService } from '../../services';
+import { AddMapMarkerComponent } from '../forms';
+import { DeleteMapMarkerComponent } from '../forms/delete';
 
 @Component({
   selector: 'app-google-map',
@@ -16,9 +20,12 @@ export class GoogleMapComponent implements OnInit {
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
 
   private readonly unsubscribe$ = new Subject();
-  constructor(private readonly store: Store<any>) {}
+  constructor(
+    private readonly store: Store<any>,
+    private readonly modalService: ModalService,
+    private inj: Injector,
+  ) {}
 
-  zoom = 12;
   center: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
     zoomControl: true,
@@ -26,7 +33,7 @@ export class GoogleMapComponent implements OnInit {
     mapTypeId: 'hybrid',
   };
   markers: any[] = [];
-  infoContent = '';
+  selectedMarker: any;
 
   ngOnInit() {
     this.store
@@ -47,16 +54,16 @@ export class GoogleMapComponent implements OnInit {
       .subscribe((mapMarkers) => {
         this.markers = mapMarkers?.map((mapMarker: IMapMarker) => {
           return {
+            id: mapMarker.id,
+            hidden: mapMarker.hidden,
             position: {
               lat: mapMarker.lat,
               lng: mapMarker.lng,
             },
             label: {
-              color: 'red',
-              text: 'Marker label ' + mapMarker.lat,
+              color: 'white',
+              text: 'Мітку #' + mapMarker.id,
             },
-            title: 'Marker title ' + mapMarker.lat,
-            info: 'Marker info ' + mapMarker.lat,
             options: {
               animation: google.maps.Animation.DROP,
             },
@@ -73,46 +80,57 @@ export class GoogleMapComponent implements OnInit {
     });
   }
 
-  click(event: google.maps.MapMouseEvent) {
-    console.log(event?.latLng?.lat());
-    this.addMarker(event?.latLng?.lat() || 0, event?.latLng?.lng() || 0);
+  addMarker(event: google.maps.MapMouseEvent) {
+    const injector: Injector = Injector.create({
+      providers: [
+        {
+          provide: BaseMarker,
+          useValue: new Marker(
+            event?.latLng?.lat() || 0,
+            event?.latLng?.lng() || 0,
+            false,
+          ),
+        },
+      ],
+      parent: this.inj,
+    });
+
+    this.modalService.openNewModal(
+      AddMapMarkerComponent,
+      injector,
+      'Додати нову мітку',
+    );
   }
 
   logCenter() {
     console.log(JSON.stringify(this.map.getCenter()));
   }
 
-  addMarker(lat: number, lng: number) {
-    this.store.dispatch(
-      MapMarkerActions.createMapMarker({
-        mapMarker: {
-          hidden: false,
-          lat,
-          lng,
-          productIds: [1],
-        },
-      }),
-    );
-
-    this.markers.push({
-      position: {
-        lat,
-        lng,
-      },
-      label: {
-        color: 'red',
-        text: 'Marker label ' + (this.markers.length + 1),
-      },
-      title: 'Marker title ' + (this.markers.length + 1),
-      info: 'Marker info ' + (this.markers.length + 1),
-      options: {
-        animation: google.maps.Animation.DROP,
-      },
-    });
+  openInfo(marker: any, selectedMarker: any) {
+    this.selectedMarker = selectedMarker;
+    this.info.open(marker);
   }
 
-  openInfo(marker: any, content: any) {
-    this.infoContent = content;
-    this.info.open(marker);
+  updateMapMarkerVisibility(): void {
+    this.store.dispatch(
+      MapMarkerActions.updateMapMarkerVisibility({
+        id: this.selectedMarker.id,
+        isHidden: !this.selectedMarker.hidden,
+      }),
+    );
+    this.info.close();
+  }
+
+  deleteMapMarker(): void {
+    const injector: Injector = Injector.create({
+      providers: [
+        {
+          provide: BaseMarker,
+          useValue: new Marker(0, 0, false, this.selectedMarker.id),
+        },
+      ],
+      parent: this.inj,
+    });
+    this.modalService.openNewModal(DeleteMapMarkerComponent, injector);
   }
 }

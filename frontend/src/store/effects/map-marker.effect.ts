@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { MapMarketService } from '../../services';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { LocalStorageService, MapMarketService } from '../../services';
 import { MapMarkerActions } from '../actions';
 import { of } from 'rxjs';
+import { USER_PROFILE } from '../../common/local-storage-keys';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class MapMarkersEffects {
   constructor(
-    private actions$: Actions,
-    private mapMarketService: MapMarketService,
+    private readonly store: Store<any>,
+    private readonly actions$: Actions,
+    private readonly mapMarketService: MapMarketService,
+    private readonly localStorageService: LocalStorageService,
   ) {}
 
   getMapMarkersByRoleIdId$ = createEffect(() =>
@@ -34,7 +38,44 @@ export class MapMarkersEffects {
           map((mapMarker) =>
             MapMarkerActions.createMapMarkerSuccess({ mapMarker }),
           ),
+          tap(() => {
+            const role = JSON.parse(
+              this.localStorageService.getItem(USER_PROFILE) || {},
+            )?.role;
+
+            this.store.dispatch(
+              MapMarkerActions.getMapMarkerByRoleId({ roleId: role }),
+            );
+          }),
           catchError(() => of(MapMarkerActions.createMapMarkerFailed())),
+        ),
+      ),
+    ),
+  );
+
+  updateMapMarkerVisibility$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MapMarkerActions.updateMapMarkerVisibility),
+      mergeMap(({ id, isHidden }) =>
+        this.mapMarketService.updateMapMarkerVisibility(id, isHidden).pipe(
+          map(() =>
+            MapMarkerActions.updateMapMarkerVisibilitySuccess({ id, isHidden }),
+          ),
+          catchError(() =>
+            of(MapMarkerActions.updateMapMarkerVisibilityFailed()),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  deleteMapMarker$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MapMarkerActions.deleteMapMarker),
+      mergeMap(({ id }) =>
+        this.mapMarketService.deleteMapMarkerById(id).pipe(
+          map(() => MapMarkerActions.deleteMapMarkerSuccess({ id })),
+          catchError(() => of(MapMarkerActions.deleteMapMarkerFailed())),
         ),
       ),
     ),

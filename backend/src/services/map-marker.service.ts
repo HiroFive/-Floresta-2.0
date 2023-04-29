@@ -9,6 +9,17 @@ class MapMarkerService {
   public createMapMarker(mapMarker: IMapMarker): Promise<IMapMarker> {
     return mapMarkerRepository.createMapMarker(mapMarker);
   }
+
+  public async updateMapMarker(
+    id: number,
+    data: IMapMarker,
+  ): Promise<IMapMarker[]> {
+    return mapMarkerRepository.updateById(id, data);
+  }
+
+  public deleteMapMarker(id: number): Promise<number> {
+    return mapMarkerRepository.deleteById(id);
+  }
 }
 
 export { MapMarkerService };

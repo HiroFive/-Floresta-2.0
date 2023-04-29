@@ -1,0 +1,16 @@
+<div>
+  <label class="input-label" for="{{ label }}"
+    >{{ label }}<abbr title="required">*</abbr></label
+  >
+  <input
+    id="{{ label }}"
+    type="{{ type }}"
+    nbInput
+    fullWidth
+    shape="rectangle"
+    placeholder="{{ placeholder }}"
+    [(ngModel)]="value"
+    disabled="{{ disabled }}"
+    required
+  />
+</div>

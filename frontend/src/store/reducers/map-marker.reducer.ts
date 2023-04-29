@@ -15,6 +15,33 @@ const mapMarkersActionReducer = createReducer(
     ...state,
     mapMarkers: action.mapMarkers,
   })),
+  on(MapMarkerActions.deleteMapMarkerSuccess, (state, action) => {
+    const mapMarkers = [...state.mapMarkers];
+    const indexToDelete = mapMarkers.findIndex(
+      (element) => element.id === action.id,
+    );
+
+    if (indexToDelete !== -1) {
+      mapMarkers.splice(indexToDelete, 1);
+    }
+
+    return { ...state, mapMarkers };
+  }),
+  on(MapMarkerActions.updateMapMarkerVisibilitySuccess, (state, action) => {
+    let mapMarkers = [...state.mapMarkers];
+
+    return {
+      ...state,
+      mapMarkers: mapMarkers.map((element) =>
+        element.id !== action.id
+          ? element
+          : {
+              ...element,
+              hidden: action.isHidden,
+            },
+      ),
+    };
+  }),
 );
 
 export const mapMarkerReducer = { mapMarkers: mapMarkersActionReducer };

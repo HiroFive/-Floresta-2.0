@@ -1,0 +1,24 @@
+<section class="modal-section">
+  <div class="modal-container">
+    <div *ngIf="modalState?.title?.length" class="modal-header">
+      <p class="modal-title">{{ modalState.title }}</p>
+
+      <app-button
+        icon="close-outline"
+        size="medium"
+        iconStatus="info"
+        [isGhost]="true"
+        (onClick)="closeModal()"
+      />
+    </div>
+    <div
+      class="modal-body"
+      [ngClass]="{ 'rounded-lg': !modalState?.title?.length }"
+    >
+      <ng-container
+        *ngComponentOutlet="modalState.content; injector: modalState.injector"
+      >
+      </ng-container>
+    </div>
+  </div>
+</section>
