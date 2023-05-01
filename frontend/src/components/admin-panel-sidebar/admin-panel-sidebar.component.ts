@@ -13,17 +13,17 @@ export class AdminPanelSidebarComponent {
       label: 'Замовлення',
     },
     {
-      link: 'map-mark-setting',
+      link: 'map-marks',
       icon: 'pin-outline',
       label: 'Мітки',
     },
     {
-      link: 'products-setting',
+      link: 'products',
       icon: 'pricetags-outline',
       label: 'Продукти',
     },
     {
-      link: 'users-setting',
+      link: 'users',
       icon: 'people-outline',
       label: 'Користувачі',
     },

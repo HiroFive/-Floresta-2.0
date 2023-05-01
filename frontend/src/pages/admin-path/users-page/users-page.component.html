@@ -1,0 +1,29 @@
+<section class="m-4">
+  <app-data-table
+    [tableType]="tableTypeEnum.User"
+    [dataSource]="users"
+    [columns]="tableColumns"
+    [buttonsTemplate]="buttonsTemplate"
+  >
+  </app-data-table>
+</section>
+
+<ng-template #buttonsTemplate let-selectedUserData="data">
+  <!--  <app-button-->
+  <!--    icon="plus-outline"-->
+  <!--    iconStatus="info"-->
+  <!--    size="medium"-->
+  <!--  ></app-button>-->
+  <app-button
+    icon="edit-2-outline"
+    iconStatus="info"
+    size="medium"
+    (onClick)="updatedSelectedUser(selectedUserData)"
+  ></app-button>
+  <app-button
+    icon="trash-2-outline"
+    iconStatus="info"
+    size="medium"
+    (onClick)="deleteSelectedUser(selectedUserData)"
+  ></app-button>
+</ng-template>

@@ -2,6 +2,9 @@ import { userRepository } from '../data/repositories';
 import { IUser } from '~/common/interfaces';
 
 class UserService {
+  public getAllUsers(): Promise<IUser[]> {
+    return userRepository.getAll();
+  }
   public getUserBySubId(subId: string): Promise<IUser[]> {
     return userRepository.getById(subId);
   }

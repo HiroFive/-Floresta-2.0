@@ -1,0 +1,44 @@
+<div class="block">
+  <form [formGroup]="userForm" novalidate>
+    <div class="md:flex flex-row md:space-x-4 w-full text-xs pt-2 px-4">
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-form-input
+          type="text"
+          placeholder="email"
+          formControlName="email"
+          label="Email"
+          [disabled]="true"
+        >
+        </app-form-input>
+      </div>
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-form-input
+          type="text"
+          placeholder="name"
+          formControlName="name"
+          label="Name"
+        >
+        </app-form-input>
+      </div>
+
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-select
+          placeholder="role"
+          formControlName="role"
+          label="Roles"
+          [selectOptions]="userRolesOptions"
+        >
+        </app-select>
+      </div>
+    </div>
+    <div class="m-3 text-right md:space-x-3 flex flex-col-reverse">
+      <span>
+        <app-button
+          label="Зберегти"
+          [size]="'medium'"
+          (onClick)="submit()"
+        ></app-button>
+      </span>
+    </div>
+  </form>
+</div>

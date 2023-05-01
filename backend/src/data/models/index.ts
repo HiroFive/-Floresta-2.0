@@ -26,6 +26,7 @@ cartModule.hasMany(cartItemModule, {
 
 userModule.belongsTo(roleModule, {
   foreignKey: 'roleId',
+  as: 'role',
 });
 
 export {

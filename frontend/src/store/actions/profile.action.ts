@@ -2,25 +2,25 @@ import { createAction, props } from '@ngrx/store';
 import { IUser } from '../../common/interfaces';
 
 export const getProfileInfoById = createAction(
-  '[User] get User Info',
+  '[Profile] get User Info',
   props<{ id: string }>(),
 );
 export const getProfileInfoByIdSuccess = createAction(
-  '[User] get User Info Success',
+  '[Profile] get User Info Success',
   props<{ user: IUser }>(),
 );
 export const getProfileInfoByIdFailed = createAction(
-  '[User] get User Info Failed',
+  '[Profile] get User Info Failed',
 );
 
 export const createUserProfile = createAction(
-  '[User] create User profile-page',
+  '[Profile] create User profile-page',
   props<{ user: IUser }>(),
 );
 export const createUserProfileSuccess = createAction(
-  '[User] create User profile-page Success',
+  '[Profile] create User profile-page Success',
   props<{ user: IUser }>(),
 );
 export const createUserProfileFailed = createAction(
-  '[User] create User profile-page Failed',
+  '[Profile] create User profile-page Failed',
 );

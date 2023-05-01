@@ -3,9 +3,9 @@ import { IUser } from '../../common/interfaces';
 import { getUserParams } from '../atributes';
 
 class UserRepository {
-  // public getAll(): Promise<IUser[]> {
-  //   return userModel.findAll(getFoodParams());
-  // }
+  public getAll(): Promise<Array<IUser>> {
+    return userModule.findAll(getUserParams('withRoleName'));
+  }
 
   public getById(subId: string): Promise<IUser[] | null> {
     return userModule.findAll(getUserParams('filter', { subId: subId }));

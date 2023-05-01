@@ -5,5 +5,5 @@ export interface IUser {
   name: string;
   email: string;
   subId: string;
-  role?: UserRoles;
+  role?: UserRoles | string;
 }

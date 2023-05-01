@@ -1,5 +1,6 @@
 enum roleApiPath {
   ROOT = '/',
+  All = '/all',
   $ID = '/:id',
 }
 

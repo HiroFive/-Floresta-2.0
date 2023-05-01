@@ -12,6 +12,8 @@ import {
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
+  NbSelectModule,
+  NbSidebarModule,
   NbSpinnerModule,
   NbThemeModule,
 } from '@nebular/theme';
@@ -27,28 +29,42 @@ import {
   MapMarkSettingComponentPage,
   NotFoundComponentPage,
   ProfileComponentPage,
+  UsersComponentPage,
 } from '../pages';
 import { AuthModule } from '@auth0/auth0-angular';
 import {
   cartReducer,
   mapMarkerReducer,
   profileReducer,
+  userReducer,
 } from '../store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import {
   CartEffects,
   MapMarkersEffects,
   ProfileEffects,
+  UserEffects,
 } from '../store/effects';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapComponent } from '../components/google-map/google-map.component';
 import { AdminPanelSidebarComponent } from '../components/admin-panel-sidebar/admin-panel-sidebar.component';
 import { SidebarItemsComponent } from '../components/admin-panel-sidebar/sidebar-items/sidebar-items.component';
 import { ModalComponent } from '../components/modal/modal.component';
-import { AddMapMarkerComponent } from '../components/forms';
+import {
+  AddMapMarkerFormComponent,
+  EditUserFormComponent,
+} from '../components/forms';
 import { FormInputComponent } from '../components/form-input/form-input.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
 import { DeleteMapMarkerComponent } from '../components/forms/delete';
+import { DataTableComponent } from '../components/data-table/data-table.component';
+import {
+  DxBulletModule,
+  DxDataGridModule,
+  DxTemplateModule,
+} from 'devextreme-angular';
+import { DeleteUserComponent } from '../components/forms/delete/delete-user.component';
+import { SelectComponent } from '../components/select/select.component';
 
 @NgModule({
   declarations: [
@@ -60,17 +76,23 @@ import { DeleteMapMarkerComponent } from '../components/forms/delete';
     GoogleMapComponent,
     AdminPanelSidebarComponent,
     SidebarItemsComponent,
-    AddMapMarkerComponent,
     CheckboxComponent,
     FormInputComponent,
-    DeleteMapMarkerComponent,
+    SelectComponent,
     ModalComponent,
+    DataTableComponent,
+    //Forms
+    EditUserFormComponent,
+    AddMapMarkerFormComponent,
+    DeleteMapMarkerComponent,
+    DeleteUserComponent,
     // Pages
     HomeComponentPage,
     ProfileComponentPage,
     NotFoundComponentPage,
     AdminComponentPage,
     MapMarkSettingComponentPage,
+    UsersComponentPage,
   ],
   imports: [
     BrowserModule,
@@ -87,12 +109,19 @@ import { DeleteMapMarkerComponent } from '../components/forms/delete';
     NbEvaIconsModule,
     NbInputModule,
     NbCheckboxModule,
+    NbSelectModule,
+    NbSidebarModule,
+    // DevExpress
+    DxDataGridModule,
+    DxTemplateModule,
+    DxBulletModule,
     StoreModule.forRoot({
       ...profileReducer,
       ...cartReducer,
       ...mapMarkerReducer,
+      ...userReducer,
     }),
-    NbThemeModule.forRoot({ name: 'default2' }),
+    NbThemeModule.forRoot({ name: 'corporateTheme' }),
     AuthModule.forRoot({
       domain: 'dev-yn6tinfev7nut3ap.eu.auth0.com',
       clientId: 'XRauFMnZ8PkPNK3NKnNIIOaxWS63UNL3',
@@ -102,7 +131,12 @@ import { DeleteMapMarkerComponent } from '../components/forms/delete';
         redirect_uri: window.location.origin,
       },
     }),
-    EffectsModule.forRoot([ProfileEffects, CartEffects, MapMarkersEffects]),
+    EffectsModule.forRoot([
+      ProfileEffects,
+      CartEffects,
+      MapMarkersEffects,
+      UserEffects,
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: !true, // Restrict extension to log-only mode

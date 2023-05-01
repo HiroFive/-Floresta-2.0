@@ -4,8 +4,9 @@ import {
   AdminComponentPage,
   HomeComponentPage,
   ProfileComponentPage,
+  UsersComponentPage,
 } from '../pages';
-import { MapMarkSettingComponentPage } from '../pages/admin-path/map-mark-setting/map-mark-setting-page.component';
+import { MapMarkSettingComponentPage } from '../pages/admin-path/map-mark-setting-page/map-mark-setting-page.component';
 import { NotFoundComponentPage } from '../pages/not-found-page/not-found-page.component';
 import { RoleGuard } from '../common/guards/role.guard';
 
@@ -29,8 +30,12 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'map-mark-setting',
+        path: 'map-marks',
         component: MapMarkSettingComponentPage,
+      },
+      {
+        path: 'users',
+        component: UsersComponentPage,
       },
     ],
   },

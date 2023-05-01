@@ -1,4 +1,10 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Injector,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { Store } from '@ngrx/store';
 import { MapMarkerActions } from '../../store/actions';
@@ -7,7 +13,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 import { IMapMarker } from '../../common/interfaces';
 import { BaseMarker, Marker } from '../../common/classes';
 import { ModalService } from '../../services';
-import { AddMapMarkerComponent } from '../forms';
+import { AddMapMarkerFormComponent } from '../forms';
 import { DeleteMapMarkerComponent } from '../forms/delete';
 
 @Component({
@@ -15,7 +21,7 @@ import { DeleteMapMarkerComponent } from '../forms/delete';
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.scss'],
 })
-export class GoogleMapComponent implements OnInit {
+export class GoogleMapComponent implements OnInit, OnDestroy {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
 
@@ -96,7 +102,7 @@ export class GoogleMapComponent implements OnInit {
     });
 
     this.modalService.openNewModal(
-      AddMapMarkerComponent,
+      AddMapMarkerFormComponent,
       injector,
       'Додати нову мітку',
     );
@@ -132,5 +138,10 @@ export class GoogleMapComponent implements OnInit {
       parent: this.inj,
     });
     this.modalService.openNewModal(DeleteMapMarkerComponent, injector);
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.complete();
+    this.unsubscribe$.unsubscribe();
   }
 }

@@ -5,11 +5,11 @@ import { BaseMarker } from '../../../../common/classes';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-edit-info',
-  templateUrl: './add-map-marker.component.html',
-  styleUrls: ['./add-map-marker.component.scss'],
+  selector: 'app-add-map-marker-form',
+  templateUrl: './add-map-marker-form.component.html',
+  styleUrls: ['./add-map-marker-form.component.scss'],
 })
-export class AddMapMarkerComponent implements OnInit {
+export class AddMapMarkerFormComponent implements OnInit {
   markerForm: FormGroup;
 
   constructor(

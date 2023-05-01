@@ -9,6 +9,26 @@ const initUserApi = (apiRouter: Router): Router => {
 
   apiRouter.use(rootApiPath.User, userRouter);
 
+  userRouter.get(userApiPath.All, async (_req, res) => {
+    try {
+      let users = await userService.getAllUsers();
+      users = users?.map(
+        (user) =>
+          ({
+            id: user?.id,
+            name: user.name,
+            email: user.email,
+            subId: user.subId,
+            role: (user?.role as any)?.name,
+          } as any),
+      );
+
+      res.status(checkIsFound(users)).json(users);
+    } catch (error) {
+      res.status(HttpCode.INTERNAL_SERVER_ERROR).json([]);
+    }
+  });
+
   userRouter.get(userApiPath.$SubID, async (_req, res) => {
     try {
       const user = await userService.getUserBySubId(_req.params.subId);
@@ -33,7 +53,7 @@ const initUserApi = (apiRouter: Router): Router => {
   userRouter.patch(userApiPath.$ID, async (_req, res) => {
     try {
       const user = await userService.updateUser(_req.params.id, _req.body);
-      res.status(HttpCode.OK).json(user);
+      res.status(HttpCode.OK).json(user?.[0]);
     } catch (err) {
       const error = err.errors[0];
       res
@@ -41,6 +61,7 @@ const initUserApi = (apiRouter: Router): Router => {
         .json({ message: error.message });
     }
   });
+
   userRouter.delete(userApiPath.$ID, async (_req, res) => {
     try {
       await userService.deleteUser(_req.params.id);

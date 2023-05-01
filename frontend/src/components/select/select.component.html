@@ -1,0 +1,18 @@
+<div>
+  <label *ngIf="label" class="select-label"
+    >{{ label }}<abbr title="required">*</abbr></label
+  >
+  <nb-select
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+    [size]="size"
+    disabled="{{ disabled }}"
+    shape="rectangle"
+  >
+    <nb-option
+      *ngFor="let selectOption of selectOptions"
+      [value]="selectOption.id"
+      >{{ selectOption.name }}</nb-option
+    >
+  </nb-select>
+</div>

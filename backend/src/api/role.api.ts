@@ -17,6 +17,15 @@ const initRoleApi = (apiRouter: Router): Router => {
     }
   });
 
+  roleRouter.get(roleApiPath.All, async (_req, res) => {
+    try {
+      const roles = await roleService.getAllRoles();
+      res.status(checkIsFound(roles)).json(roles);
+    } catch (error) {
+      res.status(HttpCode.INTERNAL_SERVER_ERROR).json([]);
+    }
+  });
+
   return roleRouter;
 };
 export { initRoleApi };

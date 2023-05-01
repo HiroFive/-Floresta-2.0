@@ -13,7 +13,9 @@ export class AdminComponentPage implements OnInit {
     private readonly router: Router,
     private readonly modalService: ModalService,
   ) {
-    this.router.navigate(['admin', 'map-mark-setting']);
+    if (router.url === '/admin') {
+      this.router.navigate(['admin', 'map-marks']);
+    }
   }
   ngOnInit(): void {
     this.modalService.modalSource.subscribe(
