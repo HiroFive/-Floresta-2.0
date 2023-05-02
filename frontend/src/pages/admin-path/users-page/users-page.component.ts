@@ -1,6 +1,6 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserActions } from '../../../store/actions';
+import { CartActions, UserActions } from '../../../store/actions';
 import { UserSelectors } from '../../../store/selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { IUser } from '../../../common/interfaces';
@@ -74,6 +74,12 @@ export class UsersComponentPage implements OnInit, OnDestroy {
       parent: this.inj,
     });
     this.modalService.openNewModal(DeleteUserComponent, injector);
+  }
+
+  cleanUserCart(userData: IUser): void {
+    this.store.dispatch(
+      CartActions.deleteCartByUserId({ id: userData.id || '' }),
+    );
   }
 
   ngOnDestroy() {

@@ -10,7 +10,7 @@ const createCartModule = (orm: Sequelize): ModelCtor<cartInstance> => {
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
       },

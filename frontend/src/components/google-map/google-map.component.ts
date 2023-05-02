@@ -25,6 +25,10 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow;
 
+  ukraineBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(44.103276, 22.137117), // Southwest corner
+    new google.maps.LatLng(52.379189, 40.228151), // Northeast corner
+  );
   private readonly unsubscribe$ = new Subject();
   constructor(
     private readonly store: Store<any>,
@@ -34,6 +38,12 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
 
   center: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
+    center: this.ukraineBounds.getCenter(),
+    zoom: 7,
+    restriction: {
+      latLngBounds: this.ukraineBounds,
+      strictBounds: true,
+    },
     zoomControl: true,
     scrollwheel: true,
     mapTypeId: 'hybrid',
@@ -106,10 +116,6 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
       injector,
       'Додати нову мітку',
     );
-  }
-
-  logCenter() {
-    console.log(JSON.stringify(this.map.getCenter()));
   }
 
   openInfo(marker: any, selectedMarker: any) {

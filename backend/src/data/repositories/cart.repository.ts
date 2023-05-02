@@ -14,6 +14,12 @@ class CartRepository {
   public getByUserId(userId: string): Promise<ICart> {
     return cartModule.findOne(getCartParams('filter', { userId }));
   }
+
+  public deleteByUserId(id: number): Promise<number> {
+    return cartModule.destroy({
+      where: { id },
+    });
+  }
 }
 
 export { CartRepository };

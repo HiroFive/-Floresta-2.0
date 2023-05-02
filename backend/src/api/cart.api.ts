@@ -17,6 +17,23 @@ const initCartApi = (apiRouter: Router): Router => {
     }
   });
 
+  cartRouter.delete(cartApiPath.DeleteByUserId, async (_req, res) => {
+    try {
+      const cart = await cartService.getCartByUserId(_req.params.id);
+      if (cart) {
+        await cartService.createCartByUserId(_req.params.id);
+        await cartService.deleteCartById(cart.id);
+      }
+
+      res.status(HttpCode.NO_CONTENT).json('Success');
+    } catch (err) {
+      const error = err.errors[0];
+      res
+        .status(HttpCode.INTERNAL_SERVER_ERROR)
+        .json({ message: error.message });
+    }
+  });
+
   return cartRouter;
 };
 export { initCartApi };

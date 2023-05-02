@@ -12,7 +12,13 @@ export class CartService {
 
   public getCartByUserId(userId: string): Observable<ICart> {
     return this.http.get<ICart>(
-      `http://localhost:3001/api${rootApiPath.Cart}?userId=${userId}`,
+      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Cart}?userId=${userId}`,
+    );
+  }
+
+  public deleteCartByUserId(userId: string): Observable<void> {
+    return this.http.delete<void>(
+      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Cart}/delete-by-userId/${userId}`,
     );
   }
 }

@@ -26,4 +26,11 @@
     size="medium"
     (onClick)="deleteSelectedUser(selectedUserData)"
   ></app-button>
+  <app-button
+    icon="shopping-cart-outline"
+    size="medium"
+    buttonStatus="danger"
+    iconStatus="basic"
+    (onClick)="cleanUserCart(selectedUserData)"
+  />
 </ng-template>

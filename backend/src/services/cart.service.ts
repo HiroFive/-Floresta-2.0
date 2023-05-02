@@ -7,7 +7,6 @@ class CartService {
   }
   public createCartByUserId(userId: string): Promise<ICart> {
     return cartRepository.createCart({
-      id: 1,
       userId,
       productIds: [],
     });
@@ -15,6 +14,10 @@ class CartService {
 
   public getCartByUserId(userId: string): Promise<ICart> {
     return cartRepository.getByUserId(userId);
+  }
+
+  public deleteCartById(id: number): Promise<number> {
+    return cartRepository.deleteByUserId(id);
   }
 }
 

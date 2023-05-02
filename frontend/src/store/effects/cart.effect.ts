@@ -9,13 +9,25 @@ import { of } from 'rxjs';
 export class CartEffects {
   constructor(private actions$: Actions, private cartService: CartService) {}
 
-  getCartByUserIdId$ = createEffect(() =>
+  getCartByUserId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CartActions.getCartByUserId),
       mergeMap((action) =>
         this.cartService.getCartByUserId(action.id).pipe(
           map((cart) => CartActions.getCartByUserIdSuccess({ cart })),
           catchError(() => of(CartActions.getCartByUserIdFailed())),
+        ),
+      ),
+    ),
+  );
+
+  deleteCartByUserId$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CartActions.deleteCartByUserId),
+      mergeMap((action) =>
+        this.cartService.deleteCartByUserId(action.id).pipe(
+          map((cart) => CartActions.deleteCartByUserIdSuccess()),
+          catchError(() => of(CartActions.deleteCartByUserIdFailed())),
         ),
       ),
     ),
