@@ -28,13 +28,11 @@ export const getUserRolesUsersFailed = createAction(
 );
 
 export const deleteUserById = createAction(
-  '[User] delete Map Marker',
+  '[User] delete User',
   props<{ id: string }>(),
 );
 export const deleteUserByIdSuccess = createAction(
-  '[User] delete Map Marker Success',
+  '[User] delete User Success',
   props<{ id: string }>(),
 );
-export const deleteUserByIdFailed = createAction(
-  '[User] delete Map Marker Failed',
-);
+export const deleteUserByIdFailed = createAction('[User] delete User Failed');

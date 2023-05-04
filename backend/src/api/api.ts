@@ -3,10 +3,17 @@ import { initUserApi } from './user.api';
 import { initRoleApi } from './role.api';
 import { initCartApi } from './cart.api';
 import { initMapMarkerApi } from './map-marker.api';
+import { initProductApi } from './product.api';
 
-const apis: any[] = [initUserApi, initRoleApi, initCartApi, initMapMarkerApi];
+const apis: any[] = [
+  initUserApi,
+  initRoleApi,
+  initCartApi,
+  initMapMarkerApi,
+  initProductApi,
+];
 
-const initApi = (app: Router): Router => {
+export const initApi = (app: Router): Router => {
   const apiRouter = Router();
 
   app.use('/api/', apiRouter);
@@ -14,5 +21,3 @@ const initApi = (app: Router): Router => {
 
   return apiRouter;
 };
-
-export { initApi };

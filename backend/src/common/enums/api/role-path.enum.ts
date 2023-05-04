@@ -1,7 +1,5 @@
-enum roleApiPath {
+export enum roleApiPathenum {
   ROOT = '/',
   All = '/all',
   $ID = '/:id',
 }
-
-export { roleApiPath };

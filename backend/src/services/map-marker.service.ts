@@ -1,7 +1,7 @@
 import { IMapMarker } from '~/common/interfaces';
 import { mapMarkerRepository } from '~/data/repositories';
 
-class MapMarkerService {
+export class MapMarkerService {
   public getAllMarkersByRole(roleId: number): Promise<Array<IMapMarker>> {
     return mapMarkerRepository.getAllMarkers(roleId);
   }
@@ -21,5 +21,3 @@ class MapMarkerService {
     return mapMarkerRepository.deleteById(id);
   }
 }
-
-export { MapMarkerService };

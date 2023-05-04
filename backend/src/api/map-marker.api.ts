@@ -1,19 +1,19 @@
 import { Router } from 'express';
 import {
   HttpCode,
-  mapMarkerApiPath,
-  rootApiPath,
+  mapMarkerApiPathEnum,
+  rootApiPathEnum,
   UserRolesEnum,
 } from '../common/enums';
 import { mapMarkerService } from '../services';
 import { checkIsFound } from '~/utils';
 
-const initMapMarkerApi = (apiRouter: Router): Router => {
+export const initMapMarkerApi = (apiRouter: Router): Router => {
   const mapMarkerRouter = Router();
 
-  apiRouter.use(rootApiPath.MapMarker, mapMarkerRouter);
+  apiRouter.use(rootApiPathEnum.MapMarker, mapMarkerRouter);
 
-  mapMarkerRouter.get(mapMarkerApiPath.ROOT, async (_req, res) => {
+  mapMarkerRouter.get(mapMarkerApiPathEnum.ROOT, async (_req, res) => {
     try {
       const mapMarker = await mapMarkerService.getAllMarkersByRole(
         Number(`${_req.query.roleId || UserRolesEnum.Customer}`),
@@ -24,7 +24,7 @@ const initMapMarkerApi = (apiRouter: Router): Router => {
     }
   });
 
-  mapMarkerRouter.post(mapMarkerApiPath.ROOT, async (_req, res) => {
+  mapMarkerRouter.post(mapMarkerApiPathEnum.ROOT, async (_req, res) => {
     try {
       const createdMapMarker = await mapMarkerService.createMapMarker(
         _req.body,
@@ -37,7 +37,7 @@ const initMapMarkerApi = (apiRouter: Router): Router => {
     }
   });
 
-  mapMarkerRouter.patch(mapMarkerApiPath.$ID, async (_req, res) => {
+  mapMarkerRouter.patch(mapMarkerApiPathEnum.$ID, async (_req, res) => {
     try {
       const mapMarker = await mapMarkerService.updateMapMarker(
         Number(_req?.params?.id || 0),
@@ -52,7 +52,7 @@ const initMapMarkerApi = (apiRouter: Router): Router => {
     }
   });
 
-  mapMarkerRouter.delete(mapMarkerApiPath.$ID, async (_req, res) => {
+  mapMarkerRouter.delete(mapMarkerApiPathEnum.$ID, async (_req, res) => {
     try {
       await mapMarkerService.deleteMapMarker(Number(_req?.params?.id || 0));
       res.status(HttpCode.NO_CONTENT).json('Success');
@@ -66,4 +66,3 @@ const initMapMarkerApi = (apiRouter: Router): Router => {
 
   return mapMarkerRouter;
 };
-export { initMapMarkerApi };

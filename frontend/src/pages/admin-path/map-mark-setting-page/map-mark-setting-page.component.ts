@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './map-mark-setting-page.component.html',
   styleUrls: ['./map-mark-setting-page.component.scss'],
 })
-export class MapMarkSettingComponentPage {}
+export class MapMarkSettingPageComponent {}

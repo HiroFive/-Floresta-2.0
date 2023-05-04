@@ -1,46 +1,57 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  AdminComponentPage,
-  HomeComponentPage,
-  ProfileComponentPage,
-  UsersComponentPage,
+  AdminPageComponent,
+  HomePageComponent,
+  MapMarkSettingPageComponent,
+  NotFoundPageComponent,
+  OrdersPageComponent,
+  ProductsPageComponent,
+  ProfilePageComponent,
+  UsersPageComponent,
 } from '../pages';
-import { MapMarkSettingComponentPage } from '../pages/admin-path/map-mark-setting-page/map-mark-setting-page.component';
-import { NotFoundComponentPage } from '../pages/not-found-page/not-found-page.component';
 import { RoleGuard } from '../common/guards/role.guard';
+import { RouterPathEnum } from '../common/enums';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: RouterPathEnum.Home, pathMatch: 'full' },
   {
-    path: 'home',
-    component: HomeComponentPage,
+    path: RouterPathEnum.Home,
+    component: HomePageComponent,
   },
   {
-    path: 'profile',
-    component: ProfileComponentPage,
+    path: RouterPathEnum.Profile,
+    component: ProfilePageComponent,
   },
 
   {
-    path: 'admin',
+    path: RouterPathEnum.Admin,
     canActivate: [RoleGuard],
-    component: AdminComponentPage,
+    component: AdminPageComponent,
     data: {
       expectedRole: 'admin',
     },
     children: [
       {
-        path: 'map-marks',
-        component: MapMarkSettingComponentPage,
+        path: RouterPathEnum.MapMarks,
+        component: MapMarkSettingPageComponent,
       },
       {
-        path: 'users',
-        component: UsersComponentPage,
+        path: RouterPathEnum.Users,
+        component: UsersPageComponent,
+      },
+      {
+        path: RouterPathEnum.Products,
+        component: ProductsPageComponent,
+      },
+      {
+        path: RouterPathEnum.Orders,
+        component: OrdersPageComponent,
       },
     ],
   },
 
-  { path: '**', component: NotFoundComponentPage },
+  { path: '**', component: NotFoundPageComponent },
 ];
 
 @NgModule({

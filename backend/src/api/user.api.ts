@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import { HttpCode, rootApiPath, userApiPath } from '../common/enums';
+import { HttpCode, rootApiPathEnum, userApiPathEnum } from '../common/enums';
 import { cartService, userService } from '../services';
 import { checkIsFound } from '~/utils';
 
-const initUserApi = (apiRouter: Router): Router => {
+export const initUserApi = (apiRouter: Router): Router => {
   const userRouter = Router();
   // const upload = multerUploadFile();
 
-  apiRouter.use(rootApiPath.User, userRouter);
+  apiRouter.use(rootApiPathEnum.User, userRouter);
 
-  userRouter.get(userApiPath.All, async (_req, res) => {
+  userRouter.get(userApiPathEnum.All, async (_req, res) => {
     try {
       let users = await userService.getAllUsers();
       users = users?.map(
@@ -29,7 +29,7 @@ const initUserApi = (apiRouter: Router): Router => {
     }
   });
 
-  userRouter.get(userApiPath.$SubID, async (_req, res) => {
+  userRouter.get(userApiPathEnum.$SubID, async (_req, res) => {
     try {
       const user = await userService.getUserBySubId(_req.params.subId);
       res.status(checkIsFound(user?.[0])).json(user?.[0] || {});
@@ -38,7 +38,7 @@ const initUserApi = (apiRouter: Router): Router => {
     }
   });
 
-  userRouter.post(userApiPath.ROOT, async (_req, res) => {
+  userRouter.post(userApiPathEnum.ROOT, async (_req, res) => {
     try {
       const user = await userService.createNewUser(_req.body);
       await cartService.createCartByUserId(user.id);
@@ -50,7 +50,7 @@ const initUserApi = (apiRouter: Router): Router => {
     }
   });
 
-  userRouter.patch(userApiPath.$ID, async (_req, res) => {
+  userRouter.patch(userApiPathEnum.$ID, async (_req, res) => {
     try {
       const user = await userService.updateUser(_req.params.id, _req.body);
       res.status(HttpCode.OK).json(user?.[0]);
@@ -62,7 +62,7 @@ const initUserApi = (apiRouter: Router): Router => {
     }
   });
 
-  userRouter.delete(userApiPath.$ID, async (_req, res) => {
+  userRouter.delete(userApiPathEnum.$ID, async (_req, res) => {
     try {
       await userService.deleteUser(_req.params.id);
       res.status(HttpCode.NO_CONTENT).json('Success');
@@ -76,4 +76,3 @@ const initUserApi = (apiRouter: Router): Router => {
 
   return userRouter;
 };
-export { initUserApi };

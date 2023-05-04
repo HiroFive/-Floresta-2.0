@@ -8,7 +8,7 @@ import {
 import { AuthWrapperService } from '../../services/auth-wrapper.service';
 import { LocalStorageService } from '../../services';
 import { USER_PROFILE } from '../local-storage-keys';
-import { UserRoles } from '../enums';
+import { UserRolesEnum } from '../enums';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class RoleGuard implements CanActivate {
       this.localStorageService.getItem(USER_PROFILE) || {},
     )?.role;
 
-    if (userRole !== UserRoles.Admin) {
+    if (userRole !== UserRolesEnum.Admin) {
       this.router.navigate(['home']);
       return false;
     }

@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { HttpCode, roleApiPath, rootApiPath } from '../common/enums';
+import { HttpCode, roleApiPathenum, rootApiPathEnum } from '../common/enums';
 import { roleService } from '../services';
 import { checkIsFound } from '~/utils';
 
-const initRoleApi = (apiRouter: Router): Router => {
+export const initRoleApi = (apiRouter: Router): Router => {
   const roleRouter = Router();
 
-  apiRouter.use(rootApiPath.Role, roleRouter);
+  apiRouter.use(rootApiPathEnum.Role, roleRouter);
 
-  roleRouter.get(roleApiPath.ROOT, async (_req, res) => {
+  roleRouter.get(roleApiPathenum.ROOT, async (_req, res) => {
     try {
       const role = await roleService.getById(Number(_req?.query?.id || 0));
       res.status(checkIsFound(role)).json(role);
@@ -17,7 +17,7 @@ const initRoleApi = (apiRouter: Router): Router => {
     }
   });
 
-  roleRouter.get(roleApiPath.All, async (_req, res) => {
+  roleRouter.get(roleApiPathenum.All, async (_req, res) => {
     try {
       const roles = await roleService.getAllRoles();
       res.status(checkIsFound(roles)).json(roles);
@@ -28,4 +28,3 @@ const initRoleApi = (apiRouter: Router): Router => {
 
   return roleRouter;
 };
-export { initRoleApi };

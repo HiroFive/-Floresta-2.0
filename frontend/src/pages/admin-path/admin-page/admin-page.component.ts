@@ -7,7 +7,7 @@ import { ModalService } from '../../../services';
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.scss'],
 })
-export class AdminComponentPage implements OnInit {
+export class AdminPageComponent implements OnInit {
   modalState: { content: any; open: boolean; injector: any };
   constructor(
     private readonly router: Router,

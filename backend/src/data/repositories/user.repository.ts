@@ -2,7 +2,7 @@ import { userModule } from '../models';
 import { IUser } from '../../common/interfaces';
 import { getUserParams } from '../atributes';
 
-class UserRepository {
+export class UserRepository {
   public getAll(): Promise<Array<IUser>> {
     return userModule.findAll(getUserParams('withRoleName'));
   }
@@ -29,5 +29,3 @@ class UserRepository {
     });
   }
 }
-
-export { UserRepository };

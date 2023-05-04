@@ -1,4 +1,4 @@
-import { UserRoles } from '../enums';
+import { UserRolesEnum } from '../enums';
 
 export abstract class BaseUser {
   constructor(
@@ -6,7 +6,7 @@ export abstract class BaseUser {
     public subId: string,
     public email: string,
     public name: string,
-    public role?: UserRoles | string,
+    public role?: UserRolesEnum | string,
   ) {}
 }
 

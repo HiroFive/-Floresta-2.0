@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { cartApiPath, HttpCode, rootApiPath } from '../common/enums';
+import { cartApiPathEnum, HttpCode, rootApiPathEnum } from '../common/enums';
 import { cartService } from '../services';
 import { checkIsFound } from '~/utils';
 
-const initCartApi = (apiRouter: Router): Router => {
+export const initCartApi = (apiRouter: Router): Router => {
   const cartRouter = Router();
 
-  apiRouter.use(rootApiPath.Cart, cartRouter);
+  apiRouter.use(rootApiPathEnum.Cart, cartRouter);
 
-  cartRouter.get(cartApiPath.ROOT, async (_req, res) => {
+  cartRouter.get(cartApiPathEnum.ROOT, async (_req, res) => {
     try {
       const cart = await cartService.getCartByUserId(`${_req.query.userId}`);
       res.status(checkIsFound(cart)).json(cart);
@@ -17,7 +17,7 @@ const initCartApi = (apiRouter: Router): Router => {
     }
   });
 
-  cartRouter.delete(cartApiPath.DeleteByUserId, async (_req, res) => {
+  cartRouter.delete(cartApiPathEnum.DeleteByUserId, async (_req, res) => {
     try {
       const cart = await cartService.getCartByUserId(_req.params.id);
       if (cart) {
@@ -36,4 +36,3 @@ const initCartApi = (apiRouter: Router): Router => {
 
   return cartRouter;
 };
-export { initCartApi };

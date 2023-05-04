@@ -5,7 +5,7 @@ import { MapMarkerActions } from '../../../store/actions';
 import { ModalService } from '../../../services';
 
 @Component({
-  selector: 'app-category-delete',
+  selector: 'app-delete-map-marker',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })

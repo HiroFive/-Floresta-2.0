@@ -1,7 +1,7 @@
 import { userRepository } from '../data/repositories';
 import { IUser } from '~/common/interfaces';
 
-class UserService {
+export class UserService {
   public getAllUsers(): Promise<IUser[]> {
     return userRepository.getAll();
   }
@@ -20,5 +20,3 @@ class UserService {
     return userRepository.deleteById(id);
   }
 }
-
-export { UserService };

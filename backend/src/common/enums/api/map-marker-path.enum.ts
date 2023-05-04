@@ -1,6 +1,4 @@
-enum mapMarkerApiPath {
+export enum mapMarkerApiPathEnum {
   ROOT = '/',
   $ID = '/:id',
 }
-
-export { mapMarkerApiPath };

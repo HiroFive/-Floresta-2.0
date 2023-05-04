@@ -1,7 +1,7 @@
 import { ICart } from '~/common/interfaces';
 import { cartRepository } from '~/data/repositories';
 
-class CartService {
+export class CartService {
   public getById(id: number): Promise<ICart> {
     return cartRepository.getById(id);
   }
@@ -20,5 +20,3 @@ class CartService {
     return cartRepository.deleteByUserId(id);
   }
 }
-
-export { CartService };

@@ -15,7 +15,7 @@ import { EditUserFormComponent } from '../../../components/forms';
   templateUrl: './users-page.component.html',
   styleUrls: ['./users-page.component.scss'],
 })
-export class UsersComponentPage implements OnInit, OnDestroy {
+export class UsersPageComponent implements OnInit, OnDestroy {
   users: Array<IUser>;
   tableColumns = ['id', 'name', 'email', 'role'];
   tableTypeEnum = TableTypeEnum;
@@ -31,6 +31,7 @@ export class UsersComponentPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(UserActions.getAllUsers());
+    this.store.dispatch(UserActions.getUserRoles());
 
     this.store
       .select(UserSelectors.getAllUsers)

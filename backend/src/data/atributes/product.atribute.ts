@@ -1,4 +1,4 @@
-export const productAttribute = ['id', 'name'];
+export const productAttribute = ['id', 'name', 'image', 'price', 'hidden'];
 
 export const getProductParams = (type = '', additionalParams = {}) => {
   const defaultParams = {

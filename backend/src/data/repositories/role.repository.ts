@@ -2,7 +2,7 @@ import { roleModule } from '../models';
 import { getRoleParams } from '../atributes';
 import { IRole } from '~/common/interfaces';
 
-class RoleRepository {
+export class RoleRepository {
   public getAll(): Promise<Array<IRole>> {
     return roleModule.findAll(getRoleParams());
   }
@@ -11,5 +11,3 @@ class RoleRepository {
     return roleModule.findByPk(id, getRoleParams());
   }
 }
-
-export { RoleRepository };

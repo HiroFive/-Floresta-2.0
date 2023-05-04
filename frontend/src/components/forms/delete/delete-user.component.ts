@@ -5,7 +5,7 @@ import { UserActions } from '../../../store/actions';
 import { ModalService } from '../../../services';
 
 @Component({
-  selector: 'app-category-delete',
+  selector: 'app-delete-user',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })

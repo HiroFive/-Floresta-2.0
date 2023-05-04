@@ -2,7 +2,7 @@ import { mapMarkerModule } from '../models';
 import { getMapMarketParams } from '../atributes';
 import { IMapMarker } from '~/common/interfaces';
 
-class MapMarkerRepository {
+export class MapMarkerRepository {
   public getById(id: number): Promise<IMapMarker | null> {
     return mapMarkerModule.findByPk(id, getMapMarketParams());
   }
@@ -31,5 +31,3 @@ class MapMarkerRepository {
     });
   }
 }
-
-export { MapMarkerRepository };

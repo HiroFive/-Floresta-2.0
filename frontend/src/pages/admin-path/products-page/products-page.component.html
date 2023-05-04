@@ -1,0 +1,43 @@
+<section class="m-4">
+  <app-button
+    icon="edit-2-outline"
+    iconStatus="info"
+    size="medium"
+    (onClick)="createNewProduct()"
+  ></app-button>
+  <app-data-table
+    [tableType]="tableTypeEnum.Products"
+    [dataSource]="products"
+    [columns]="tableColumns"
+    [buttonsTemplate]="buttonsTemplate"
+  >
+  </app-data-table>
+</section>
+
+<ng-template #buttonsTemplate let-selectedProductData="data">
+  <!--  <app-button-->
+  <!--    icon="plus-outline"-->
+  <!--    iconStatus="info"-->
+  <!--    size="medium"-->
+  <!--  ></app-button>-->
+
+  <app-button
+    [icon]="selectedProductData?.hidden ? 'eye-outline' : 'eye-off-outline'"
+    size="medium"
+    buttonStatus="info"
+    iconStatus="basic"
+    (onClick)="updateProductVisibility(selectedProductData)"
+  />
+  <app-button
+    icon="edit-2-outline"
+    iconStatus="info"
+    size="medium"
+    (onClick)="updatedSelectedUser(selectedProductData)"
+  ></app-button>
+  <app-button
+    icon="trash-2-outline"
+    iconStatus="info"
+    size="medium"
+    (onClick)="deleteSelectedUser(selectedProductData)"
+  ></app-button>
+</ng-template>

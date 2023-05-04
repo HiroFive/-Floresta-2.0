@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterPathEnum } from '../../common/enums';
 
 @Component({
   selector: 'app-admin-panel-sidebar',
@@ -8,22 +9,22 @@ import { Component } from '@angular/core';
 export class AdminPanelSidebarComponent {
   sideBarItems = [
     {
-      link: 'orders',
+      link: RouterPathEnum.Orders,
       icon: 'file-text-outline',
       label: 'Замовлення',
     },
     {
-      link: 'map-marks',
+      link: RouterPathEnum.MapMarks,
       icon: 'pin-outline',
       label: 'Мітки',
     },
     {
-      link: 'products',
+      link: RouterPathEnum.Products,
       icon: 'pricetags-outline',
       label: 'Продукти',
     },
     {
-      link: 'users',
+      link: RouterPathEnum.Users,
       icon: 'people-outline',
       label: 'Користувачі',
     },

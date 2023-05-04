@@ -10,7 +10,7 @@ const createProductModule = (orm: Sequelize): ModelCtor<productInstance> => {
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
       },

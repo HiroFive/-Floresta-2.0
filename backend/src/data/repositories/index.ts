@@ -8,24 +8,12 @@ import { PaymentDetailsRepository } from './payment-details.repository';
 import { ProductRepository } from './product.repository';
 import { MapMarkerRepository } from './map-marker.repository';
 
-const userRepository = new UserRepository();
-const roleRepository = new RoleRepository();
-const cartRepository = new CartRepository();
-const cartItemRepository = new CartItemRepository();
-const orderDetailsRepository = new OrderDetailsRepository();
-const orderItemRepository = new OrderItemRepository();
-const paymentDetailsRepository = new PaymentDetailsRepository();
-const productRepository = new ProductRepository();
-const mapMarkerRepository = new MapMarkerRepository();
-
-export {
-  userRepository,
-  roleRepository,
-  cartRepository,
-  cartItemRepository,
-  orderDetailsRepository,
-  orderItemRepository,
-  paymentDetailsRepository,
-  productRepository,
-  mapMarkerRepository,
-};
+export const userRepository = new UserRepository();
+export const roleRepository = new RoleRepository();
+export const cartRepository = new CartRepository();
+export const cartItemRepository = new CartItemRepository();
+export const orderDetailsRepository = new OrderDetailsRepository();
+export const orderItemRepository = new OrderItemRepository();
+export const paymentDetailsRepository = new PaymentDetailsRepository();
+export const productRepository = new ProductRepository();
+export const mapMarkerRepository = new MapMarkerRepository();

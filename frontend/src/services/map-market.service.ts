@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IMapMarker } from '../common/interfaces';
-import { rootApiPath } from '../common/enums';
+import { RootApiPathEnum } from '../common/enums';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,13 +12,13 @@ export class MapMarketService {
 
   public getMapMarkerByRoleId(roleId: number): Observable<Array<IMapMarker>> {
     return this.http.get<Array<IMapMarker>>(
-      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Marker}?roleId=${roleId}`,
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}?roleId=${roleId}`,
     );
   }
 
   public createMapMarker(body: IMapMarker): Observable<IMapMarker> {
     return this.http.post<IMapMarker>(
-      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Marker}`,
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}`,
       body,
     );
   }
@@ -28,14 +28,14 @@ export class MapMarketService {
     newVisibility: boolean,
   ): Observable<IMapMarker> {
     return this.http.patch<IMapMarker>(
-      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Marker}/${id}`,
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}/${id}`,
       { hidden: newVisibility },
     );
   }
 
   public deleteMapMarkerById(id: number): Observable<void> {
     return this.http.delete<void>(
-      `http://localhost:3001${rootApiPath.Api}${rootApiPath.Marker}/${id}`,
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}/${id}`,
     );
   }
 }

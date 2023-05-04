@@ -34,8 +34,6 @@ export class EditUserFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(UserActions.getUserRoles());
-
     this.store
       .select(UserSelectors.getUserRoles)
       .pipe(distinctUntilChanged(), takeUntil(this.unsubscribe$))

@@ -24,17 +24,20 @@ import { ButtonComponent } from '../components/button/button.component';
 import { NavigationItemComponent } from '../components/navbar/navigation-item/navigation-item.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
-  AdminComponentPage,
-  HomeComponentPage,
-  MapMarkSettingComponentPage,
-  NotFoundComponentPage,
-  ProfileComponentPage,
-  UsersComponentPage,
+  AdminPageComponent,
+  HomePageComponent,
+  MapMarkSettingPageComponent,
+  NotFoundPageComponent,
+  OrdersPageComponent,
+  ProductsPageComponent,
+  ProfilePageComponent,
+  UsersPageComponent,
 } from '../pages';
 import { AuthModule } from '@auth0/auth0-angular';
 import {
   cartReducer,
   mapMarkerReducer,
+  productReducer,
   profileReducer,
   userReducer,
 } from '../store/reducers';
@@ -42,6 +45,7 @@ import { EffectsModule } from '@ngrx/effects';
 import {
   CartEffects,
   MapMarkersEffects,
+  ProductEffects,
   ProfileEffects,
   UserEffects,
 } from '../store/effects';
@@ -65,6 +69,9 @@ import {
 } from 'devextreme-angular';
 import { DeleteUserComponent } from '../components/forms/delete/delete-user.component';
 import { SelectComponent } from '../components/select/select.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { AddProductComponent } from '../components/forms/product/add-product/add-product.component';
+import { DeleteProductComponent } from '../components/forms/delete/delete-product.component';
 
 @NgModule({
   declarations: [
@@ -86,13 +93,17 @@ import { SelectComponent } from '../components/select/select.component';
     AddMapMarkerFormComponent,
     DeleteMapMarkerComponent,
     DeleteUserComponent,
+    DeleteProductComponent,
+    AddProductComponent,
     // Pages
-    HomeComponentPage,
-    ProfileComponentPage,
-    NotFoundComponentPage,
-    AdminComponentPage,
-    MapMarkSettingComponentPage,
-    UsersComponentPage,
+    HomePageComponent,
+    ProfilePageComponent,
+    NotFoundPageComponent,
+    AdminPageComponent,
+    MapMarkSettingPageComponent,
+    UsersPageComponent,
+    ProductsPageComponent,
+    OrdersPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,6 +113,7 @@ import { SelectComponent } from '../components/select/select.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    NgxDropzoneModule,
     NbButtonModule,
     NbSpinnerModule,
     NbIconModule,
@@ -120,6 +132,7 @@ import { SelectComponent } from '../components/select/select.component';
       ...cartReducer,
       ...mapMarkerReducer,
       ...userReducer,
+      ...productReducer,
     }),
     NbThemeModule.forRoot({ name: 'corporateTheme' }),
     AuthModule.forRoot({
@@ -136,6 +149,7 @@ import { SelectComponent } from '../components/select/select.component';
       CartEffects,
       MapMarkersEffects,
       UserEffects,
+      ProductEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
