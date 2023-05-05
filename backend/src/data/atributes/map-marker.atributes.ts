@@ -1,6 +1,6 @@
 import { UserRolesEnum } from '~/common/enums';
 
-export const mapMarkerAttribute = ['id', 'lat', 'lng', 'hidden'];
+export const mapMarkerAttribute = ['id', 'lat', 'lng', 'hidden', 'productIds'];
 
 const getParamsByRole = (roleId: number) => {
   const paramsByRole: any = {

@@ -23,6 +23,13 @@ export class MapMarketService {
     );
   }
 
+  public updateMapMarker(id: number, body: IMapMarker): Observable<IMapMarker> {
+    return this.http.patch<IMapMarker>(
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}/${id}`,
+      body,
+    );
+  }
+
   public updateMapMarkerVisibility(
     id: number,
     newVisibility: boolean,

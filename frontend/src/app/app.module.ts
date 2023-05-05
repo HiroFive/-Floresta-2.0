@@ -72,6 +72,7 @@ import { SelectComponent } from '../components/select/select.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AddProductComponent } from '../components/forms/product/add-product/add-product.component';
 import { DeleteProductComponent } from '../components/forms/delete/delete-product.component';
+import { EditMapMarkerFormComponent } from '../components/forms/map-merker/edit-map-marker-form/edit-map-marker-form.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { DeleteProductComponent } from '../components/forms/delete/delete-produc
     DeleteUserComponent,
     DeleteProductComponent,
     AddProductComponent,
+    EditMapMarkerFormComponent,
     // Pages
     HomePageComponent,
     ProfilePageComponent,

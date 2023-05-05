@@ -1,0 +1,102 @@
+.form-container {
+  @apply block relative;
+}
+.form-body {
+  @apply md:flex flex-row md:space-x-4 w-full text-xs py-2 px-4;
+}
+.input-container {
+  @apply mb-3 space-y-2 w-full text-sm;
+}
+.input-label {
+  @apply font-semibold text-gray-600 py-2;
+}
+.input {
+  @apply appearance-none mt-1 block w-full border border-gray-400 rounded-lg h-8 px-2;
+}
+.error-container {
+  @apply text-red-500 text-xs;
+}
+
+.check-box-label {
+  @apply flex justify-start text-sm items-center w-24;
+}
+.check-box-container {
+  @apply bg-white border-2 rounded border-gray-400 w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2;
+}
+.done-icon {
+  @apply fill-current hidden w-3 h-3 text-green-500 pointer-events-none;
+}
+.check-box-text {
+  @apply select-none font-semibold text-gray-600;
+}
+
+.request-error-message {
+  @apply text-xs text-red-500 text-right mx-3 absolute bottom-2 left-2;
+}
+.button-container {
+  @apply m-3 text-right md:space-x-3 flex flex-col-reverse;
+}
+
+.select-category-container {
+  @apply w-full md:flex text-sm mb-3;
+}
+.select-category-label {
+  @apply text-sm font-semibold mx-4 text-gray-600 py-2;
+}
+.select-category-body {
+  @apply block mx-4 w-11/12  border border-gray-400 rounded-lg h-8 mt-2 px-2;
+}
+
+.food-form-body {
+  @apply px-6 max-h-96 overflow-y-scroll;
+}
+.image-uploader-container {
+  @apply block px-12 my-6;
+}
+.description-container {
+  @apply flex-auto w-full mb-1 text-sm space-y-2;
+}
+.textarea {
+  @apply w-full h-24 appearance-none block border rounded-lg py-2 px-2;
+}
+.i-comment {
+  @apply text-xs text-gray-400 text-left my-3;
+}
+
+.portions-container {
+  @apply text-sm items-center flex justify-between font-semibold text-gray-600;
+}
+.portions-grid {
+  @apply grid grid-cols-3 mt-2 gap-2 items-center;
+}
+.portion-input-container {
+  @apply mb-1 space-y-1 w-full text-xs;
+}
+.portion-container {
+  @apply block border rounded border-gray-300 p-2;
+}
+.portion-detail-container {
+  @apply font-semibold text-gray-600 py-1;
+}
+.portions-input {
+  @apply appearance-none block w-full border border-gray-400 rounded-lg h-8 px-2;
+}
+.food-preview-img {
+  @apply h-44 w-44 block mx-auto;
+}
+.change-image-btn {
+  @apply absolute left-1/2 top-1/2 transform -translate-y-1/2 -translate-x-1/2;
+}
+.food-category-container {
+  @apply w-full md:flex text-sm mb-3;
+}
+.food-category-select {
+  @apply block w-full border border-gray-400 rounded-lg h-8 mt-2 px-2;
+}
+.delete-portion-btn {
+  @apply min-w-full justify-center flex;
+}
+
+input:checked + svg {
+  display: block;
+}

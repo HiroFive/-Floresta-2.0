@@ -15,6 +15,7 @@ import { BaseMarker, Marker } from '../../common/classes';
 import { ModalService } from '../../services';
 import { AddMapMarkerFormComponent } from '../forms';
 import { DeleteMapMarkerComponent } from '../forms/delete';
+import { EditMapMarkerFormComponent } from '../forms/map-merker/edit-map-marker-form/edit-map-marker-form.component';
 
 @Component({
   selector: 'app-google-map',
@@ -72,6 +73,7 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
           return {
             id: mapMarker.id,
             hidden: mapMarker.hidden,
+            productIds: mapMarker.productIds,
             position: {
               lat: mapMarker.lat,
               lng: mapMarker.lng,
@@ -133,6 +135,29 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
     this.info.close();
   }
 
+  editMarker() {
+    const injector: Injector = Injector.create({
+      providers: [
+        {
+          provide: BaseMarker,
+          useValue: new Marker(
+            this.selectedMarker?.position?.lat,
+            this.selectedMarker?.position?.lng,
+            this.selectedMarker.hidden,
+            this.selectedMarker.id,
+            this.selectedMarker.productIds,
+          ),
+        },
+      ],
+      parent: this.inj,
+    });
+
+    this.modalService.openNewModal(
+      EditMapMarkerFormComponent,
+      injector,
+      'Редагувати нову',
+    );
+  }
   deleteMapMarker(): void {
     const injector: Injector = Injector.create({
       providers: [

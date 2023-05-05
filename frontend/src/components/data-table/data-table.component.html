@@ -1,34 +1,39 @@
-<dx-data-grid
-  id="gridContainer"
-  [dataSource]="dataSource"
-  [showBorders]="true"
-  [rowAlternationEnabled]="true"
-  (onExporting)="onExporting($event)"
->
-  <dxi-column *ngFor="let column of columns" [dataField]="column"></dxi-column>
-  <dxi-column type="buttons">
-    <dxi-button template="myCommand">
-      <div *dxTemplate="let data of 'myCommand'">
-        <ng-container
-          *ngTemplateOutlet="buttonsTemplate; context: data"
-        ></ng-container>
-      </div>
-    </dxi-button>
-  </dxi-column>
-
-  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-  <dxo-paging [pageSize]="10"> </dxo-paging>
-  <dxo-pager
-    [visible]="true"
-    displayMode="compact"
-    [allowedPageSizes]="[10, 15]"
-    [showPageSizeSelector]="showPageSizeSelector"
-    [showNavigationButtons]="showNavButtons"
+<section class="rounded-md p-3 bg-white drop-shadow-md">
+  <dx-data-grid
+    id="gridContainer"
+    [dataSource]="dataSource"
+    [showBorders]="true"
+    [rowAlternationEnabled]="true"
+    (onExporting)="onExporting($event)"
   >
-  </dxo-pager>
-  <dxo-export
-    [enabled]="true"
-    [formats]="['pdf']"
-    [allowExportSelectedData]="true"
-  ></dxo-export>
-</dx-data-grid>
+    <dxi-column
+      *ngFor="let column of columns"
+      [dataField]="column"
+    ></dxi-column>
+    <dxi-column type="buttons">
+      <dxi-button template="myCommand">
+        <div *dxTemplate="let data of 'myCommand'">
+          <ng-container
+            *ngTemplateOutlet="buttonsTemplate; context: data"
+          ></ng-container>
+        </div>
+      </dxi-button>
+    </dxi-column>
+
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+    <dxo-paging [pageSize]="10"> </dxo-paging>
+    <dxo-pager
+      [visible]="true"
+      displayMode="compact"
+      [allowedPageSizes]="[10, 15]"
+      [showPageSizeSelector]="showPageSizeSelector"
+      [showNavigationButtons]="showNavButtons"
+    >
+    </dxo-pager>
+    <dxo-export
+      [enabled]="true"
+      [formats]="['pdf']"
+      [allowExportSelectedData]="true"
+    ></dxo-export>
+  </dx-data-grid>
+</section>

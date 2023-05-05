@@ -1,0 +1,67 @@
+<div class="form-container">
+  <form [formGroup]="productFormGroup" novalidate>
+    <section class="food-form-body">
+      <div class="image-uploader-container">
+        <ngx-dropzone
+          (change)="onSelect($event)"
+          [multiple]="false"
+          [accept]="'image/*'"
+          [expandable]="true"
+        >
+          <ngx-dropzone-label
+            >Завантажити фото продукту
+            <div
+              *ngIf="files && !productFormGroup.invalid"
+              class="text-red-500 text-xs"
+            >
+              <p>Image is required.</p>
+            </div></ngx-dropzone-label
+          >
+          <ngx-dropzone-image-preview
+            ngProjectAs="ngx-dropzone-preview"
+            *ngFor="let f of files"
+            [file]="f"
+            [removable]="true"
+            (removed)="onRemove(f)"
+          >
+            <ngx-dropzone-label class="text-white max-w-10"
+              >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+            >
+          </ngx-dropzone-image-preview>
+        </ngx-dropzone>
+      </div>
+
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-form-input
+          type="text"
+          placeholder="name"
+          formControlName="name"
+          label="Назва"
+        >
+        </app-form-input>
+      </div>
+
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-form-input
+          type="number"
+          placeholder="price"
+          formControlName="price"
+          label="Ціна"
+        >
+        </app-form-input>
+      </div>
+
+      <div class="md:flex flex-row md:space-x-4 w-full text-xs pb-2 px-4">
+        <app-checkbox formControlName="hidden" label="Hidden"> </app-checkbox>
+      </div>
+    </section>
+
+    <div class="button-container">
+      <app-button
+        label="Додати"
+        [size]="'medium'"
+        (onClick)="submit()"
+      ></app-button>
+    </div>
+  </form>
+</div>

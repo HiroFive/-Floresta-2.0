@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { LocalStorageService, MapMarketService } from '../../services';
+import {
+  LocalStorageService,
+  MapMarketService,
+  ModalService,
+} from '../../services';
 import { MapMarkerActions } from '../actions';
 import { of } from 'rxjs';
 import { USER_PROFILE } from '../../common/local-storage-keys';
@@ -13,6 +17,7 @@ export class MapMarkersEffects {
     private readonly store: Store<any>,
     private readonly actions$: Actions,
     private readonly mapMarketService: MapMarketService,
+    private readonly modalService: ModalService,
     private readonly localStorageService: LocalStorageService,
   ) {}
 
@@ -49,6 +54,34 @@ export class MapMarkersEffects {
           }),
           catchError(() => of(MapMarkerActions.createMapMarkerFailed())),
         ),
+      ),
+    ),
+  );
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MapMarkerActions.updateMarker),
+      mergeMap((action) =>
+        this.mapMarketService
+          .updateMapMarker(action?.id, action?.mapMarker)
+          .pipe(
+            map((marker) => {
+              this.modalService.changeOpenState(false);
+              return MapMarkerActions.updateMarkerSuccess({
+                mapMarker: marker,
+              });
+            }),
+            tap(() => {
+              const role = JSON.parse(
+                this.localStorageService.getItem(USER_PROFILE) || {},
+              )?.role;
+
+              this.store.dispatch(
+                MapMarkerActions.getMapMarkerByRoleId({ roleId: role }),
+              );
+            }),
+            catchError(() => of(MapMarkerActions.updateMarkerFailed())),
+          ),
       ),
     ),
   );

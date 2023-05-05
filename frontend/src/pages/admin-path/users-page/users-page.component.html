@@ -9,21 +9,18 @@
 </section>
 
 <ng-template #buttonsTemplate let-selectedUserData="data">
-  <!--  <app-button-->
-  <!--    icon="plus-outline"-->
-  <!--    iconStatus="info"-->
-  <!--    size="medium"-->
-  <!--  ></app-button>-->
   <app-button
     icon="edit-2-outline"
     iconStatus="info"
     size="medium"
+    [isGhost]="true"
     (onClick)="updatedSelectedUser(selectedUserData)"
   ></app-button>
   <app-button
     icon="trash-2-outline"
     iconStatus="info"
     size="medium"
+    [isGhost]="true"
     (onClick)="deleteSelectedUser(selectedUserData)"
   ></app-button>
   <app-button
@@ -31,6 +28,7 @@
     size="medium"
     buttonStatus="danger"
     iconStatus="basic"
+    [isGhost]="true"
     (onClick)="cleanUserCart(selectedUserData)"
   />
 </ng-template>

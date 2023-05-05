@@ -4,6 +4,7 @@ export abstract class BaseMarker {
     public lng: number = 0,
     public hidden: boolean = false,
     public id?: number,
+    public productIds?: Array<number>,
   ) {}
 }
 

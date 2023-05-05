@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -13,12 +13,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor, OnInit {
   @Input() label?: string;
   @Input() placeholder: string;
   @Input() disabled = false;
   @Input() size: 'tiny' | 'small' | 'medium' | 'large' | 'giant' = 'medium';
   @Input() selectOptions: Array<any>;
+  @Input() multiple = false;
 
   onChange!: any;
   onTouched!: any;
@@ -32,6 +33,12 @@ export class SelectComponent implements ControlValueAccessor {
     this._value = v;
     this.onChange(this._value);
     this.onTouched();
+  }
+
+  ngOnInit() {
+    if (!this.selectOptions.length) {
+      this.disabled = true;
+    }
   }
 
   writeValue(obj: any): void {

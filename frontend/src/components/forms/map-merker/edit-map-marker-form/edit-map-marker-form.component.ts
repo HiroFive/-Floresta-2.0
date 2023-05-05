@@ -1,30 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MapMarkerActions } from '../../../../store/actions';
 import { BaseMarker } from '../../../../common/classes';
 import { Store } from '@ngrx/store';
 import { ProductSelectors } from '../../../../store/selectors';
 import { take } from 'rxjs';
+import { IProduct } from '../../../../common/interfaces';
 
 @Component({
   selector: 'app-add-map-marker-form',
-  templateUrl: './add-map-marker-form.component.html',
-  styleUrls: ['./add-map-marker-form.component.scss'],
+  templateUrl: './edit-map-marker-form.component.html',
+  styleUrls: ['./edit-map-marker-form.component.scss'],
 })
-export class AddMapMarkerFormComponent implements OnInit {
+export class EditMapMarkerFormComponent implements OnInit {
   markerForm: FormGroup;
+  mapMarketId: number;
   productsOptions: any;
 
   constructor(
     private readonly injMarker: BaseMarker,
     private readonly store: Store<any>,
   ) {
+    this.mapMarketId = injMarker.id || 0;
     this.markerForm = new FormGroup({
       lat: new FormControl(injMarker.lat, [Validators.required]),
       lng: new FormControl(injMarker.lng, [Validators.required]),
       productIds: new FormControl([], [Validators.required]),
-      hidden: new FormControl(false),
+      hidden: new FormControl(injMarker.hidden),
     });
+  }
+
+  get productIdsControl(): AbstractControl {
+    return this.markerForm.get('productIds') as AbstractControl;
   }
 
   ngOnInit(): void {
@@ -33,13 +45,28 @@ export class AddMapMarkerFormComponent implements OnInit {
       .pipe(take(1))
       .subscribe((products) => {
         this.productsOptions = products;
+        this.setProductIds();
       });
+  }
+
+  setProductIds() {
+    const products = this.productsOptions.filter((product: IProduct) =>
+      this.injMarker.productIds?.includes(product?.id || 0),
+    );
+
+    this.productIdsControl.setValue(
+      products.map((product: IProduct) => {
+        return product.id;
+      }),
+    );
   }
 
   public submit = (): void => {
     const formData = this.markerForm.value;
+
     this.store.dispatch(
-      MapMarkerActions.createMapMarker({
+      MapMarkerActions.updateMarker({
+        id: this.mapMarketId,
         mapMarker: {
           hidden: formData.hidden,
           lat: formData.lat,

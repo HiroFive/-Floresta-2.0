@@ -1,10 +1,14 @@
 <section class="m-4">
-  <app-button
-    icon="edit-2-outline"
-    iconStatus="info"
-    size="medium"
-    (onClick)="createNewProduct()"
-  ></app-button>
+  <div class="flex justify-end mb-2">
+    <app-button
+      icon="plus-outline"
+      iconStatus="basic"
+      size="medium"
+      label="Додати саджанець"
+      (onClick)="createNewProduct()"
+    ></app-button>
+  </div>
+
   <app-data-table
     [tableType]="tableTypeEnum.Products"
     [dataSource]="products"

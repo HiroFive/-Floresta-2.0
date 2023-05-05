@@ -48,3 +48,15 @@ export const updateMapMarkerVisibilitySuccess = createAction(
 export const updateMapMarkerVisibilityFailed = createAction(
   '[Map Marker] update Map Marker Visibility Failed',
 );
+
+export const updateMarker = createAction(
+  '[Map Marker] update Map Marker',
+  props<{ id: number; mapMarker: IMapMarker }>(),
+);
+export const updateMarkerSuccess = createAction(
+  '[Map Marker] update Map Marker Success',
+  props<{ mapMarker: IMapMarker }>(),
+);
+export const updateMarkerFailed = createAction(
+  '[Map Marker] update Map Marker Failed',
+);
