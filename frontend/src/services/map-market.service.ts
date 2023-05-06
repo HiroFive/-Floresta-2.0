@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IMapMarker } from '../common/interfaces';
-import { RootApiPathEnum } from '../common/enums';
+import { IMapMarker, IMapMarkerWithProductInfo } from '../common/interfaces';
+import { ApiSidePathEnum, RootApiPathEnum } from '../common/enums';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,6 +13,12 @@ export class MapMarketService {
   public getMapMarkerByRoleId(roleId: number): Observable<Array<IMapMarker>> {
     return this.http.get<Array<IMapMarker>>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}?roleId=${roleId}`,
+    );
+  }
+
+  public getMarkerProducts(id: number): Observable<IMapMarkerWithProductInfo> {
+    return this.http.get<IMapMarkerWithProductInfo>(
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}${ApiSidePathEnum.GetProducts}?id=${id}`,
     );
   }
 

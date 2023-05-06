@@ -3,32 +3,35 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseProduct } from '../../../../common/classes';
 import { Store } from '@ngrx/store';
 import { ProductActions } from '../../../../store/actions';
-import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-add-product',
-  templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.scss'],
+  selector: 'app-edit-product',
+  templateUrl: './edit-product.component.html',
+  styleUrls: ['./edit-product.component.scss'],
 })
-export class AddProductComponent implements OnInit {
+export class EditProductComponent implements OnInit {
   productFormGroup: FormGroup;
   files: File[] = [];
+  id: number;
 
-  private readonly unsubscribe$ = new Subject();
   constructor(
     private InjProduct: BaseProduct,
     private readonly store: Store<any>,
   ) {
+    this.id = InjProduct.id || 0;
     this.productFormGroup = new FormGroup({
-      name: new FormControl('', [
+      name: new FormControl(InjProduct.name, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(25),
       ]),
-      hidden: new FormControl(false),
-      price: new FormControl(0, [Validators.required]),
+      image: new FormControl(InjProduct.image),
+      hidden: new FormControl(InjProduct.hidden),
+      price: new FormControl(InjProduct.price, [Validators.required]),
     });
   }
+
+  ngOnInit(): void {}
 
   public onSelect(event: any) {
     this.files.shift();
@@ -39,17 +42,16 @@ export class AddProductComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  ngOnInit(): void {}
-
-  ngOnDestroy() {
-    this.unsubscribe$.complete();
-    this.unsubscribe$.unsubscribe();
-  }
-
   public submit = (): void => {
     const formData = new FormData();
-    formData.append('image', this.files[0]);
+
+    if (this.files.length !== 0) {
+      formData.append('image', this.files[0]);
+    }
+
     formData.append('data', JSON.stringify(this.productFormGroup.value));
-    this.store.dispatch(ProductActions.createProduct({ product: formData }));
+    this.store.dispatch(
+      ProductActions.updateProduct({ id: this.id, product: formData }),
+    );
   };
 }

@@ -1,15 +1,29 @@
 import { mapMarkerModule } from '../models';
 import { getMapMarketParams } from '../atributes';
 import { IMapMarker } from '~/common/interfaces';
+import { ParamsTypeEnum } from '~/common/enums';
+import { QueryTypes } from 'sequelize';
 
 export class MapMarkerRepository {
   public getById(id: number): Promise<IMapMarker | null> {
     return mapMarkerModule.findByPk(id, getMapMarketParams());
   }
 
+  public getMapMarketWithProducts(id: number): Promise<any> {
+    return mapMarkerModule.sequelize.query(
+      `SELECT "map_marker"."id", "map_marker"."lat", "map_marker"."lng", "map_marker"."hidden", 
+          "products"."id" AS "products.id", "products"."name" AS "products.name", "products"."image" 
+          AS "products.image", "products"."price" AS "products.price", 
+          "products"."hidden" AS "products.hidden" FROM "map_marker" AS "map_marker" 
+          LEFT OUTER JOIN "product" AS "products" ON "products"."id" = ANY("map_marker"."product_ids") 
+          WHERE "map_marker"."id" = ${id};`,
+      { type: QueryTypes.SELECT, raw: false, nest: true },
+    );
+  }
+
   public getAllMarkers(roleId: number): Promise<Array<IMapMarker> | null> {
     return mapMarkerModule.findAll(
-      getMapMarketParams('getByRoleId', { roleId: roleId }),
+      getMapMarketParams(ParamsTypeEnum.GetByRoleId, { roleId: roleId }),
     );
   }
 

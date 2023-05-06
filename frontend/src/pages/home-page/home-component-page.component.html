@@ -1,2 +1,17 @@
 <app-navbar> </app-navbar>
-<!--<app-google-map> </app-google-map>-->
+<app-google-map
+  [options]="mapsOptions"
+  [markerInfoWindowTemplate]="markerInfoWindowTemplate"
+>
+</app-google-map>
+
+<ng-template #markerInfoWindowTemplate let-selectedMarker>
+  <div class="flex p-2 gap-x-2">
+    <app-button
+      label="Посадити дерево"
+      size="small"
+      (onClick)="catalogRedirection(selectedMarker)"
+    >
+    </app-button>
+  </div>
+</ng-template>

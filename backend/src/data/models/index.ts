@@ -24,6 +24,12 @@ cartModule.hasMany(cartItemModule, {
   as: 'items',
 });
 
+mapMarkerModule.hasMany(productModule, {
+  sourceKey: 'productIds',
+  foreignKey: 'id',
+  as: 'products',
+});
+
 userModule.belongsTo(roleModule, {
   foreignKey: 'roleId',
   as: 'role',

@@ -1,15 +1,15 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { IProduct, IUser } from '../../../common/interfaces';
+import { IProduct } from '../../../common/interfaces';
 import { TableTypeEnum } from '../../../common/enums';
 import { Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ModalService } from '../../../services';
 import { ProductActions } from '../../../store/actions';
-import { BaseProduct, BaseUser, Product, User } from '../../../common/classes';
-import { EditUserFormComponent } from '../../../components/forms';
+import { BaseProduct, Product } from '../../../common/classes';
 import { AddProductComponent } from '../../../components/forms/product/add-product/add-product.component';
 import { ProductSelectors } from '../../../store/selectors';
 import { DeleteProductComponent } from '../../../components/forms/delete/delete-product.component';
+import { EditProductComponent } from '../../../components/forms/product/edit-product/edit-product.component';
 
 @Component({
   selector: 'app-products-page',
@@ -56,26 +56,26 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  updatedSelectedUser(userData: IUser): void {
+  updatedSelectedProduct(productData: IProduct): void {
     const injector: Injector = Injector.create({
       providers: [
         {
-          provide: BaseUser,
-          useValue: new User(
-            userData.id,
-            userData.subId,
-            userData.email,
-            userData.name,
-            userData.role || '',
+          provide: BaseProduct,
+          useValue: new Product(
+            productData.id,
+            productData.name,
+            productData.image,
+            productData.hidden,
+            productData.price,
           ),
         },
       ],
       parent: this.inj,
     });
     this.modalService.openNewModal(
-      EditUserFormComponent,
+      EditProductComponent,
       injector,
-      'Редагувати користувача',
+      'Редагувати продукт',
     );
   }
 

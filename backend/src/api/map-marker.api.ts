@@ -20,7 +20,20 @@ export const initMapMarkerApi = (apiRouter: Router): Router => {
       );
       res.status(checkIsFound(mapMarker)).json(mapMarker);
     } catch (error) {
-      res.status(HttpCode.NOT_FOUND).json({ message: error.message });
+      res.status(HttpCode.NOT_FOUND).json({ message: error?.message });
+    }
+  });
+
+  mapMarkerRouter.get(mapMarkerApiPathEnum.GetProducts, async (_req, res) => {
+    try {
+      const mapMarker = await mapMarkerService.getByIdWithProductsInfo(
+        Number(_req?.query?.id || 0),
+      );
+
+      res.status(checkIsFound(mapMarker)).json(mapMarker);
+    } catch (error) {
+      console.log(error);
+      res.status(HttpCode.NOT_FOUND).json({ message: error?.message });
     }
   });
 
@@ -33,7 +46,7 @@ export const initMapMarkerApi = (apiRouter: Router): Router => {
       res.status(HttpCode.OK).json(createdMapMarker);
     } catch (err) {
       const error = err?.errors?.[0] || 'error';
-      res.status(HttpCode.BAD_REQUEST).json({ message: error.message });
+      res.status(HttpCode.BAD_REQUEST).json({ message: error?.message });
     }
   });
 
@@ -57,10 +70,10 @@ export const initMapMarkerApi = (apiRouter: Router): Router => {
       await mapMarkerService.deleteMapMarker(Number(_req?.params?.id || 0));
       res.status(HttpCode.NO_CONTENT).json('Success');
     } catch (err) {
-      const error = err.errors[0];
+      const error = err?.errors?.[0];
       res
         .status(HttpCode.INTERNAL_SERVER_ERROR)
-        .json({ message: error.message });
+        .json({ message: error?.message });
     }
   });
 

@@ -12,6 +12,7 @@ import {
 } from '../pages';
 import { RoleGuard } from '../common/guards/role.guard';
 import { RouterPathEnum } from '../common/enums';
+import { CatalogPageComponent } from '../pages/catalog-page/catalog-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: RouterPathEnum.Home, pathMatch: 'full' },
@@ -23,7 +24,10 @@ const routes: Routes = [
     path: RouterPathEnum.Profile,
     component: ProfilePageComponent,
   },
-
+  {
+    path: RouterPathEnum.Catalog,
+    component: CatalogPageComponent,
+  },
   {
     path: RouterPathEnum.Admin,
     canActivate: [RoleGuard],

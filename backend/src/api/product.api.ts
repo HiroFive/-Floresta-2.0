@@ -77,7 +77,9 @@ export const initProductApi = (apiRouter: Router): Router => {
       } catch (err) {
         const error = err?.errors?.[0];
 
-        await uploadImageService.deleteUploadedImage(error.instance.image);
+        await uploadImageService.deleteUploadedImage(
+          error?.instance?.image || '',
+        );
         res
           .status(HttpCode.INTERNAL_SERVER_ERROR)
           .json({ message: error.message });

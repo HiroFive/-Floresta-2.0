@@ -4,9 +4,11 @@ import { ProductActions } from '../actions';
 
 type productState = {
   allProducts: Array<IProduct>;
+  productsCatalog: Array<IProduct>;
 };
 export const productInitialState: productState = {
   allProducts: [],
+  productsCatalog: [],
 };
 
 const productActionReducer = createReducer(
@@ -20,7 +22,7 @@ const productActionReducer = createReducer(
 
     return {
       ...state,
-      users: products.map((element) =>
+      allProducts: products.map((element) =>
         element.id !== action.product.id ? element : action.product,
       ),
     };
@@ -52,6 +54,10 @@ const productActionReducer = createReducer(
       ),
     };
   }),
+  on(ProductActions.getCatalogSuccess, (state, action) => ({
+    ...state,
+    productsCatalog: action.productsCatalog,
+  })),
 );
 
 export const productReducer = { product: productActionReducer };

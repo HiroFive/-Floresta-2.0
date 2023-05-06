@@ -6,3 +6,7 @@ export enum RootApiPathEnum {
   Marker = '/map-marker',
   Products = '/products',
 }
+
+export enum ApiSidePathEnum {
+  GetProducts = '/get-products',
+}

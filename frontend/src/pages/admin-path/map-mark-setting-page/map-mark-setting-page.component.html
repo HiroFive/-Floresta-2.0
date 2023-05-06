@@ -1,1 +1,31 @@
-<app-google-map></app-google-map>
+<app-google-map
+  [options]="mapsOptions"
+  [mapType]="mapTypeEnum.Admin"
+  [markerInfoWindowTemplate]="markerInfoWindowTemplate"
+></app-google-map>
+
+<ng-template #markerInfoWindowTemplate let-selectedMarker>
+  <div class="flex p-2 gap-x-2">
+    <app-button
+      [icon]="selectedMarker?.hidden ? 'eye-outline' : 'eye-off-outline'"
+      size="medium"
+      buttonStatus="info"
+      iconStatus="basic"
+      (onClick)="updateMapMarkerVisibility(selectedMarker)"
+    />
+    <app-button
+      icon="edit-2-outline"
+      size="medium"
+      buttonStatus="info"
+      iconStatus="basic"
+      (onClick)="editMarker(selectedMarker)"
+    />
+    <app-button
+      icon="trash-outline"
+      size="medium"
+      buttonStatus="danger"
+      iconStatus="basic"
+      (onClick)="deleteMapMarker(selectedMarker)"
+    />
+  </div>
+</ng-template>

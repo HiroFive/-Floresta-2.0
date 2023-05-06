@@ -7,9 +7,15 @@ export class UploadImageService {
   }
 
   public async deleteUploadedImage(url: string): Promise<void> {
-    const convertedUrl = url?.split('/');
-    const imagePublicId =
-      convertedUrl?.[convertedUrl.length - 1]?.split('.')[0];
-    await cloudinary.uploader.destroy(imagePublicId);
+    try {
+      const convertedUrl = url?.split('/');
+      if (convertedUrl?.length) {
+        const imagePublicId =
+          convertedUrl?.[convertedUrl.length - 1]?.split('.')[0];
+        await cloudinary.uploader.destroy(imagePublicId);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

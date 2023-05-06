@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { ModalService, ProductService } from '../../services';
+import { MapMarketService, ModalService, ProductService } from '../../services';
 import { ProductActions } from '../actions';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -13,6 +13,7 @@ export class ProductEffects {
     private actions$: Actions,
     private readonly productService: ProductService,
     private readonly modalService: ModalService,
+    private readonly mapMarketService: MapMarketService,
   ) {}
 
   getAllProducts$ = createEffect(() =>
@@ -83,6 +84,22 @@ export class ProductEffects {
         this.productService.deleteProductById(id).pipe(
           map(() => ProductActions.deleteProductByIdSuccess({ id })),
           catchError(() => of(ProductActions.deleteProductByIdFailed())),
+        ),
+      ),
+    ),
+  );
+
+  getProductsCatalog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductActions.getCatalog),
+      mergeMap(({ id }) =>
+        this.mapMarketService.getMarkerProducts(id).pipe(
+          map((markerWithProductInfo) =>
+            ProductActions.getCatalogSuccess({
+              productsCatalog: markerWithProductInfo.products,
+            }),
+          ),
+          catchError(() => of(ProductActions.getCatalogFailed())),
         ),
       ),
     ),

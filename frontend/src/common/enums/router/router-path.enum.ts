@@ -5,5 +5,6 @@ export enum RouterPathEnum {
   MapMarks = 'map-marks',
   Users = 'users',
   Products = 'products',
+  Catalog = 'catalog',
   Orders = 'orders',
 }

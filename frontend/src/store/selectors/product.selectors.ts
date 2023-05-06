@@ -1,8 +1,13 @@
 import { createSelector } from '@ngrx/store';
 
-export const selectUserState = (state: any) => state.product;
+export const selectProductState = (state: any) => state.product;
 
 export const getAllProducts = createSelector(
-  selectUserState,
+  selectProductState,
   (state: any) => state?.allProducts,
+);
+
+export const getProductsCatalog = createSelector(
+  selectProductState,
+  (state: any) => state?.productsCatalog,
 );

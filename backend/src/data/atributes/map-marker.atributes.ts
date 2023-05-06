@@ -1,14 +1,21 @@
-import { UserRolesEnum } from '~/common/enums';
+import { ParamsTypeEnum, UserRolesEnum } from '~/common/enums';
+import { productModule } from '~/data/models';
+import { productAttribute } from '~/data/atributes/product.atribute';
 
 export const mapMarkerAttribute = ['id', 'lat', 'lng', 'hidden', 'productIds'];
 
-const getParamsByRole = (roleId: number) => {
+const getParamsByRole = (roleId = UserRolesEnum.Customer) => {
   const paramsByRole: any = {
     attributes: mapMarkerAttribute,
   };
 
   if (roleId === UserRolesEnum.Customer) {
-    paramsByRole.where.hidden = false;
+    return {
+      ...paramsByRole,
+      where: {
+        hidden: false,
+      },
+    };
   }
   return paramsByRole;
 };
@@ -24,8 +31,17 @@ export const getMapMarketParams = (
   switch (type) {
     case 'filter':
       return { ...defaultParams, where: { ...additionalParams } };
-    case 'getByRoleId':
+    case ParamsTypeEnum.GetByRoleId:
       return { ...getParamsByRole(additionalParams?.roleId) };
+    case ParamsTypeEnum.ProductInfo:
+      return {
+        ...defaultParams,
+        include: {
+          model: productModule,
+          attributes: productAttribute,
+          as: 'products',
+        },
+      };
     default:
       return defaultParams;
   }

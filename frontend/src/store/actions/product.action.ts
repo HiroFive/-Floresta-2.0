@@ -10,6 +10,16 @@ export const getAllProductsFailed = createAction(
   '[Product] get Products Failed',
 );
 
+export const getCatalog = createAction(
+  '[Product] get Catalog',
+  props<{ id: number }>(),
+);
+export const getCatalogSuccess = createAction(
+  '[Product] get Catalog Success',
+  props<{ productsCatalog: Array<IProduct> }>(),
+);
+export const getCatalogFailed = createAction('[Product] get Catalog Failed');
+
 export const createProduct = createAction(
   '[Product] create Map Marker',
   props<{ product: any }>(),
@@ -24,11 +34,11 @@ export const createProductFailed = createAction(
 
 export const updateProduct = createAction(
   '[Product] update Product',
-  props<{ id: number; product: IProduct }>(),
+  props<{ id: number; product: any }>(),
 );
 export const updateProductSuccess = createAction(
   '[Product] update Product Success',
-  props<{ product: IProduct }>(),
+  props<{ product: any }>(),
 );
 export const updateProductFailed = createAction(
   '[Product] update Product Failed',

@@ -73,6 +73,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AddProductComponent } from '../components/forms/product/add-product/add-product.component';
 import { DeleteProductComponent } from '../components/forms/delete/delete-product.component';
 import { EditMapMarkerFormComponent } from '../components/forms/map-merker/edit-map-marker-form/edit-map-marker-form.component';
+import { EditProductComponent } from '../components/forms/product/edit-product/edit-product.component';
+import { CatalogPageComponent } from '../pages/catalog-page/catalog-page.component';
+import { CatalogItemComponent } from '../components/catalog-item/catalog-item.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +92,7 @@ import { EditMapMarkerFormComponent } from '../components/forms/map-merker/edit-
     SelectComponent,
     ModalComponent,
     DataTableComponent,
+    CatalogItemComponent,
     //Forms
     EditUserFormComponent,
     AddMapMarkerFormComponent,
@@ -97,6 +101,7 @@ import { EditMapMarkerFormComponent } from '../components/forms/map-merker/edit-
     DeleteProductComponent,
     AddProductComponent,
     EditMapMarkerFormComponent,
+    EditProductComponent,
     // Pages
     HomePageComponent,
     ProfilePageComponent,
@@ -106,6 +111,7 @@ import { EditMapMarkerFormComponent } from '../components/forms/map-merker/edit-
     UsersPageComponent,
     ProductsPageComponent,
     OrdersPageComponent,
+    CatalogPageComponent,
   ],
   imports: [
     BrowserModule,

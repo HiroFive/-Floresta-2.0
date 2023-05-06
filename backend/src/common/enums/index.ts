@@ -5,3 +5,4 @@ export * from './http-code.enum';
 
 export * from './role';
 export * from './api';
+export * from './params-type.enum';

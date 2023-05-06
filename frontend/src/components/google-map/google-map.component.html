@@ -3,7 +3,7 @@
   width="100%"
   [center]="center"
   [options]="options"
-  (mapDblclick)="addMarker($event)"
+  (mapDblclick)="mapType === mapTypeEnum.Admin ? addMarker($event) : null"
 >
   <map-marker
     #someMarker="mapMarker"
@@ -17,28 +17,8 @@
   </map-marker>
 
   <map-info-window>
-    <div class="flex p-2 gap-x-2">
-      <app-button
-        [icon]="selectedMarker?.hidden ? 'eye-outline' : 'eye-off-outline'"
-        size="medium"
-        buttonStatus="info"
-        iconStatus="basic"
-        (onClick)="updateMapMarkerVisibility()"
-      />
-      <app-button
-        icon="edit-2-outline"
-        size="medium"
-        buttonStatus="info"
-        iconStatus="basic"
-        (onClick)="editMarker()"
-      />
-      <app-button
-        icon="trash-outline"
-        size="medium"
-        buttonStatus="danger"
-        iconStatus="basic"
-        (onClick)="deleteMapMarker()"
-      />
-    </div>
+    <ng-container
+      *ngTemplateOutlet="markerInfoWindowTemplate; context: selectedMarker"
+    ></ng-container>
   </map-info-window>
 </google-map>
