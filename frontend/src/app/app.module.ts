@@ -60,22 +60,25 @@ import {
 } from '../components/forms';
 import { FormInputComponent } from '../components/form-input/form-input.component';
 import { CheckboxComponent } from '../components/checkbox/checkbox.component';
-import { DeleteMapMarkerComponent } from '../components/forms/delete';
+import { DeleteMapMarkerComponent } from '../components/delete-dialog';
 import { DataTableComponent } from '../components/data-table/data-table.component';
 import {
   DxBulletModule,
   DxDataGridModule,
   DxTemplateModule,
 } from 'devextreme-angular';
-import { DeleteUserComponent } from '../components/forms/delete/delete-user.component';
+import { DeleteUserComponent } from '../components/delete-dialog/delete-user.component';
 import { SelectComponent } from '../components/select/select.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AddProductComponent } from '../components/forms/product/add-product/add-product.component';
-import { DeleteProductComponent } from '../components/forms/delete/delete-product.component';
+import { DeleteProductComponent } from '../components/delete-dialog/delete-product.component';
 import { EditMapMarkerFormComponent } from '../components/forms/map-merker/edit-map-marker-form/edit-map-marker-form.component';
 import { EditProductComponent } from '../components/forms/product/edit-product/edit-product.component';
 import { CatalogPageComponent } from '../pages/catalog-page/catalog-page.component';
 import { CatalogItemComponent } from '../components/catalog-item/catalog-item.component';
+import { NgOptimizedImage } from '@angular/common';
+import { FeatureSectionComponent } from '../components/feature-section/feature-section.component';
+import { ClearCartItemsWarningComponent } from '../components/info-dialog/clear-cart-items-warning.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +96,7 @@ import { CatalogItemComponent } from '../components/catalog-item/catalog-item.co
     ModalComponent,
     DataTableComponent,
     CatalogItemComponent,
+    FeatureSectionComponent,
     //Forms
     EditUserFormComponent,
     AddMapMarkerFormComponent,
@@ -102,6 +106,7 @@ import { CatalogItemComponent } from '../components/catalog-item/catalog-item.co
     AddProductComponent,
     EditMapMarkerFormComponent,
     EditProductComponent,
+    ClearCartItemsWarningComponent,
     // Pages
     HomePageComponent,
     ProfilePageComponent,
@@ -166,8 +171,9 @@ import { CatalogItemComponent } from '../components/catalog-item/catalog-item.co
       trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
     }),
+    NgOptimizedImage,
   ],
-  providers: [],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

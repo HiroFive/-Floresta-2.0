@@ -32,7 +32,6 @@ export const initMapMarkerApi = (apiRouter: Router): Router => {
 
       res.status(checkIsFound(mapMarker)).json(mapMarker);
     } catch (error) {
-      console.log(error);
       res.status(HttpCode.NOT_FOUND).json({ message: error?.message });
     }
   });

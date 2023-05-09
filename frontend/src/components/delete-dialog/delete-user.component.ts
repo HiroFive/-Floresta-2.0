@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BaseUser } from '../../../common/classes';
-import { UserActions } from '../../../store/actions';
-import { ModalService } from '../../../services';
+import { BaseUser } from '../../common/classes';
+import { UserActions } from '../../store/actions';
+import { ModalService } from '../../services';
 
 @Component({
-  selector: 'app-delete-user',
+  selector: 'app-delete-dialog-user',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })

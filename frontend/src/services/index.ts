@@ -5,3 +5,5 @@ export * from './local-storage.service';
 export * from './map-market.service';
 export * from './modal-service.service';
 export * from './product.service';
+export * from './spinner.service';
+export * from './cart-item.service';

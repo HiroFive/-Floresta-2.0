@@ -20,8 +20,9 @@ export class ButtonComponent {
   @Input() size: 'giant' | 'large' | 'medium' | 'small' | 'tiny' = 'medium';
   @Input() buttonStatus: 'primary' | 'success' | 'info' | 'warning' | 'danger' =
     'primary';
-  @Input() isGhost: boolean = false;
+  @Input() isGhost = false;
   @Input() disabled = false;
+  @Input() iconOnStart = true;
   @Output() onClick = new EventEmitter();
 
   onHandleClick(event: Event) {

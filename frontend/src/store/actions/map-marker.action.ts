@@ -26,15 +26,15 @@ export const createMapMarkerFailed = createAction(
 );
 
 export const deleteMapMarker = createAction(
-  '[Map Marker] delete Map Marker',
+  '[Map Marker] delete-dialog Map Marker',
   props<{ id: number }>(),
 );
 export const deleteMapMarkerSuccess = createAction(
-  '[Map Marker] delete Map Marker Success',
+  '[Map Marker] delete-dialog Map Marker Success',
   props<{ id: number }>(),
 );
 export const deleteMapMarkerFailed = createAction(
-  '[Map Marker] delete Map Marker Failed',
+  '[Map Marker] delete-dialog Map Marker Failed',
 );
 
 export const updateMapMarkerVisibility = createAction(

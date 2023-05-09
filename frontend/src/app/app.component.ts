@@ -3,6 +3,7 @@ import { combineLatest, Subject, takeUntil } from 'rxjs';
 import {
   AuthWrapperService,
   LocalStorageService,
+  SpinnerService,
   UserService,
 } from '../services';
 import { Store } from '@ngrx/store';
@@ -23,6 +24,7 @@ export class AppComponent implements OnDestroy, OnInit {
     private readonly store: Store<any>,
     private readonly userService: UserService,
     private readonly localStorageService: LocalStorageService,
+    public spinnerService: SpinnerService,
   ) {}
 
   ngOnInit() {

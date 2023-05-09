@@ -1,0 +1,239 @@
+<div class="form-container">
+  <form [formGroup]="foodFormGroup" novalidate>
+    <section class="food-form-body">
+      <section class="image-uploader-container">
+        <div *ngIf="!showDropZone" class="relative">
+          <img src="{{ foodInfo.image }}" alt="food-image" class="food-preview-img" />
+          <span class="change-image-btn">
+            <app-button [size]="'small'" (onClick)="handlerShowDropZone()">
+              <span class="whitespace-nowrap"> Change image </span>
+            </app-button>
+          </span>
+        </div>
+        <div *ngIf="showDropZone">
+          <ngx-dropzone
+            (change)="onSelect($event)"
+            [multiple]="false"
+            [accept]="'image/*'"
+            [expandable]="true"
+          >
+            <ngx-dropzone-label class="flex flex-col"
+              >Upload food image
+              <span>
+                <app-button (click)="handlerShowDropZone()" [size]="'small'">
+                  <span>Cancel</span>
+                </app-button>
+              </span>
+            </ngx-dropzone-label>
+            <ngx-dropzone-image-preview
+              ngProjectAs="ngx-dropzone-preview"
+              *ngFor="let f of files"
+              [file]="f"
+              [removable]="true"
+              (removed)="onRemove(f)"
+            >
+              <ngx-dropzone-label class="text-white max-w-10"
+                >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+              >
+            </ngx-dropzone-image-preview>
+          </ngx-dropzone>
+        </div>
+      </section>
+
+      <div class="input-container">
+        <app-form-input
+          type="text"
+          placeholder="Dish name"
+          formControlName="name"
+          label="Name"
+        >
+        </app-form-input>
+
+        <div
+          *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+          class="error-container"
+        >
+          <p *ngIf="name?.errors?.required">Name is required.</p>
+          <p *ngIf="name?.errors?.minlength">
+            Name must be at least 3 characters long.
+          </p>
+        </div>
+      </div>
+      <div class="description-container">
+        <label class="input-label text-gray-600 font-semibold"
+          >Description <abbr title="required">*</abbr></label
+        >
+        <textarea
+          required=""
+          name="description"
+          formControlName="description"
+          class="
+            textarea
+            min-h-[100px]
+            max-h-[300px]
+            bg-grey-lighter
+            text-grey-darker
+            border-grey-400
+          "
+          placeholder="Enter description"
+          spellcheck="false"
+          maxlength="300"
+        ></textarea>
+        <p class="text-xs text-gray-400 text-left my-3">
+          You inserted {{ descriptionTextLength }} characters, max 300
+          characters
+        </p>
+        <div
+          *ngIf="
+            description?.invalid && (description?.dirty || description?.touched)
+          "
+          class="error-container"
+        >
+          <p *ngIf="description?.errors?.required">Description is required.</p>
+          <p *ngIf="description?.errors?.minlength">
+            Description must be at least 60 characters long.
+          </p>
+        </div>
+      </div>
+      <app-checkbox formControlName="hidden" label="Hidden">
+      </app-checkbox>
+
+      <div class="food-category-container">
+        <label class="input-label text-gray-600 font-semibold w-full"
+          >Category<abbr title="required">*</abbr
+          ><select
+            name="categoryId"
+            formControlName="categoryId"
+            class="food-category-select bg-grey-lighter text-grey-darker"
+          >
+            <option *ngFor="let category of categories" [ngValue]="category.id">
+              {{ category.title }}
+            </option>
+          </select>
+        </label>
+      </div>
+      <hr />
+      <ng-container formArrayName="portions">
+        <div class="mb-2 mt-0.5">
+          <div class="portions-container">
+            <p>Portions<abbr title="required">*</abbr></p>
+            <app-button
+              title="Add position"
+              class="mt-1"
+              (onClick)="addPortion()"
+              [size]="'small'"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </app-button>
+          </div>
+          <section class="portions-grid">
+            <div
+              class="portion-container"
+              *ngFor="let portionsForm of portions.controls; let i = index"
+            >
+              <ng-container [formGroupName]="i">
+                <div class="portion-input-container">
+                  <app-form-input
+                    class="text-xs"
+                    type="number"
+                    placeholder="Price"
+                    formControlName="price"
+                    label="Price"
+                  >
+                  </app-form-input>
+                  <div
+                    *ngIf="
+                      portionsForm.get('price')?.invalid &&
+                      (portionsForm.get('price')?.dirty ||
+                        portionsForm.get('price')?.touched)
+                    "
+                    class="error-container"
+                  >
+                    <p *ngIf="portionsForm.get('price')?.errors?.required">
+                      Price is required.
+                    </p>
+                    <p *ngIf="portionsForm.get('price')?.errors?.pattern">
+                      Price must be number.
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-1 space-y-1 w-full text-xs">
+                  <app-form-input
+                    class="text-xs"
+                    type="number"
+                    placeholder="Weight"
+                    formControlName="weight"
+                    label="Weight"
+                  >
+                  </app-form-input>
+                  <div
+                    *ngIf="
+                      portionsForm.get('weight')?.invalid &&
+                      (portionsForm.get('weight')?.dirty ||
+                        portionsForm.get('weight')?.touched)
+                    "
+                    class="error-container"
+                  >
+                    <p *ngIf="portionsForm.get('weight')?.errors?.required">
+                      Weight is required.
+                    </p>
+                    <p *ngIf="portionsForm.get('weight')?.errors?.pattern">
+                      Weight must be number.
+                    </p>
+                  </div>
+                </div>
+                <app-button
+                  [class]="'min-w-full justify-center flex'"
+                  [color]="'red'"
+                  [size]="'small'"
+                  (onClick)="deletePortion(i)"
+                  ><p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg></p
+                ></app-button>
+              </ng-container>
+            </div>
+          </section>
+        </div>
+      </ng-container>
+    </section>
+    <p *ngIf="requestErrorMessage.massage" class="request-error-message">
+      {{ requestErrorMessage.massage }} <abbr title="Required field">*</abbr>
+    </p>
+    <div class="button-container">
+      <span>
+        <app-button
+          [color]="'green'"
+          [size]="'medium'"
+          (onClick)="submit()"
+          [disabled]="foodFormGroup.invalid || submitted"
+          ><p>Add</p></app-button
+        >
+      </span>
+    </div>
+  </form>
+</div>

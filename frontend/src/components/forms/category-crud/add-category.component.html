@@ -1,0 +1,43 @@
+<div class="form-container">
+  <form [formGroup]="categoryFormGroup" novalidate>
+    <div class="form-body">
+      <div class="input-container">
+        <app-form-input
+          placeholder="Category title"
+          formControlName="title"
+          label="Title"
+        >
+        </app-form-input>
+        <div
+          *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+          class="error-container"
+        >
+          <p *ngIf="title?.errors?.required">Title is required.</p>
+          <p *ngIf="title?.errors?.minlength">
+            Title must be at least 3 characters long.
+          </p>
+          <p *ngIf="title?.errors?.maxlength">
+            Title must be no more than 20 characters long.
+          </p>
+        </div>
+      </div>
+      <div class="flex justify-start items-center">
+        <app-checkbox formControlName="hidden" label="Hidden"> </app-checkbox>
+      </div>
+    </div>
+    <p *ngIf="requestErrorMessage.massage" class="request-error-message">
+      {{ requestErrorMessage.massage }} <abbr title="Required field">*</abbr>
+    </p>
+    <div class="button-container">
+      <span>
+        <app-button
+          [color]="'green'"
+          [size]="'medium'"
+          [disabled]="categoryFormGroup.invalid || submitted"
+          (onClick)="submit()"
+          ><p>Add</p></app-button
+        >
+      </span>
+    </div>
+  </form>
+</div>

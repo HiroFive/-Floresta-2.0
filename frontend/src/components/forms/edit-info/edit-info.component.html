@@ -1,0 +1,79 @@
+<div class="block">
+  <form [formGroup]="infoFormGroup" novalidate>
+    <div class="md:flex flex-row md:space-x-4 w-full text-xs pt-2 px-4">
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-form-input
+          placeholder="Phone number"
+          formControlName="contacts"
+          label="Phone number"
+        >
+        </app-form-input>
+        <div
+          *ngIf="contacts?.invalid && (contacts?.dirty || contacts?.touched)"
+          class="text-red-500 text-xs"
+        >
+          <p *ngIf="contacts?.errors?.required">Phone number is required.</p>
+          <p *ngIf="contacts?.errors?.pattern">
+            Not available number of required fields.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-form-input
+          placeholder="Wifi password"
+          formControlName="wifiPassword"
+          label="Wifi password"
+        >
+        </app-form-input>
+        <div
+          *ngIf="
+            wifiPassword?.invalid &&
+            (wifiPassword?.dirty || wifiPassword?.touched)
+          "
+          class="text-red-500 text-xs"
+        >
+          <p *ngIf="wifiPassword?.errors?.required">
+            WifiPassword is required.
+          </p>
+          <p *ngIf="wifiPassword?.errors?.minlength">
+            WifiPassword must be at least 8 characters long.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="md:flex flex-row md:space-x-4 w-full text-xs pb-2 px-4">
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-form-input
+          placeholder="Address"
+          formControlName="address"
+          label="Address"
+        >
+        </app-form-input>
+        <div
+          *ngIf="address?.invalid && (address?.dirty || address?.touched)"
+          class="text-red-500 text-xs"
+        >
+          <p *ngIf="address?.errors?.required">Address is required.</p>
+          <p *ngIf="address?.errors?.minlength">
+            Address must be at least 8 characters long.
+          </p>
+        </div>
+      </div>
+    </div>
+    <p *ngIf="requestErrorMessage.massage" class="request-error-message">
+      {{ requestErrorMessage.massage }} <abbr title="Required field">*</abbr>
+    </p>
+    <div class="m-3 text-right md:space-x-3 flex flex-col-reverse">
+      <span>
+        <app-button
+          [color]="'green'"
+          [size]="'medium'"
+          (click)="submit()"
+          [disabled]="infoFormGroup.invalid || submitted"
+          ><p>Save</p></app-button
+        >
+      </span>
+    </div>
+  </form>
+</div>

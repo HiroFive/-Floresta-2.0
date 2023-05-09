@@ -1,32 +1,56 @@
-<div class="max-w-2xl mx-auto">
-  <div
-    class="bg-white shadow-md rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700"
-  >
-    <a href="#">
-      <img
-        class="rounded-t-lg p-8"
-        src="https://i.ibb.co/KqdgGY4/cosmetic-packaging-mockup-1150-40280.webp"
-        alt="product image"
-      />
-    </a>
-    <div class="px-5 pb-5">
-      <a href="#">
-        <h3
-          class="text-gray-900 font-semibold text-xl tracking-tight dark:text-white"
+<div
+  class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
+>
+  <img
+    class="w-full rounded-lg sm:w-40"
+    [src]="product.image"
+    alt="product image"
+  />
+  <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+    <div class="mt-5 sm:mt-0">
+      <h2 class="text-lg font-bold text-gray-900">{{ product.name }}</h2>
+      <p class="text-sm">{{ product.price }} грн.</p>
+    </div>
+    <div
+      class="mt-4 flex justify-between flex-col sm:space-y-6 sm:mt-0 sm:space-x-6"
+    >
+      <div class="flex items-center justify-end border-gray-100">
+        <span
+          class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+          (click)="changeQuantityDown()"
         >
-          Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-        </h3>
-      </a>
-      <div class="flex items-center justify-between">
-        <span class="text-3xl font-bold text-gray-900 dark:text-white"
-          >$599</span
+          -
+        </span>
+        <input
+          class="h-8 w-8 border bg-white text-center text-xs outline-none"
+          [formControl]="quantityControl"
+          type="number"
+          min="1"
+        />
+        <span
+          class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+          (click)="changeQuantityUp()"
         >
-        <a
-          href="#"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >Add to cart</a
-        >
+          +
+        </span>
       </div>
+      <app-button
+        *ngIf="showAddButton"
+        icon="arrow-ios-forward-outline"
+        iconStatus="basic"
+        size="medium"
+        label="Додати"
+        (onClick)="addProductToCart()"
+      ></app-button>
+
+      <app-button
+        *ngIf="showRemoveButton"
+        icon="close-outline"
+        iconStatus="basic"
+        size="medium"
+        label="Видалити"
+        (onClick)="deleteCartItem()"
+      ></app-button>
     </div>
   </div>
 </div>

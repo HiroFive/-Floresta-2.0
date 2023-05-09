@@ -7,7 +7,7 @@ import { IUser } from '../../../common/interfaces';
 import { TableTypeEnum } from '../../../common/enums';
 import { BaseUser, User } from '../../../common/classes';
 import { ModalService } from '../../../services';
-import { DeleteUserComponent } from '../../../components/forms/delete/delete-user.component';
+import { DeleteUserComponent } from '../../../components/delete-dialog/delete-user.component';
 import { EditUserFormComponent } from '../../../components/forms';
 
 @Component({

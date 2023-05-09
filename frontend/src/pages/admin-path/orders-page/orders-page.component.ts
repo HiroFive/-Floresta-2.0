@@ -7,7 +7,7 @@ import { ModalService } from '../../../services';
 import { CartActions } from '../../../store/actions';
 import { BaseUser, User } from '../../../common/classes';
 import { EditUserFormComponent } from '../../../components/forms';
-import { DeleteUserComponent } from '../../../components/forms/delete/delete-user.component';
+import { DeleteUserComponent } from '../../../components/delete-dialog/delete-user.component';
 
 @Component({
   selector: 'app-products-page',

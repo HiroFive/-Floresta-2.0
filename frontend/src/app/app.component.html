@@ -1,4 +1,18 @@
 <!--<div class="nb-theme-corporateTheme"></div>-->
 <nb-layout>
-  <nb-layout-column> <router-outlet></router-outlet></nb-layout-column>
+  <nb-layout-column>
+    <ng-container *ngIf="spinnerService.visibility | async">
+      <section
+        class="absolute flex justify-center items-center z-50 w-full h-full bg-gray-500 bg-opacity-50"
+      >
+        <div class="lds-ellipsis">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </section>
+    </ng-container>
+    <router-outlet></router-outlet
+  ></nb-layout-column>
 </nb-layout>

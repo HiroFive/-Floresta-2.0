@@ -57,13 +57,13 @@ export const updateProductVisibilityFailed = createAction(
 );
 
 export const deleteProductById = createAction(
-  '[Product] delete Product',
+  '[Product] delete-dialog Product',
   props<{ id: number }>(),
 );
 export const deleteProductByIdSuccess = createAction(
-  '[Product] delete Product Success',
+  '[Product] delete-dialog Product Success',
   props<{ id: number }>(),
 );
 export const deleteProductByIdFailed = createAction(
-  '[Product] delete Product Failed',
+  '[Product] delete-dialog Product Failed',
 );

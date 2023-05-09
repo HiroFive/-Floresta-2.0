@@ -28,11 +28,13 @@ export const getUserRolesUsersFailed = createAction(
 );
 
 export const deleteUserById = createAction(
-  '[User] delete User',
+  '[User] delete-dialog User',
   props<{ id: string }>(),
 );
 export const deleteUserByIdSuccess = createAction(
-  '[User] delete User Success',
+  '[User] delete-dialog User Success',
   props<{ id: string }>(),
 );
-export const deleteUserByIdFailed = createAction('[User] delete User Failed');
+export const deleteUserByIdFailed = createAction(
+  '[User] delete-dialog User Failed',
+);

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BaseProduct } from '../../../common/classes';
-import { ProductActions } from '../../../store/actions';
-import { ModalService } from '../../../services';
+import { BaseProduct } from '../../common/classes';
+import { ProductActions } from '../../store/actions';
+import { ModalService } from '../../services';
 
 @Component({
-  selector: 'app-delete-product',
+  selector: 'app-delete-dialog-product',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss'],
 })

@@ -1,4 +1,6 @@
+import { ICartItem } from './cart-item.interface';
+
 export interface ICart {
   id?: number;
-  items: Array<any>;
+  items: Array<ICartItem>;
 }

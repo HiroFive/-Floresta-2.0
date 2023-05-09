@@ -9,4 +9,7 @@ export enum RootApiPathEnum {
 
 export enum ApiSidePathEnum {
   GetProducts = '/get-products',
+  CreateCartItem = '/add-cart-item',
+  UpdateCartItem = '/update-cart-item',
+  DeleteCartItem = '/delete-cart-item',
 }

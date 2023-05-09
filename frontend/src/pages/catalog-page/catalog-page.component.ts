@@ -1,6 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ProductActions } from '../../store/actions';
+import { CartActions, ProductActions } from '../../store/actions';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest, Subject, take, takeUntil } from 'rxjs';
+import { CartSelectors, ProductSelectors } from '../../store/selectors';
+import { ICart, IProduct } from '../../common/interfaces';
+import { RouterPathEnum } from '../../common/enums';
+import { LocalStorageService, ModalService } from '../../services';
+import {
+  BaseCartItemsForDelete,
+  CartItemsForDelete,
+} from '../../common/classes';
+import { ClearCartItemsWarningComponent } from '../../components/info-dialog/clear-cart-items-warning.component';
+import { USER_PROFILE } from '../../common/local-storage-keys';
 
 @Component({
   selector: 'app-catalog-page',
@@ -8,9 +20,101 @@ import { ProductActions } from '../../store/actions';
   styleUrls: ['./catalog-page.component.scss'],
 })
 export class CatalogPageComponent implements OnInit, OnDestroy {
-  constructor(private readonly store: Store<any>) {}
+  modalState: { content: any; open: boolean; injector: any };
+  productsCatalog: Array<IProduct>;
+  idsForCartItemDelete: Array<number>;
+  cart: ICart;
+
+  private readonly unsubscribe$ = new Subject();
+  constructor(
+    private readonly store: Store<any>,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router,
+    private readonly modalService: ModalService,
+    private readonly localStorageService: LocalStorageService,
+    private inj: Injector,
+  ) {}
   ngOnInit(): void {
-    this.store.dispatch(ProductActions.getCatalog({ id: 21 }));
+    const userId = JSON.parse(
+      this.localStorageService.getItem(USER_PROFILE) || {},
+    )?.id;
+    this.store.dispatch(CartActions.getCartByUserId({ id: userId }));
+
+    this.activatedRoute.queryParams.pipe(take(1)).subscribe(({ id }) => {
+      if (id) {
+        this.store.dispatch(ProductActions.getCatalog({ id }));
+      }
+    });
+
+    combineLatest([
+      this.store.select(ProductSelectors.getProductsCatalog),
+      this.store.select(CartSelectors.getCart),
+    ])
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(([productsCatalog, cart]) => {
+        this.cart = cart;
+        this.productsCatalog = productsCatalog;
+
+        if (cart?.items?.length) {
+          this.findIdsForCartItemsDelete();
+
+          if (this.isShowingWarningDialog) {
+            this.showWarningDialog();
+          }
+        }
+      });
+
+    this.modalService.modalSource.subscribe(
+      (value: any) => (this.modalState = value),
+    );
   }
-  ngOnDestroy(): void {}
+
+  showWarningDialog(): void {
+    const injector: Injector = Injector.create({
+      providers: [
+        {
+          provide: BaseCartItemsForDelete,
+          useValue: new CartItemsForDelete(this.idsForCartItemDelete),
+        },
+      ],
+      parent: this.inj,
+    });
+
+    this.modalService.openNewModal(ClearCartItemsWarningComponent, injector);
+  }
+
+  findIdsForCartItemsDelete(): void {
+    const cartItems = this.cart.items;
+    this.idsForCartItemDelete =
+      cartItems
+        ?.filter(
+          (item) =>
+            !this.productsCatalog?.some((obj) => obj.id === item.productId),
+        )
+        .map((item) => item.id) || [];
+  }
+
+  get isShowingWarningDialog(): boolean {
+    return !!this.cart?.items?.length && !!this.productsCatalog?.length
+      ? !!this.idsForCartItemDelete?.length
+      : false;
+  }
+
+  get productsSubTotal(): number {
+    return (
+      this.cart?.items?.reduce(
+        (sum, product) => sum + product.price * product.quantity,
+        0,
+      ) || 0
+    );
+  }
+
+  back(): void {
+    this.router.navigate([RouterPathEnum.Home]);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.complete();
+    this.unsubscribe$.unsubscribe();
+  }
 }

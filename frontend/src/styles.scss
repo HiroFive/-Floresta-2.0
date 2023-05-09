@@ -15,8 +15,8 @@ body {
 }
 
 body {
+  @apply bg-gray-100;
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   box-sizing: border-box;
-  background-color: $shightWhite;
 }

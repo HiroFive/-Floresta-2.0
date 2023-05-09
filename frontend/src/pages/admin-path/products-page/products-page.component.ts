@@ -8,7 +8,7 @@ import { ProductActions } from '../../../store/actions';
 import { BaseProduct, Product } from '../../../common/classes';
 import { AddProductComponent } from '../../../components/forms/product/add-product/add-product.component';
 import { ProductSelectors } from '../../../store/selectors';
-import { DeleteProductComponent } from '../../../components/forms/delete/delete-product.component';
+import { DeleteProductComponent } from '../../../components/delete-dialog/delete-product.component';
 import { EditProductComponent } from '../../../components/forms/product/edit-product/edit-product.component';
 
 @Component({

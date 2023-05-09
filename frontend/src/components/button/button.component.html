@@ -1,7 +1,8 @@
 <button
   nbButton
-  class="floresta-button"
   type="button"
+  class="floresta-button"
+  [ngClass]="{ 'flex-row-reverse': !iconOnStart }"
   [hero]="hero"
   [status]="buttonStatus"
   [ghost]="isGhost"

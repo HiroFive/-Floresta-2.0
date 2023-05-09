@@ -6,7 +6,7 @@ import { ProfileSelectors } from '../../../store/selectors';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { BaseMarker, Marker } from '../../../common/classes';
 import { EditMapMarkerFormComponent } from '../../../components/forms/map-merker/edit-map-marker-form/edit-map-marker-form.component';
-import { DeleteMapMarkerComponent } from '../../../components/forms/delete';
+import { DeleteMapMarkerComponent } from '../../../components/delete-dialog';
 import { ModalService } from '../../../services';
 import { MapTypeEnum } from '../../../common/enums/map';
 
