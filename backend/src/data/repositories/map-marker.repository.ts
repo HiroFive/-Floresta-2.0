@@ -1,11 +1,11 @@
 import { mapMarkerModule } from '../models';
 import { getMapMarketParams } from '../atributes';
-import { IMapMarker } from '~/common/interfaces';
+import { IMapMarkerDto } from '~/common/interfaces';
 import { ParamsTypeEnum } from '~/common/enums';
 import { QueryTypes } from 'sequelize';
 
 export class MapMarkerRepository {
-  public getById(id: number): Promise<IMapMarker | null> {
+  public getById(id: number): Promise<IMapMarkerDto | null> {
     return mapMarkerModule.findByPk(id, getMapMarketParams());
   }
 
@@ -21,17 +21,20 @@ export class MapMarkerRepository {
     );
   }
 
-  public getAllMarkers(roleId: number): Promise<Array<IMapMarker> | null> {
+  public getAllMarkers(roleId: number): Promise<Array<IMapMarkerDto> | null> {
     return mapMarkerModule.findAll(
       getMapMarketParams(ParamsTypeEnum.GetByRoleId, { roleId: roleId }),
     );
   }
 
-  public createMapMarker(newMapMarker: IMapMarker): Promise<IMapMarker> {
+  public createMapMarker(newMapMarker: IMapMarkerDto): Promise<IMapMarkerDto> {
     return mapMarkerModule.create(newMapMarker as any);
   }
 
-  public async updateById(id: number, data: IMapMarker): Promise<IMapMarker[]> {
+  public async updateById(
+    id: number,
+    data: IMapMarkerDto,
+  ): Promise<IMapMarkerDto[]> {
     const result = await mapMarkerModule.update(data, {
       where: { id },
       returning: true,

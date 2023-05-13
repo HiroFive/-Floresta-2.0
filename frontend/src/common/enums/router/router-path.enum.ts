@@ -7,4 +7,7 @@ export enum RouterPathEnum {
   Products = 'products',
   Catalog = 'catalog',
   Orders = 'orders',
+  Checkout = 'checkout',
+  ThankYou = 'thank-you',
+  Logout = 'logout',
 }

@@ -1,5 +1,10 @@
+export interface IPaymentDetailsDto {
+  id?: number;
+  orderId: number;
+  provider: string;
+}
+
 export interface IPaymentDetails {
   id: number;
-  orderId: number;
   provider: string;
 }

@@ -1,18 +1,21 @@
 import { userRepository } from '../data/repositories';
-import { IUser } from '~/common/interfaces';
+import { IUserDto } from '~/common/interfaces';
 
 export class UserService {
-  public getAllUsers(): Promise<IUser[]> {
+  public getAllUsers(): Promise<IUserDto[]> {
     return userRepository.getAll();
   }
-  public getUserBySubId(subId: string): Promise<Array<IUser>> {
+  public getUserBySubId(subId: string): Promise<Array<IUserDto>> {
     return userRepository.getById(subId);
   }
-  public createNewUser(user: IUser): Promise<IUser> {
+  public createNewUser(user: IUserDto): Promise<IUserDto> {
     return userRepository.createUser(user);
   }
 
-  public async updateUser(id: string, data: IUser): Promise<Array<IUser>> {
+  public async updateUser(
+    id: string,
+    data: IUserDto,
+  ): Promise<Array<IUserDto>> {
     return userRepository.updateById(id, data);
   }
 

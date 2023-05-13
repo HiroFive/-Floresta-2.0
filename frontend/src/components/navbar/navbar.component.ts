@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { INavigationItem } from '../../common/interfaces';
-import { AuthWrapperService } from '../../services';
+import { AuthWrapperService, LocalStorageService } from '../../services';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { USER_PROFILE } from '../../common/local-storage-keys';
+import { RouterPathEnum, UserRolesEnum } from '../../common/enums';
 
 @Component({
   selector: 'app-navbar',
@@ -31,11 +33,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     },
   ];
 
+  contextMenuList: Array<any>;
+
   private readonly unsubscribe$ = new Subject();
 
   constructor(
     public authWrapperService: AuthWrapperService,
     private readonly router: Router,
+    private readonly localStorageService: LocalStorageService,
   ) {}
 
   ngOnInit() {
@@ -43,15 +48,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isAuthenticated) => {
         this.isUserAuthenticated = isAuthenticated;
+        this.setContextMenuList();
       });
   }
 
-  profileButtonClick(): void {
-    this.router.navigate(['profile']);
-  }
+  setContextMenuList(): void {
+    const userRole = JSON.parse(
+      this.localStorageService.getItem(USER_PROFILE) || {},
+    )?.role;
 
-  adminPanelButtonClick(): void {
-    this.router.navigate(['admin']);
+    this.contextMenuList =
+      userRole === UserRolesEnum.Admin
+        ? [
+            { title: 'Мій профіль', link: RouterPathEnum.Profile },
+            { title: 'Адмін панель', link: RouterPathEnum.Admin },
+            { title: 'Вихід', link: RouterPathEnum.Logout },
+          ]
+        : [
+            { title: 'Мій профіль', link: RouterPathEnum.Profile },
+            { title: 'Вихід', link: RouterPathEnum.Logout },
+          ];
   }
 
   ngOnDestroy() {

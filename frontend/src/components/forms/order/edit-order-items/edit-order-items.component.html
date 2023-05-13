@@ -1,0 +1,8 @@
+<div class="form-container">
+  <section class="food-form-body">
+    <ng-container *ngFor="let product of productsCatalog">
+      <app-order-items [product]="product" [orderId]="orderId">
+      </app-order-items>
+    </ng-container>
+  </section>
+</div>

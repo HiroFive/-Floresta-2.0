@@ -1,4 +1,4 @@
-export const paymentDetailsAttribute = ['id', 'name'];
+export const paymentDetailsAttribute = ['id', 'orderId', 'provider'];
 
 export const getPaymentDetailsParams = (type = '', additionalParams = {}) => {
   const defaultParams = {

@@ -1,0 +1,97 @@
+<section
+  class="flex justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-8"
+>
+  <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 w-full max-w-screen-lg">
+    <div class="lg:col-span-2">
+      <h2 class="text-sm font-medium">Спосіб оплати</h2>
+      <div class="bg-white rounded mt-4 shadow-lg">
+        <div class="flex items-center px-8 py-5">
+          <input
+            class="appearance-none w-4 h-4 rounded-full border-2 border-white ring-2 ring-blue-600 ring-opacity-100 bg-blue-600"
+            type="radio"
+          />
+          <label class="text-sm font-medium ml-4">Кредитна карта</label>
+        </div>
+        <form
+          [formGroup]="form"
+          novalidate
+          class="grid grid-cols-2 gap-4 px-8 pb-8"
+        >
+          <div class="col-span-2">
+            <app-form-input
+              type="text"
+              placeholder="0000 0000 0000 0000"
+              formControlName="creditCard"
+              label="Номер картки"
+            >
+            </app-form-input>
+          </div>
+          <div class="">
+            <app-form-input
+              type="text"
+              placeholder="00/00"
+              formControlName="expirationDate"
+              label="Термін дії"
+            >
+            </app-form-input>
+          </div>
+          <div class="">
+            <app-form-input
+              type="text"
+              placeholder="000"
+              formControlName="cvc"
+              label="СVV"
+            >
+            </app-form-input>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div>
+      <h2 class="text-sm font-medium">Підсумок покупки</h2>
+      <div class="bg-white rounded mt-4 shadow-lg py-6">
+        <div class="px-8"></div>
+        <div class="px-8">
+          <div class="flex items-end justify-between">
+            <span class="text-sm font-semibold">Сума</span>
+            <span class="text-sm text-gray-500 mb-px"
+              >{{ orderSubtotal }} грн.</span
+            >
+          </div>
+          <div class="flex items-end justify-between">
+            <span class="text-sm font-semibold">Податок</span>
+            <span class="text-sm text-gray-500 mb-px">10%</span>
+          </div>
+        </div>
+        <div class="px-8 mt-4 border-t pt-4">
+          <div class="flex items-end justify-between">
+            <span class="font-semibold">До оплати</span>
+            <span class="font-semibold">{{ orderTotal }} грн.</span>
+          </div>
+        </div>
+        <div class="flex items-center px-8 mt-8">
+          <app-checkbox
+            label="Посадити дерево анонімно"
+            [formControl]="anonymousControl"
+          >
+          </app-checkbox>
+        </div>
+        <div class="flex flex-col px-8 pt-4">
+          <app-button
+            class="flex items-center justify-center text-sm font-medium w-full h-10 rounded"
+            size="medium"
+            label="Оплатити"
+            (onClick)="onSubmit()"
+          ></app-button>
+
+          <button
+            class="text-xs text-blue-500 mt-3 underline"
+            (click)="navigateToCatalog()"
+          >
+            Назад
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

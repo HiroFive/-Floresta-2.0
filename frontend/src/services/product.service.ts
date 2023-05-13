@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IProduct } from '../common/interfaces';
-import { RootApiPathEnum } from '../common/enums';
+import { ApiSidePathEnum, RootApiPathEnum } from '../common/enums';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class ProductService {
 
   public getAllProducts(): Observable<Array<IProduct>> {
     return this.http.get<Array<IProduct>>(
-      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Products}/all`,
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Products}${ApiSidePathEnum.All}`,
     );
   }
 
@@ -35,7 +35,7 @@ export class ProductService {
   ): Observable<IProduct> {
     return this.http.patch<IProduct>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Products}/${id}`,
-      { hidden: newVisibility },
+      JSON.stringify({ data: { hidden: newVisibility } }),
     );
   }
 

@@ -1,0 +1,15 @@
+<div
+  class="justify-between mb-6 rounded-lg bg-white p-4 shadow-md sm:flex sm:justify-start md:w-80"
+>
+  <img
+    class="w-full rounded-lg sm:w-24"
+    [src]="product.image"
+    alt="product image"
+  />
+  <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+    <div class="mt-5 sm:mt-0">
+      <h2 class="text-lg font-bold text-gray-900">{{ product.name }}</h2>
+      <p class="text-sm">{{ product.quantity }}шт. {{ product.price }} грн.</p>
+    </div>
+  </div>
+</div>

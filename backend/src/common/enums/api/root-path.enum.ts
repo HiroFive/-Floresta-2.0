@@ -4,4 +4,5 @@ export enum rootApiPathEnum {
   Cart = '/cart',
   MapMarker = '/map-marker',
   Products = '/products',
+  Order = '/order',
 }

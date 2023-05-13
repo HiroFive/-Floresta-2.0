@@ -1,0 +1,23 @@
+<div class="form-container">
+  <form [formGroup]="orderFormGroup" novalidate>
+    <section class="food-form-body">
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-select
+          placeholder="Статус"
+          formControlName="status"
+          label="Статус"
+          [selectOptions]="statsOptions"
+        >
+        </app-select>
+      </div>
+    </section>
+
+    <div class="button-container">
+      <app-button
+        label="Оновити"
+        [size]="'medium'"
+        (onClick)="submit()"
+      ></app-button>
+    </div>
+  </form>
+</div>

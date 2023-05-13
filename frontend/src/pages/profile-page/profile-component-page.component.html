@@ -1,1 +1,23 @@
-<p>profile works!</p>
+<app-navbar></app-navbar>
+
+<section>
+  <div
+    class="container flex flex-col sm:flex-row gap-4 items-start justify-center px-5 mx-auto my-8"
+  >
+    <nb-card class="w-full sm:w-72">
+      <nb-menu [items]="items"> </nb-menu>
+    </nb-card>
+    <div class="w-full sm:w-9/12">
+      <nb-accordion class="w-full">
+        <nb-accordion-item>
+          <nb-accordion-item-header>Product Details</nb-accordion-item-header>
+          <nb-accordion-item-body> Item Content </nb-accordion-item-body>
+        </nb-accordion-item>
+        <nb-accordion-item>
+          <nb-accordion-item-header>Product Details</nb-accordion-item-header>
+          <nb-accordion-item-body> Item Content </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+  </div>
+</section>

@@ -4,6 +4,7 @@ import { initRoleApi } from './role.api';
 import { initCartApi } from './cart.api';
 import { initMapMarkerApi } from './map-marker.api';
 import { initProductApi } from './product.api';
+import { initOrderApi } from './order.api';
 
 const apis: any[] = [
   initUserApi,
@@ -11,6 +12,7 @@ const apis: any[] = [
   initCartApi,
   initMapMarkerApi,
   initProductApi,
+  initOrderApi,
 ];
 
 export const initApi = (app: Router): Router => {

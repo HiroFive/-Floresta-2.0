@@ -1,24 +1,24 @@
 import { productModule } from '../models';
 import { getProductParams } from '../atributes';
-import { IProduct } from '~/common/interfaces';
+import { IProductDto } from '~/common/interfaces';
 
 export class ProductRepository {
-  public getById(id: number): Promise<IProduct | null> {
+  public getById(id: number): Promise<IProductDto | null> {
     return productModule.findByPk(id, getProductParams());
   }
 
-  public getAll(): Promise<Array<IProduct>> {
+  public getAll(): Promise<Array<IProductDto>> {
     return productModule.findAll(getProductParams());
   }
 
-  public createProduct(product: any): Promise<IProduct> {
+  public createProduct(product: any): Promise<IProductDto> {
     return productModule.create(product);
   }
 
   public async updateById(
-    id: string,
-    data: IProduct,
-  ): Promise<Array<IProduct>> {
+    id: number,
+    data: IProductDto,
+  ): Promise<Array<IProductDto>> {
     const result = await productModule.update(data, {
       where: { id },
       returning: true,
@@ -26,7 +26,7 @@ export class ProductRepository {
     return result[1];
   }
 
-  public deleteById(id: string): Promise<number> {
+  public deleteById(id: number): Promise<number> {
     return productModule.destroy({
       where: { id },
     });

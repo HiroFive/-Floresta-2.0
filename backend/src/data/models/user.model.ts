@@ -1,8 +1,8 @@
 import { DataTypes, Model, ModelCtor, Sequelize } from 'sequelize';
-import { IUser } from '../../common/interfaces';
+import { IUserDto } from '../../common/interfaces';
 import { ModelName } from '../../common/enums';
 
-interface userInstance extends IUser, Model {}
+interface userInstance extends IUserDto, Model {}
 
 const createUserModule = (orm: Sequelize): ModelCtor<userInstance> => {
   return orm.define<userInstance>(

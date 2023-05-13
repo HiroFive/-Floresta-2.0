@@ -1,8 +1,8 @@
 import { DataTypes, Model, ModelCtor, Sequelize } from 'sequelize';
 import { ModelName } from '../../common/enums';
-import { IMapMarker } from '~/common/interfaces';
+import { IMapMarkerDto } from '~/common/interfaces';
 
-interface mapMarkerInstance extends IMapMarker, Model {}
+interface mapMarkerInstance extends IMapMarkerDto, Model {}
 
 const createMapMarkerModule = (
   orm: Sequelize,

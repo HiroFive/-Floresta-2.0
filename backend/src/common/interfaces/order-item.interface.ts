@@ -1,5 +1,6 @@
-export interface IOrderItem {
-  id: number;
+export interface IOrderItemDto {
+  id?: number;
   orderId: number;
   productId: number;
+  quantity: number;
 }

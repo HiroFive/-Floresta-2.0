@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  .button-container {
+    @apply flex;
+
+    app-button {
+      @apply flex w-10;
+    }
+  }
+}

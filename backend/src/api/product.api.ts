@@ -69,8 +69,8 @@ export const initProductApi = (apiRouter: Router): Router => {
         }
 
         const product = await productService.updateProduct(
-          _req.params.id,
-          _req.body,
+          Number(_req.params.id),
+          JSON.parse(_req?.body?.data || '{}'),
         );
 
         res.status(checkIsFound(product)).json(product?.[0]);
@@ -82,7 +82,7 @@ export const initProductApi = (apiRouter: Router): Router => {
         );
         res
           .status(HttpCode.INTERNAL_SERVER_ERROR)
-          .json({ message: error.message });
+          .json({ message: error?.message });
       }
     },
   );
@@ -91,7 +91,7 @@ export const initProductApi = (apiRouter: Router): Router => {
     try {
       const product = await productService.getById(Number(_req.params.id || 0));
       await uploadImageService.deleteUploadedImage(product.image);
-      await productService.deleteProduct(_req.params.id);
+      await productService.deleteProduct(Number(_req.params.id));
 
       res.status(HttpCode.NO_CONTENT).json('Success');
     } catch (err) {

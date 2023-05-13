@@ -1,8 +1,8 @@
 import { DataTypes, Model, ModelCtor, Sequelize } from 'sequelize';
 import { ModelName } from '../../common/enums';
-import { IOrderDetails } from '~/common/interfaces';
+import { IOrderDetailsDto } from '~/common/interfaces';
 
-interface orderDetailsInstance extends IOrderDetails, Model {}
+interface orderDetailsInstance extends IOrderDetailsDto, Model {}
 
 const createOrderDetailsModule = (
   orm: Sequelize,
@@ -12,7 +12,7 @@ const createOrderDetailsModule = (
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
       },
@@ -21,12 +21,22 @@ const createOrderDetailsModule = (
         allowNull: false,
       },
       total: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       paymentId: {
         type: DataTypes.INTEGER,
+      },
+      mapMarkerId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+      },
+      isAnonymous: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      status: {
+        type: DataTypes.STRING,
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,

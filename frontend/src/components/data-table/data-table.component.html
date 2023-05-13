@@ -6,10 +6,25 @@
     [rowAlternationEnabled]="true"
     (onExporting)="onExporting($event)"
   >
-    <dxi-column
-      *ngFor="let column of columns"
-      [dataField]="column"
-    ></dxi-column>
+    <ng-container *ngFor="let column of columns">
+      <ng-container [ngSwitch]="column?.dataType">
+        <ng-container *ngSwitchCase="'picture'">
+          <dxi-column
+            [dataField]="column?.dataField"
+            cellTemplate="cellPictureTemplate"
+            width="100px"
+          ></dxi-column
+        ></ng-container>
+        <ng-container *ngSwitchDefault>
+          <dxi-column
+            [dataField]="column?.dataField"
+            [dataType]="column?.dataType"
+          >
+          </dxi-column
+        ></ng-container>
+      </ng-container>
+    </ng-container>
+
     <dxi-column type="buttons">
       <dxi-button template="myCommand">
         <div *dxTemplate="let data of 'myCommand'">
@@ -20,6 +35,16 @@
       </dxi-button>
     </dxi-column>
 
+    <dxo-search-panel
+      [visible]="true"
+      [width]="240"
+      placeholder="Пошук..."
+    ></dxo-search-panel>
+
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+    <dxo-sorting mode="multiple"></dxo-sorting>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
     <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
     <dxo-paging [pageSize]="10"> </dxo-paging>
     <dxo-pager
@@ -35,5 +60,9 @@
       [formats]="['pdf']"
       [allowExportSelectedData]="true"
     ></dxo-export>
+
+    <div *dxTemplate="let cell of 'cellPictureTemplate'">
+      <img class="rounded-2xl" [src]="cell.value" alt="{{ cell.value }}" />
+    </div>
   </dx-data-grid>
 </section>

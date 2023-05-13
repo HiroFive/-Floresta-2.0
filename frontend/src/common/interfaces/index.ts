@@ -6,3 +6,4 @@ export * from './cart/cart.interface';
 export * from './cart/cart-item.interface';
 export * from './map-marker/map-marker.interface';
 export * from './modal.interface';
+export * from './order';

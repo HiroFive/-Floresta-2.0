@@ -18,7 +18,12 @@ import { EditProductComponent } from '../../../components/forms/product/edit-pro
 })
 export class ProductsPageComponent implements OnInit, OnDestroy {
   products: Array<IProduct>;
-  tableColumns = ['id', 'image', 'name', 'price', 'hidden'];
+  tableColumns = [
+    { dataField: 'image', dataType: 'picture' },
+    { dataField: 'name', dataType: 'string' },
+    { dataField: 'price', dataType: 'number' },
+    { dataField: 'hidden', dataType: 'boolean' },
+  ];
   tableTypeEnum = TableTypeEnum;
 
   private readonly unsubscribe$ = new Subject();

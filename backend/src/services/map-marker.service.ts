@@ -1,8 +1,8 @@
-import { IMapMarker, IMapMarkerWithProductInfo } from '~/common/interfaces';
+import { IMapMarkerDto, IMapMarkerWithProductInfo } from '~/common/interfaces';
 import { mapMarkerRepository } from '~/data/repositories';
 
 export class MapMarkerService {
-  public getAllMarkersByRole(roleId: number): Promise<Array<IMapMarker>> {
+  public getAllMarkersByRole(roleId: number): Promise<Array<IMapMarkerDto>> {
     return mapMarkerRepository.getAllMarkers(roleId);
   }
 
@@ -25,14 +25,14 @@ export class MapMarkerService {
     });
   }
 
-  public createMapMarker(mapMarker: IMapMarker): Promise<IMapMarker> {
+  public createMapMarker(mapMarker: IMapMarkerDto): Promise<IMapMarkerDto> {
     return mapMarkerRepository.createMapMarker(mapMarker);
   }
 
   public async updateMapMarker(
     id: number,
-    data: IMapMarker,
-  ): Promise<IMapMarker[]> {
+    data: IMapMarkerDto,
+  ): Promise<IMapMarkerDto[]> {
     return mapMarkerRepository.updateById(id, data);
   }
 

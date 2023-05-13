@@ -7,11 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import {
+  NbAccordionModule,
   NbButtonModule,
+  NbCardModule,
   NbCheckboxModule,
+  NbContextMenuModule,
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
+  NbMenuModule,
   NbSelectModule,
   NbSidebarModule,
   NbSpinnerModule,
@@ -37,6 +41,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import {
   cartReducer,
   mapMarkerReducer,
+  orderReducer,
   productReducer,
   profileReducer,
   userReducer,
@@ -45,6 +50,7 @@ import { EffectsModule } from '@ngrx/effects';
 import {
   CartEffects,
   MapMarkersEffects,
+  OrderEffects,
   ProductEffects,
   ProfileEffects,
   UserEffects,
@@ -79,6 +85,13 @@ import { CatalogItemComponent } from '../components/catalog-item/catalog-item.co
 import { NgOptimizedImage } from '@angular/common';
 import { FeatureSectionComponent } from '../components/feature-section/feature-section.component';
 import { ClearCartItemsWarningComponent } from '../components/info-dialog/clear-cart-items-warning.component';
+import { CheckoutPageComponent } from '../pages/checkout-page/checkout-page.component';
+import { ThankYouPageComponent } from '../pages/thank-you-page/thank-you-page.component';
+import { OrderDetailsProductComponent } from '../components/order-details-product/order-details-product.component';
+import { LogoutPageComponent } from '../pages/logout-page/logout-page.component';
+import { EditOrderComponent } from '../components/forms/order/edit-order/edit-order.component';
+import { OrderItemsComponent } from '../components/forms/order/edit-order-items/order-items/order-items.component';
+import { EditOrderItemsComponent } from '../components/forms/order/edit-order-items/edit-order-items.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +110,8 @@ import { ClearCartItemsWarningComponent } from '../components/info-dialog/clear-
     DataTableComponent,
     CatalogItemComponent,
     FeatureSectionComponent,
+    OrderDetailsProductComponent,
+    OrderItemsComponent,
     //Forms
     EditUserFormComponent,
     AddMapMarkerFormComponent,
@@ -107,6 +122,8 @@ import { ClearCartItemsWarningComponent } from '../components/info-dialog/clear-
     EditMapMarkerFormComponent,
     EditProductComponent,
     ClearCartItemsWarningComponent,
+    EditOrderComponent,
+    EditOrderItemsComponent,
     // Pages
     HomePageComponent,
     ProfilePageComponent,
@@ -117,6 +134,9 @@ import { ClearCartItemsWarningComponent } from '../components/info-dialog/clear-
     ProductsPageComponent,
     OrdersPageComponent,
     CatalogPageComponent,
+    CheckoutPageComponent,
+    ThankYouPageComponent,
+    LogoutPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -140,12 +160,17 @@ import { ClearCartItemsWarningComponent } from '../components/info-dialog/clear-
     DxDataGridModule,
     DxTemplateModule,
     DxBulletModule,
+    NbContextMenuModule,
+    NbAccordionModule,
+    NbCardModule,
+    NbMenuModule.forRoot(),
     StoreModule.forRoot({
       ...profileReducer,
       ...cartReducer,
       ...mapMarkerReducer,
       ...userReducer,
       ...productReducer,
+      ...orderReducer,
     }),
     NbThemeModule.forRoot({ name: 'corporateTheme' }),
     AuthModule.forRoot({
@@ -163,6 +188,7 @@ import { ClearCartItemsWarningComponent } from '../components/info-dialog/clear-
       MapMarkersEffects,
       UserEffects,
       ProductEffects,
+      OrderEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

@@ -43,6 +43,29 @@ userModule.belongsTo(roleModule, {
   as: 'role',
 });
 
+orderDetailsModule.hasMany(orderItemModule, {
+  foreignKey: 'orderId',
+  as: 'items',
+});
+
+orderItemModule.belongsTo(orderDetailsModule, {
+  foreignKey: 'orderId',
+});
+
+orderItemModule.belongsTo(productModule, {
+  foreignKey: 'productId',
+});
+
+orderDetailsModule.belongsTo(paymentDetailModule, {
+  foreignKey: 'paymentId',
+  as: 'paymentDetails',
+});
+
+orderDetailsModule.belongsTo(userModule, {
+  foreignKey: 'userId',
+  as: 'user',
+});
+
 export {
   userModule,
   roleModule,

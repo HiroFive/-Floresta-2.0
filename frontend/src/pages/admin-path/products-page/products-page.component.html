@@ -24,24 +24,25 @@
   <!--    iconStatus="info"-->
   <!--    size="medium"-->
   <!--  ></app-button>-->
-
-  <app-button
-    [icon]="selectedProductData?.hidden ? 'eye-outline' : 'eye-off-outline'"
-    size="medium"
-    buttonStatus="info"
-    iconStatus="basic"
-    (onClick)="updateProductVisibility(selectedProductData)"
-  />
-  <app-button
-    icon="edit-2-outline"
-    iconStatus="info"
-    size="medium"
-    (onClick)="updatedSelectedProduct(selectedProductData)"
-  ></app-button>
-  <app-button
-    icon="trash-2-outline"
-    iconStatus="info"
-    size="medium"
-    (onClick)="deleteSelectedUser(selectedProductData)"
-  ></app-button>
+  <div class="button-container">
+    <app-button
+      [icon]="selectedProductData?.hidden ? 'eye-outline' : 'eye-off-outline'"
+      size="medium"
+      buttonStatus="info"
+      iconStatus="basic"
+      (onClick)="updateProductVisibility(selectedProductData)"
+    />
+    <app-button
+      icon="edit-2-outline"
+      iconStatus="info"
+      size="medium"
+      (onClick)="updatedSelectedProduct(selectedProductData)"
+    ></app-button>
+    <app-button
+      icon="trash-2-outline"
+      iconStatus="info"
+      size="medium"
+      (onClick)="deleteSelectedUser(selectedProductData)"
+    ></app-button>
+  </div>
 </ng-template>

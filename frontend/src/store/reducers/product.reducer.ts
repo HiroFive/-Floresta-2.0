@@ -23,7 +23,7 @@ const productActionReducer = createReducer(
     return {
       ...state,
       allProducts: products.map((element) =>
-        element.id !== action.product.id ? element : action.product,
+        element.id !== action.product?.id ? element : action.product,
       ),
     };
   }),

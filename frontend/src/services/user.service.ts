@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser, IUserRoles } from '../common/interfaces';
-import { RootApiPathEnum } from '../common/enums';
+import { ApiSidePathEnum, RootApiPathEnum } from '../common/enums';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -26,13 +26,13 @@ export class UserService {
 
   public getAllUsers(): Observable<Array<IUser>> {
     return this.http.get<Array<IUser>>(
-      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.User}/all`,
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.User}${ApiSidePathEnum.All}`,
     );
   }
 
   public getUserRoles(): Observable<Array<IUserRoles>> {
     return this.http.get<Array<IUserRoles>>(
-      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Role}/all`,
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Role}${ApiSidePathEnum.All}`,
     );
   }
 

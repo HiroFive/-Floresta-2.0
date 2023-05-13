@@ -1,8 +1,8 @@
 import { DataTypes, Model, ModelCtor, Sequelize } from 'sequelize';
-import { IRole } from '../../common/interfaces';
+import { IRoleDto } from '../../common/interfaces';
 import { ModelName } from '../../common/enums';
 
-interface roleInstance extends IRole, Model {}
+interface roleInstance extends IRoleDto, Model {}
 
 const createRoleModule = (orm: Sequelize): ModelCtor<roleInstance> => {
   return orm.define<roleInstance>(

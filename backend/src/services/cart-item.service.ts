@@ -1,18 +1,18 @@
-import { ICartItem } from '~/common/interfaces';
+import { ICartItemDto } from '~/common/interfaces';
 import { cartItemRepository } from '~/data/repositories';
 
 export class CartItemService {
-  public getById(id: number): Promise<ICartItem> {
+  public getById(id: number): Promise<ICartItemDto> {
     return cartItemRepository.getById(id);
   }
-  public createCartItem(cartItemDto: ICartItem): Promise<ICartItem> {
+  public createCartItem(cartItemDto: ICartItemDto): Promise<ICartItemDto> {
     return cartItemRepository.createCartItem(cartItemDto);
   }
 
   public updateCartItem(
     id: number,
-    cartItemDto: ICartItem,
-  ): Promise<ICartItem[]> {
+    cartItemDto: ICartItemDto,
+  ): Promise<ICartItemDto[]> {
     return cartItemRepository.updateById(id, cartItemDto);
   }
 

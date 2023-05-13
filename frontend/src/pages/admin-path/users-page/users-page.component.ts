@@ -17,7 +17,11 @@ import { EditUserFormComponent } from '../../../components/forms';
 })
 export class UsersPageComponent implements OnInit, OnDestroy {
   users: Array<IUser>;
-  tableColumns = ['id', 'name', 'email', 'role'];
+  tableColumns = [
+    { dataField: 'name', dataType: 'string' },
+    { dataField: 'email', dataType: 'string' },
+    { dataField: 'role', dataType: 'string' },
+  ];
   tableTypeEnum = TableTypeEnum;
 
   protected readonly console = console;

@@ -1,4 +1,8 @@
 :host ::ng-deep {
+  .floresta-button {
+    @apply w-full;
+  }
+
   .floresta-button.appearance-ghost.icon-start.icon-end {
     @apply p-1;
     nb-icon {

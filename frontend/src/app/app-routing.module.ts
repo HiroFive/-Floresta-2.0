@@ -13,6 +13,11 @@ import {
 import { RoleGuard } from '../common/guards/role.guard';
 import { RouterPathEnum } from '../common/enums';
 import { CatalogPageComponent } from '../pages/catalog-page/catalog-page.component';
+import { CheckoutPageComponent } from '../pages/checkout-page/checkout-page.component';
+import { ThankYouPageComponent } from '../pages/thank-you-page/thank-you-page.component';
+import { IdGuard } from '../common/guards/id.guard';
+import { orderNumberGuard } from '../common/guards/orderNumber.guard';
+import { LogoutPageComponent } from '../pages/logout-page/logout-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: RouterPathEnum.Home, pathMatch: 'full' },
@@ -26,7 +31,22 @@ const routes: Routes = [
   },
   {
     path: RouterPathEnum.Catalog,
+    canActivate: [IdGuard],
     component: CatalogPageComponent,
+  },
+  {
+    path: RouterPathEnum.Logout,
+    component: LogoutPageComponent,
+  },
+  {
+    path: RouterPathEnum.Checkout,
+    canActivate: [IdGuard],
+    component: CheckoutPageComponent,
+  },
+  {
+    path: RouterPathEnum.ThankYou,
+    canActivate: [orderNumberGuard],
+    component: ThankYouPageComponent,
   },
   {
     path: RouterPathEnum.Admin,

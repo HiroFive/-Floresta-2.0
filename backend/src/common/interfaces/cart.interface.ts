@@ -1,4 +1,4 @@
-import { IProduct } from '~/common/interfaces/product.interface';
+import { IProductDto } from '~/common/interfaces/product.interface';
 
 export interface ICart {
   id?: number;
@@ -12,7 +12,7 @@ export interface IRawCartFullInfo {
     {
       id: number;
       quantity: number;
-      product: IProduct;
+      product: IProductDto;
     },
   ];
 }

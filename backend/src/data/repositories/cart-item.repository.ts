@@ -1,20 +1,20 @@
 import { cartItemModule } from '../models';
 import { getCartItemParams } from '../atributes';
-import { ICartItem } from '~/common/interfaces';
+import { ICartItemDto } from '~/common/interfaces';
 
 export class CartItemRepository {
-  public getById(id: number): Promise<ICartItem | null> {
+  public getById(id: number): Promise<ICartItemDto | null> {
     return cartItemModule.findByPk(id, getCartItemParams());
   }
 
-  public createCartItem(cartItemDto: ICartItem): Promise<ICartItem> {
+  public createCartItem(cartItemDto: ICartItemDto): Promise<ICartItemDto> {
     return cartItemModule.create(cartItemDto as any);
   }
 
   public async updateById(
     id: number,
-    cartItemDto: ICartItem,
-  ): Promise<ICartItem[]> {
+    cartItemDto: ICartItemDto,
+  ): Promise<ICartItemDto[]> {
     const result = await cartItemModule.update(cartItemDto, {
       where: { id },
       returning: true,

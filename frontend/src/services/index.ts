@@ -7,3 +7,4 @@ export * from './modal-service.service';
 export * from './product.service';
 export * from './spinner.service';
 export * from './cart-item.service';
+export * from './order.service';

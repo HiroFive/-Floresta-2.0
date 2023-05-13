@@ -36,18 +36,18 @@
         <hr class="my-4" />
         <div class="flex justify-between">
           <p class="text-lg font-bold">Сума</p>
-          <div class="">
-            <p class="mb-1 text-lg font-bold">{{ productsSubTotal }} грн.</p>
-            <p class="text-sm text-gray-700">з ПДВ</p>
-          </div>
+          <p class="mb-1 text-lg font-bold">{{ productsSubTotal }} грн.</p>
         </div>
         <div class="flex justify-end mt-2 w-full">
           <app-button
+            class="w-full"
             [iconOnStart]="false"
             icon="arrow-ios-forward-outline"
             iconStatus="basic"
             size="medium"
             label="Замовити"
+            [disabled]="isDisableCheckoutButton"
+            (onClick)="navigateToCheckout()"
           ></app-button>
         </div>
       </div>

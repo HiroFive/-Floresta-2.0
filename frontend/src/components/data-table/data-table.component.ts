@@ -11,7 +11,7 @@ import { jsPDF } from 'jspdf';
 export class DataTableComponent implements OnInit {
   @Input() tableType: TableTypeEnum;
   @Input() dataSource: Array<any>;
-  @Input() columns: Array<string>;
+  @Input() columns: Array<{ dataType: string; dataField: string }>;
   @Input() buttonsTemplate: any;
 
   showPageSizeSelector = true;

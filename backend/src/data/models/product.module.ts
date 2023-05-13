@@ -1,8 +1,8 @@
 import { DataTypes, Model, ModelCtor, Sequelize } from 'sequelize';
 import { ModelName } from '../../common/enums';
-import { IProduct } from '~/common/interfaces';
+import { IProductDto } from '~/common/interfaces';
 
-interface productInstance extends IProduct, Model {}
+interface productInstance extends IProductDto, Model {}
 
 const createProductModule = (orm: Sequelize): ModelCtor<productInstance> => {
   return orm.define<productInstance>(

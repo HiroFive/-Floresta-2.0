@@ -1,8 +1,8 @@
 import { DataTypes, Model, ModelCtor, Sequelize } from 'sequelize';
 import { ModelName } from '../../common/enums';
-import { IPaymentDetails } from '~/common/interfaces';
+import { IPaymentDetailsDto } from '~/common/interfaces';
 
-interface paymentDetailsInstance extends IPaymentDetails, Model {}
+interface paymentDetailsInstance extends IPaymentDetailsDto, Model {}
 
 const createPaymentDetailsModule = (
   orm: Sequelize,
@@ -12,7 +12,7 @@ const createPaymentDetailsModule = (
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
       },

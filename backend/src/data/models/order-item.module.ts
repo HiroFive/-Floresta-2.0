@@ -1,8 +1,8 @@
 import { DataTypes, Model, ModelCtor, Sequelize } from 'sequelize';
 import { ModelName } from '../../common/enums';
-import { IOrderItem } from '~/common/interfaces';
+import { IOrderItemDto } from '~/common/interfaces';
 
-interface orderItemsInstance extends IOrderItem, Model {}
+interface orderItemsInstance extends IOrderItemDto, Model {}
 
 const createOrderItemModule = (
   orm: Sequelize,
@@ -12,7 +12,7 @@ const createOrderItemModule = (
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
       },
@@ -21,6 +21,10 @@ const createOrderItemModule = (
         allowNull: false,
       },
       productId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

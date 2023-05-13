@@ -85,7 +85,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy {
           cartItem: { quantity },
         }),
       );
-    }, 800);
+    }, 500);
   }
 
   changeQuantityUp(): void {

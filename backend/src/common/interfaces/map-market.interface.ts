@@ -1,6 +1,6 @@
-import { IProduct } from '~/common/interfaces/product.interface';
+import { IProductDto } from '~/common/interfaces/product.interface';
 
-export interface IMapMarker {
+export interface IMapMarkerDto {
   id: number;
   hidden: boolean;
   lat: number;
@@ -8,6 +8,6 @@ export interface IMapMarker {
   productIds: Array<number>;
 }
 export interface IMapMarkerWithProductInfo
-  extends Omit<IMapMarker, 'productIds'> {
-  products: Array<IProduct>;
+  extends Omit<IMapMarkerDto, 'productIds'> {
+  products: Array<IProductDto>;
 }

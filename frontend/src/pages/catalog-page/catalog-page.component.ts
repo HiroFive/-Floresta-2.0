@@ -2,7 +2,7 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CartActions, ProductActions } from '../../store/actions';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Subject, take, takeUntil } from 'rxjs';
+import { combineLatest, filter, Subject, take, takeUntil } from 'rxjs';
 import { CartSelectors, ProductSelectors } from '../../store/selectors';
 import { ICart, IProduct } from '../../common/interfaces';
 import { RouterPathEnum } from '../../common/enums';
@@ -24,6 +24,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   productsCatalog: Array<IProduct>;
   idsForCartItemDelete: Array<number>;
   cart: ICart;
+  markerId = 0;
 
   private readonly unsubscribe$ = new Subject();
   constructor(
@@ -35,16 +36,20 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     private inj: Injector,
   ) {}
   ngOnInit(): void {
+    this.activatedRoute.queryParams
+      .pipe(
+        take(1),
+        filter((params) => !!params?.['id']),
+      )
+      .subscribe(({ id }) => {
+        this.markerId = Number(id);
+        this.store.dispatch(ProductActions.getCatalog({ id }));
+      });
+
     const userId = JSON.parse(
       this.localStorageService.getItem(USER_PROFILE) || {},
     )?.id;
     this.store.dispatch(CartActions.getCartByUserId({ id: userId }));
-
-    this.activatedRoute.queryParams.pipe(take(1)).subscribe(({ id }) => {
-      if (id) {
-        this.store.dispatch(ProductActions.getCatalog({ id }));
-      }
-    });
 
     combineLatest([
       this.store.select(ProductSelectors.getProductsCatalog),
@@ -107,6 +112,16 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
         0,
       ) || 0
     );
+  }
+
+  get isDisableCheckoutButton(): boolean {
+    return !this.cart?.items?.length;
+  }
+
+  navigateToCheckout(): void {
+    this.router.navigate([RouterPathEnum.Checkout], {
+      queryParams: { id: this.markerId },
+    });
   }
 
   back(): void {

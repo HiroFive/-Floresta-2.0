@@ -1,4 +1,4 @@
-export const orderItemAttribute = ['id', 'name'];
+export const orderItemAttribute = ['id', 'productId', 'orderId'];
 
 export const getOrderItemParams = (type = '', additionalParams = {}) => {
   const defaultParams = {

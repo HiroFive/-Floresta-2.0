@@ -1,13 +1,18 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { IUser } from '../../../common/interfaces';
-import { TableTypeEnum } from '../../../common/enums';
-import { Subject } from 'rxjs';
+import { IOrderDetails } from '../../../common/interfaces';
+import {
+  OrderStatusEnum,
+  OrderStatusTitleEnum,
+  TableTypeEnum,
+} from '../../../common/enums';
+import { Subject, takeUntil } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ModalService } from '../../../services';
-import { CartActions } from '../../../store/actions';
-import { BaseUser, User } from '../../../common/classes';
-import { EditUserFormComponent } from '../../../components/forms';
-import { DeleteUserComponent } from '../../../components/delete-dialog/delete-user.component';
+import { OrderActions } from '../../../store/actions';
+import { BaseOrder, Order } from '../../../common/classes';
+import { OrderSelectors } from '../../../store/selectors';
+import { EditOrderComponent } from '../../../components/forms/order/edit-order/edit-order.component';
+import { EditOrderItemsComponent } from '../../../components/forms/order/edit-order-items/edit-order-items.component';
 
 @Component({
   selector: 'app-products-page',
@@ -16,7 +21,14 @@ import { DeleteUserComponent } from '../../../components/delete-dialog/delete-us
 })
 export class OrdersPageComponent implements OnInit, OnDestroy {
   orders: Array<any>;
-  tableColumns = ['id', 'img', 'name', 'price', 'hidden'];
+  tableColumns = [
+    { dataField: 'status', dataType: 'string' },
+    { dataField: 'mapMarker', dataType: 'number' },
+    { dataField: 'payment', dataType: 'string' },
+    { dataField: 'total', dataType: 'number' },
+    { dataField: 'user', dataType: 'string' },
+    { dataField: 'created', dataType: 'date' },
+  ];
   tableTypeEnum = TableTypeEnum;
 
   private readonly unsubscribe$ = new Subject();
@@ -27,56 +39,78 @@ export class OrdersPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.store.dispatch(UserActions.getAllUsers());
-    // this.store.dispatch(UserActions.getUserRoles());
-    //
-    // this.store
-    //   .select(UserSelectors.getAllUsers)
-    //   .pipe(takeUntil(this.unsubscribe$))
-    //   .subscribe((users) => {
-    //     this.users = users;
-    //   });
+    this.store.dispatch(OrderActions.getAllOrderDetails());
+
+    this.store
+      .select(OrderSelectors.getAllOrderDetails)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((orders) => {
+        this.orders = this.mapOrderForDataTable(orders);
+      });
   }
 
-  updatedSelectedUser(userData: IUser): void {
+  mapOrderForDataTable(orders: Array<IOrderDetails>): Array<any> {
+    return (
+      orders?.map((order) => {
+        return {
+          id: order.id,
+          mapMarker: order.mapMarkerId,
+          status: this.getStatusTitle(order.status),
+          total: Number(order.total),
+          payment: order.paymentDetails.provider,
+          user: order?.user?.name,
+          created: new Date(order.createdAt),
+        };
+      }) || []
+    );
+  }
+
+  getStatusTitle(status: number): string {
+    switch (status) {
+      case OrderStatusEnum.Created:
+        return OrderStatusTitleEnum.Created;
+      case OrderStatusEnum.Canceled:
+        return OrderStatusTitleEnum.Canceled;
+      case OrderStatusEnum.InProcess:
+        return OrderStatusTitleEnum.InProcess;
+      case OrderStatusEnum.Completed:
+        return OrderStatusTitleEnum.Completed;
+      default:
+        return OrderStatusTitleEnum.Created;
+    }
+  }
+
+  updatedSelectedOrder(order: IOrderDetails): void {
     const injector: Injector = Injector.create({
       providers: [
         {
-          provide: BaseUser,
-          useValue: new User(
-            userData.id,
-            userData.subId,
-            userData.email,
-            userData.name,
-            userData.role || '',
-          ),
+          provide: BaseOrder,
+          useValue: new Order(order.status, order.id),
         },
       ],
       parent: this.inj,
     });
     this.modalService.openNewModal(
-      EditUserFormComponent,
+      EditOrderComponent,
       injector,
-      'Редагувати користувача',
+      'Змінити статус замовлення',
     );
   }
 
-  deleteSelectedUser(userData: IUser): void {
+  openOrderItemDialog(order: any): void {
     const injector: Injector = Injector.create({
       providers: [
         {
-          provide: BaseUser,
-          useValue: new User(userData.id, '', '', userData.name),
+          provide: BaseOrder,
+          useValue: new Order(order.status, order.id, order.mapMarker),
         },
       ],
       parent: this.inj,
     });
-    this.modalService.openNewModal(DeleteUserComponent, injector);
-  }
-
-  cleanUserCart(userData: IUser): void {
-    this.store.dispatch(
-      CartActions.deleteCartByUserId({ id: userData.id || '' }),
+    this.modalService.openNewModal(
+      EditOrderItemsComponent,
+      injector,
+      'Змінити статус замовлення',
     );
   }
 

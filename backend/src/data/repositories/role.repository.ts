@@ -1,13 +1,13 @@
 import { roleModule } from '../models';
 import { getRoleParams } from '../atributes';
-import { IRole } from '~/common/interfaces';
+import { IRoleDto } from '~/common/interfaces';
 
 export class RoleRepository {
-  public getAll(): Promise<Array<IRole>> {
+  public getAll(): Promise<Array<IRoleDto>> {
     return roleModule.findAll(getRoleParams());
   }
 
-  public getById(id: number): Promise<IRole | null> {
+  public getById(id: number): Promise<IRoleDto | null> {
     return roleModule.findByPk(id, getRoleParams());
   }
 }

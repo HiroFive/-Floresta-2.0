@@ -30,34 +30,12 @@
       <div class="flex items-center gap-2 lg:order-2">
         <ng-container *ngIf="isUserAuthenticated; else LoginButton">
           <app-button
+            nbContextMenuTag="user-context-menu"
             icon="person-outline"
             size="medium"
             iconStatus="info"
             [isGhost]="true"
-            (onClick)="profileButtonClick()"
-          />
-
-          <app-button
-            icon="shopping-cart-outline"
-            size="medium"
-            iconStatus="info"
-            [isGhost]="true"
-          />
-
-          <app-button
-            icon="grid-outline"
-            size="medium"
-            iconStatus="info"
-            [isGhost]="true"
-            (onClick)="adminPanelButtonClick()"
-          />
-
-          <app-button
-            icon="log-out-outline"
-            size="medium"
-            iconStatus="info"
-            [isGhost]="true"
-            (onClick)="authWrapperService.logOut()"
+            [nbContextMenu]="contextMenuList"
           />
         </ng-container>
       </div>

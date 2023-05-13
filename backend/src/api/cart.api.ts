@@ -66,11 +66,7 @@ export const initCartApi = (apiRouter: Router): Router => {
 
   cartRouter.delete(cartApiPathEnum.DeleteByUserId, async (_req, res) => {
     try {
-      const cart = await cartService.getCartByUserId(_req.params.id);
-      if (cart) {
-        await cartService.createCartByUserId(_req.params.id);
-        await cartService.deleteCartById(cart.id);
-      }
+      await cartService.deleteCartByUserId(_req.params.id);
 
       res.status(HttpCode.NO_CONTENT).json('Success');
     } catch (err) {

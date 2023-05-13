@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IUserDto {
   id?: string;
   name: string;
   email: string;
@@ -6,7 +6,7 @@ export interface IUser {
   role: number;
 }
 
-export interface IUserWithRoleName {
+export interface IUser {
   id?: string;
   name: string;
   email: string;

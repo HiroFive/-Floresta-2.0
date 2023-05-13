@@ -15,7 +15,7 @@ export class CartRepository {
     return cartModule.findOne(getCartParams('filter', { userId }));
   }
 
-  public deleteByUserId(id: number): Promise<number> {
+  public deleteById(id: number): Promise<number> {
     return cartModule.destroy({
       where: { id },
     });
