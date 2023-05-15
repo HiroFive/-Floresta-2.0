@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IUser } from '../../common/interfaces';
+import { IOrderDetails, IUser } from '../../common/interfaces';
 
 export const getProfileInfoById = createAction(
   '[Profile] get User Info',
@@ -23,4 +23,13 @@ export const createUserProfileSuccess = createAction(
 );
 export const createUserProfileFailed = createAction(
   '[Profile] create User profile-page Failed',
+);
+
+export const getOrderHistory = createAction('[Profile] get order history');
+export const getOrderHistorySuccess = createAction(
+  '[Profile] get order history Success',
+  props<{ orderHistory: Array<IOrderDetails> }>(),
+);
+export const getOrderHistoryFailed = createAction(
+  '[Profile] get order history Failed',
 );

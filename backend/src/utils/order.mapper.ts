@@ -27,6 +27,29 @@ export const orderMapper = (order: any): IOrderDetails => {
   };
 };
 
-export const ordersMapper = (orders: Array<any>): any => {
+export const ordersForUserMapper = (
+  orders: Array<any>,
+): Array<IOrderDetails> => {
+  return orders?.map((order) => ({
+    id: order.id,
+    isAnonymous: order?.isAnonymous,
+    paymentDetails: order.paymentDetails,
+    mapMarkerId: order.mapMarkerId,
+    status: Number(order?.status),
+    createdAt: order?.createdAt,
+    total: order?.total,
+    items: order.items?.map((item) => {
+      return {
+        id: item.id,
+        name: item.product.name,
+        image: item.product.image,
+        price: item?.quantity * item.product.price,
+        quantity: item?.quantity,
+      };
+    }),
+  }));
+};
+
+export const ordersMapper = (orders: Array<any>): Array<IOrderDetails> => {
   return orders?.map((order) => orderMapper(order));
 };

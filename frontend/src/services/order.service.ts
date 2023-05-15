@@ -27,6 +27,16 @@ export class OrderService {
     );
   }
 
+  public getUserOrders(): Observable<Array<IOrderDetails>> {
+    const userId = JSON.parse(
+      this.localStorageService.getItem(USER_PROFILE) || '{}',
+    )?.id;
+
+    return this.http.get<Array<IOrderDetails>>(
+      `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.GetOrderHistory}?userId=${userId}`,
+    );
+  }
+
   public createOrder(orderDto: IOrderDto): Observable<any> {
     const userId = JSON.parse(
       this.localStorageService.getItem(USER_PROFILE) || '{}',

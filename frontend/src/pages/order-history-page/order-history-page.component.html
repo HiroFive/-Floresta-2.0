@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+
+<section class="mt-20">
+  <div
+    class="container flex flex-col sm:flex-row gap-4 items-start justify-center px-5 mx-auto my-8"
+  >
+    <nb-card class="w-full sm:w-72">
+      <nb-menu [items]="items"> </nb-menu>
+    </nb-card>
+    <div class="w-full sm:w-9/12">
+      <nb-accordion class="w-full">
+        <nb-accordion-item *ngFor="let order of orderHistory">
+          <nb-accordion-item-header>
+            <div class="flex justify-between items-center w-11/12">
+              <div>Замовлення #{{ order.id }}</div>
+              <div>{{ order.total }} грн.</div>
+            </div>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <div class="w-full">
+              <div>
+                <div
+                  class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b"
+                >
+                  <p class="text-gray-600">Статус:</p>
+                  <p>{{ getStatusTitle(order.status) }}</p>
+                </div>
+                <div
+                  class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b"
+                >
+                  <p class="text-gray-600">Сума:</p>
+                  <p>{{ order.total }} грн.</p>
+                </div>
+                <div
+                  class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b"
+                >
+                  <p class="text-gray-600">Спосіб оплати:</p>
+                  <p>{{ order.paymentDetails.provider }}</p>
+                </div>
+                <div
+                  class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b"
+                >
+                  <p class="text-gray-600">Номер ділянки:</p>
+                  <p>#{{ order.mapMarkerId }}</p>
+                </div>
+
+                <div
+                  class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b"
+                >
+                  <p class="text-gray-600">Продукти:</p>
+                  <div>
+                    <ng-container *ngFor="let product of order?.items">
+                      <app-order-details-product [product]="product">
+                      </app-order-details-product>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+  </div>
+</section>

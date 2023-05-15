@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { UserService } from '../../services';
+import { OrderService, UserService } from '../../services';
 import { ProfileActions } from '../actions';
 import { of } from 'rxjs';
 
 @Injectable()
 export class ProfileEffects {
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(
+    private actions$: Actions,
+    private userService: UserService,
+    private orderService: OrderService,
+  ) {}
 
   getProfileById$ = createEffect(() =>
     this.actions$.pipe(
@@ -16,6 +20,20 @@ export class ProfileEffects {
         this.userService.getUserById(action.id).pipe(
           map((user) => ProfileActions.getProfileInfoByIdSuccess({ user })),
           catchError(() => of(ProfileActions.getProfileInfoByIdFailed())),
+        ),
+      ),
+    ),
+  );
+
+  getOrderHistory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProfileActions.getOrderHistory),
+      mergeMap((action) =>
+        this.orderService.getUserOrders().pipe(
+          map((orderHistory) =>
+            ProfileActions.getOrderHistorySuccess({ orderHistory }),
+          ),
+          catchError(() => of(ProfileActions.getOrderHistoryFailed())),
         ),
       ),
     ),

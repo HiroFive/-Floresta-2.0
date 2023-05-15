@@ -17,4 +17,5 @@ export enum ApiSidePathEnum {
   AddNewOrderItem = '/add-new-order-item',
   UpdateOrderItem = '/update-order-item',
   DeleteOrderItem = '/delete-order-item',
+  GetOrderHistory = '/get-order-history',
 }

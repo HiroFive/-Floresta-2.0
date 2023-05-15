@@ -32,6 +32,7 @@ import {
   HomePageComponent,
   MapMarkSettingPageComponent,
   NotFoundPageComponent,
+  OrderHistoryPageComponent,
   OrdersPageComponent,
   ProductsPageComponent,
   ProfilePageComponent,
@@ -92,6 +93,8 @@ import { LogoutPageComponent } from '../pages/logout-page/logout-page.component'
 import { EditOrderComponent } from '../components/forms/order/edit-order/edit-order.component';
 import { OrderItemsComponent } from '../components/forms/order/edit-order-items/order-items/order-items.component';
 import { EditOrderItemsComponent } from '../components/forms/order/edit-order-items/edit-order-items.component';
+import { HeroSectionComponent } from '../components/hero-section/hero-section.component';
+import { FooterComponent } from '../components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +115,8 @@ import { EditOrderItemsComponent } from '../components/forms/order/edit-order-it
     FeatureSectionComponent,
     OrderDetailsProductComponent,
     OrderItemsComponent,
+    HeroSectionComponent,
+    FooterComponent,
     //Forms
     EditUserFormComponent,
     AddMapMarkerFormComponent,
@@ -137,6 +142,7 @@ import { EditOrderItemsComponent } from '../components/forms/order/edit-order-it
     CheckoutPageComponent,
     ThankYouPageComponent,
     LogoutPageComponent,
+    OrderHistoryPageComponent,
   ],
   imports: [
     BrowserModule,

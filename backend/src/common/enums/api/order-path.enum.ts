@@ -5,4 +5,5 @@ export enum orderApiPathEnum {
   AddNewOrderItem = '/add-new-order-item',
   UpdateOrderItem = '/update-order-item/:id',
   DeleteOrderItem = '/delete-order-item/:id',
+  GetOrderHistory = '/get-order-history',
 }

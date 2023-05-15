@@ -14,7 +14,7 @@ export interface IOrderDetailsDto {
 export interface IOrderDetails {
   id?: number;
   isAnonymous: boolean;
-  user: { id: number; name: string };
+  user?: { id: number; name: string };
   items: Array<IProductDto>;
   status: number;
   createdAt: string;

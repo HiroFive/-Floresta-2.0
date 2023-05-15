@@ -6,7 +6,11 @@ import {
   paymentService,
 } from '~/services/index';
 import { OrderStatusEnum } from '~/common/enums';
-import { orderMapper, ordersMapper } from '~/utils/order.mapper';
+import {
+  orderMapper,
+  ordersForUserMapper,
+  ordersMapper,
+} from '~/utils/order.mapper';
 
 export class OrderService {
   public getById(orderId: number): Promise<IOrderDetails> {
@@ -17,6 +21,21 @@ export class OrderService {
         );
 
         resolve(order);
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return;
+  }
+
+  public getOrderByUserId(userId: string): Promise<Array<IOrderDetails>> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const orders = ordersForUserMapper(
+          await orderDetailsRepository.getAllByUserId(userId),
+        );
+
+        resolve(orders);
       } catch (error) {
         reject(error);
       }

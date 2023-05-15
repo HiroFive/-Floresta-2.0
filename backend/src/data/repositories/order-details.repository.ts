@@ -1,6 +1,7 @@
 import { orderDetailsModule } from '../models';
 import { getOrderDetailsParams } from '../atributes';
 import { IOrderDetailsDto } from '~/common/interfaces';
+import { ParamsTypeEnum } from '~/common/enums';
 
 export class OrderDetailsRepository {
   public getById(id: number): Promise<IOrderDetailsDto | null> {
@@ -9,6 +10,12 @@ export class OrderDetailsRepository {
 
   public getAll(): Promise<Array<IOrderDetailsDto>> {
     return orderDetailsModule.findAll(getOrderDetailsParams());
+  }
+
+  public getAllByUserId(userId: string): Promise<Array<IOrderDetailsDto>> {
+    return orderDetailsModule.findAll(
+      getOrderDetailsParams(ParamsTypeEnum.Filter, { userId: userId }),
+    );
   }
 
   public createOrder(newOrder: IOrderDetailsDto): Promise<IOrderDetailsDto> {

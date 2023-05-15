@@ -5,6 +5,7 @@ import {
   HomePageComponent,
   MapMarkSettingPageComponent,
   NotFoundPageComponent,
+  OrderHistoryPageComponent,
   OrdersPageComponent,
   ProductsPageComponent,
   ProfilePageComponent,
@@ -47,6 +48,10 @@ const routes: Routes = [
     path: RouterPathEnum.ThankYou,
     canActivate: [orderNumberGuard],
     component: ThankYouPageComponent,
+  },
+  {
+    path: RouterPathEnum.Orders,
+    component: OrderHistoryPageComponent,
   },
   {
     path: RouterPathEnum.Admin,

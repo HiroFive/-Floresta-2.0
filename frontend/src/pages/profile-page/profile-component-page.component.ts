@@ -3,7 +3,8 @@ import { Store } from '@ngrx/store';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { ProfileSelectors } from '../../store/selectors';
 import { NbMenuItem } from '@nebular/theme';
-import { RouterPathEnum } from '../../common/enums';
+import { ProfileActions } from '../../store/actions';
+import { profileMenuConstants } from '../../common/consts/profile-menu.constants';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,30 +12,21 @@ import { RouterPathEnum } from '../../common/enums';
   styleUrls: ['./profile-component-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit, OnDestroy {
-  items: NbMenuItem[] = [
-    {
-      title: 'Мій профіль',
-      link: `/${RouterPathEnum.Profile}`,
-      icon: 'person-outline',
-    },
-    {
-      title: 'Мої замовлення',
-      link: `/${RouterPathEnum.Orders}`,
-      icon: 'shopping-bag-outline',
-    },
-  ];
+  items: NbMenuItem[] = profileMenuConstants;
 
   private readonly unsubscribe$ = new Subject();
   constructor(private readonly store: Store<any>) {}
   ngOnInit(): void {
+    this.store.dispatch(ProfileActions.getOrderHistory());
+
     this.store
-      .select(ProfileSelectors.getProfile)
+      .select(ProfileSelectors.getOrderHistory)
       .pipe(
-        filter((profile) => !!profile?.id),
+        filter((orderHistory) => !!orderHistory.length),
         takeUntil(this.unsubscribe$),
       )
-      .subscribe((profile) => {
-        console.log(profile);
+      .subscribe((orderHistory) => {
+        console.log(orderHistory);
       });
   }
 

@@ -30,6 +30,18 @@ export const initOrderApi = (apiRouter: Router): Router => {
     }
   });
 
+  orderRouter.get(orderApiPathEnum.GetOrderHistory, async (_req, res) => {
+    try {
+      const orderDetails = await orderService.getOrderByUserId(
+        `${_req.query.userId || ''}`,
+      );
+
+      res.status(checkIsFound(orderDetails)).json(orderDetails);
+    } catch (error) {
+      res.status(HttpCode.NOT_FOUND).json({ message: error?.message });
+    }
+  });
+
   orderRouter.post(orderApiPathEnum.ROOT, async (_req, res) => {
     try {
       const order = await orderService.createOrder(_req.body);

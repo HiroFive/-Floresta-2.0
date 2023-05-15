@@ -1,19 +1,26 @@
 <app-navbar> </app-navbar>
-<app-google-map
-  [options]="mapsOptions"
-  [markerInfoWindowTemplate]="markerInfoWindowTemplate"
->
-</app-google-map>
 
-<app-feature-section></app-feature-section>
+<section class="mt-16">
+  <app-hero-section></app-hero-section>
 
-<ng-template #markerInfoWindowTemplate let-selectedMarker>
-  <div class="flex p-2 gap-x-2">
-    <app-button
-      label="Посадити дерево"
-      size="small"
-      (onClick)="catalogRedirection(selectedMarker)"
-    >
-    </app-button>
-  </div>
-</ng-template>
+  <app-feature-section></app-feature-section>
+
+  <app-google-map
+    [options]="mapsOptions"
+    [markerInfoWindowTemplate]="markerInfoWindowTemplate"
+  >
+  </app-google-map>
+
+  <ng-template #markerInfoWindowTemplate let-selectedMarker>
+    <div class="flex p-2 gap-x-2">
+      <app-button
+        label="Посадити дерево"
+        size="small"
+        (onClick)="catalogRedirection(selectedMarker)"
+      >
+      </app-button>
+    </div>
+  </ng-template>
+</section>
+
+<app-footer></app-footer>
