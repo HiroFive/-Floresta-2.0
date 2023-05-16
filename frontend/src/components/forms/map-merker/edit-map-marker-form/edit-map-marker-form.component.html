@@ -37,14 +37,19 @@
     <div class="md:flex flex-row md:space-x-4 w-full text-xs pb-2 px-4">
       <app-checkbox formControlName="hidden" label="Hidden"> </app-checkbox>
     </div>
-    <div class="m-3 text-right md:space-x-3 flex flex-col-reverse">
-      <span>
-        <app-button
-          label="Save"
-          [size]="'medium'"
-          (onClick)="submit()"
-        ></app-button>
-      </span>
+    <div class="button-container">
+      <app-button
+        label="Скасувати"
+        buttonStatus="control"
+        [size]="'medium'"
+        (onClick)="closeModal()"
+      ></app-button>
+
+      <app-button
+        label="Save"
+        [size]="'medium'"
+        (onClick)="submit()"
+      ></app-button>
     </div>
   </form>
 </div>

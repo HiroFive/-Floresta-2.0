@@ -5,6 +5,7 @@ import { BaseMarker } from '../../../../common/classes';
 import { Store } from '@ngrx/store';
 import { ProductSelectors } from '../../../../store/selectors';
 import { take } from 'rxjs';
+import { ModalService } from '../../../../services';
 
 @Component({
   selector: 'app-add-map-marker-form',
@@ -18,6 +19,7 @@ export class AddMapMarkerFormComponent implements OnInit {
   constructor(
     private readonly injMarker: BaseMarker,
     private readonly store: Store<any>,
+    private readonly modalService: ModalService,
   ) {
     this.markerForm = new FormGroup({
       lat: new FormControl(injMarker.lat, [Validators.required]),
@@ -34,6 +36,10 @@ export class AddMapMarkerFormComponent implements OnInit {
       .subscribe((products) => {
         this.productsOptions = products;
       });
+  }
+
+  public closeModal() {
+    this.modalService.closeModal();
   }
 
   public submit = (): void => {

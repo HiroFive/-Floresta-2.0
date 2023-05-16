@@ -1,6 +1,6 @@
 <div class="form-container">
   <form [formGroup]="productFormGroup" novalidate>
-    <section class="food-form-body">
+    <section class="base-form-body">
       <div class="image-uploader-container">
         <ngx-dropzone
           (change)="onSelect($event)"
@@ -57,6 +57,12 @@
     </section>
 
     <div class="button-container">
+      <app-button
+        label="Скасувати"
+        buttonStatus="control"
+        [size]="'medium'"
+        (onClick)="closeModal()"
+      ></app-button>
       <app-button
         label="Додати"
         [size]="'medium'"

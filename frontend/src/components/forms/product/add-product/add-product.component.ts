@@ -4,6 +4,7 @@ import { BaseProduct } from '../../../../common/classes';
 import { Store } from '@ngrx/store';
 import { ProductActions } from '../../../../store/actions';
 import { Subject } from 'rxjs';
+import { ModalService } from '../../../../services';
 
 @Component({
   selector: 'app-add-product',
@@ -18,6 +19,7 @@ export class AddProductComponent implements OnInit {
   constructor(
     private InjProduct: BaseProduct,
     private readonly store: Store<any>,
+    private readonly modalService: ModalService,
   ) {
     this.productFormGroup = new FormGroup({
       name: new FormControl('', [
@@ -44,6 +46,10 @@ export class AddProductComponent implements OnInit {
   ngOnDestroy() {
     this.unsubscribe$.complete();
     this.unsubscribe$.unsubscribe();
+  }
+
+  public closeModal() {
+    this.modalService.closeModal();
   }
 
   public submit = (): void => {

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseProduct } from '../../../../common/classes';
 import { Store } from '@ngrx/store';
 import { ProductActions } from '../../../../store/actions';
+import { ModalService } from '../../../../services';
 
 @Component({
   selector: 'app-edit-product',
@@ -17,6 +18,7 @@ export class EditProductComponent implements OnInit {
   constructor(
     private InjProduct: BaseProduct,
     private readonly store: Store<any>,
+    private readonly modalService: ModalService,
   ) {
     this.id = InjProduct.id || 0;
     this.productFormGroup = new FormGroup({
@@ -42,6 +44,10 @@ export class EditProductComponent implements OnInit {
 
   public onRemove(event: any) {
     this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  public closeModal() {
+    this.modalService.closeModal();
   }
 
   public submit = (): void => {

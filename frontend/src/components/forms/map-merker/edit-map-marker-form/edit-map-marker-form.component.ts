@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { ProductSelectors } from '../../../../store/selectors';
 import { take } from 'rxjs';
 import { IProduct } from '../../../../common/interfaces';
+import { ModalService } from '../../../../services';
 
 @Component({
   selector: 'app-add-map-marker-form',
@@ -25,6 +26,7 @@ export class EditMapMarkerFormComponent implements OnInit {
   constructor(
     private readonly injMarker: BaseMarker,
     private readonly store: Store<any>,
+    private readonly modalService: ModalService,
   ) {
     this.mapMarketId = injMarker.id || 0;
     this.markerForm = new FormGroup({
@@ -59,6 +61,10 @@ export class EditMapMarkerFormComponent implements OnInit {
         return product.id;
       }),
     );
+  }
+
+  public closeModal() {
+    this.modalService.closeModal();
   }
 
   public submit = (): void => {

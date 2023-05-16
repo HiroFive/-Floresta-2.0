@@ -1,6 +1,6 @@
 <div class="block">
   <form [formGroup]="userForm" novalidate>
-    <section class="food-form-body">
+    <section class="base-form-body">
       <div class="mb-3 space-y-2 w-full text-sm">
         <app-form-input
           type="text"
@@ -31,14 +31,19 @@
       </div>
     </section>
 
-    <div class="m-3 text-right md:space-x-3 flex flex-col-reverse">
-      <span>
-        <app-button
-          label="Зберегти"
-          [size]="'medium'"
-          (onClick)="submit()"
-        ></app-button>
-      </span>
+    <div class="button-container">
+      <app-button
+        label="Скасувати"
+        buttonStatus="control"
+        [size]="'medium'"
+        (onClick)="closeModal()"
+      ></app-button>
+
+      <app-button
+        label="Зберегти"
+        [size]="'medium'"
+        (onClick)="submit()"
+      ></app-button>
     </div>
   </form>
 </div>

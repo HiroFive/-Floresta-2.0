@@ -1,6 +1,6 @@
 <div class="form-container">
   <form [formGroup]="orderFormGroup" novalidate>
-    <section class="food-form-body">
+    <section class="base-form-body">
       <div class="mb-3 space-y-2 w-full text-sm">
         <app-select
           placeholder="Статус"
@@ -13,6 +13,12 @@
     </section>
 
     <div class="button-container">
+      <app-button
+        label="Скасувати"
+        buttonStatus="control"
+        [size]="'medium'"
+        (onClick)="closeModal()"
+      ></app-button>
       <app-button
         label="Оновити"
         [size]="'medium'"

@@ -19,6 +19,11 @@ export class ModalService {
   public changeOpenState(newState: boolean) {
     this.modalSource.next({ ...this.modalSource.value, open: newState });
   }
+
+  public closeModal() {
+    this.modalSource.next({ ...this.modalSource.value, open: false });
+  }
+
   public changeInjector(newInjector: any) {
     this.modalSource.next({
       ...this.modalSource.value,

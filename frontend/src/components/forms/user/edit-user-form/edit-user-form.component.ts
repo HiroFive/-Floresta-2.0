@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { UserSelectors } from '../../../../store/selectors';
 import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { IUserRoles } from '../../../../common/interfaces';
+import { ModalService } from '../../../../services';
 
 @Component({
   selector: 'app-edit-user-form',
@@ -25,6 +26,7 @@ export class EditUserFormComponent implements OnInit, OnDestroy {
   constructor(
     private readonly injUser: BaseUser,
     private readonly store: Store<any>,
+    private readonly modalService: ModalService,
   ) {
     this.userForm = new FormGroup({
       name: new FormControl(this.injUser.name, [Validators.required]),
@@ -53,6 +55,10 @@ export class EditUserFormComponent implements OnInit, OnDestroy {
     );
 
     this.RoleControl.setValue(userRole?.[0]?.id);
+  }
+
+  public closeModal() {
+    this.modalService.closeModal();
   }
 
   public submit = (): void => {

@@ -7,6 +7,7 @@ import {
   OrderStatusTitleEnum,
 } from '../../../../common/enums';
 import { OrderActions } from '../../../../store/actions';
+import { ModalService } from '../../../../services';
 
 @Component({
   selector: 'app-edit-product',
@@ -21,6 +22,7 @@ export class EditOrderComponent implements OnInit {
   constructor(
     private InjProduct: BaseOrder,
     private readonly store: Store<any>,
+    private readonly modalService: ModalService,
   ) {
     this.id = InjProduct.id || 0;
     this.orderFormGroup = new FormGroup({
@@ -47,6 +49,10 @@ export class EditOrderComponent implements OnInit {
         name: OrderStatusTitleEnum.Completed,
       },
     ];
+  }
+
+  public closeModal() {
+    this.modalService.closeModal();
   }
 
   public submit = (): void => {

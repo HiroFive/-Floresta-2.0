@@ -33,21 +33,15 @@
 .request-error-message {
   @apply text-xs text-red-500 text-right mx-3 absolute bottom-2 left-2;
 }
-.button-container {
-  @apply m-3 text-right md:space-x-3 flex flex-col-reverse;
+.button-container ::ng-deep {
+  @apply m-3 flex md:space-x-3 justify-center flex-row;
+
+  app-button {
+    @apply w-1/2;
+  }
 }
 
-.select-category-container {
-  @apply w-full md:flex text-sm mb-3;
-}
-.select-category-label {
-  @apply text-sm font-semibold mx-4 text-gray-600 py-2;
-}
-.select-category-body {
-  @apply block mx-4 w-11/12  border border-gray-400 rounded-lg h-8 mt-2 px-2;
-}
-
-.food-form-body {
+.base-form-body {
   @apply p-6 max-h-96 overflow-y-auto;
 }
 .image-uploader-container {
@@ -63,24 +57,6 @@
   @apply text-xs text-gray-400 text-left my-3;
 }
 
-.portions-container {
-  @apply text-sm items-center flex justify-between font-semibold text-gray-600;
-}
-.portions-grid {
-  @apply grid grid-cols-3 mt-2 gap-2 items-center;
-}
-.portion-input-container {
-  @apply mb-1 space-y-1 w-full text-xs;
-}
-.portion-container {
-  @apply block border rounded border-gray-300 p-2;
-}
-.portion-detail-container {
-  @apply font-semibold text-gray-600 py-1;
-}
-.portions-input {
-  @apply appearance-none block w-full border border-gray-400 rounded-lg h-8 px-2;
-}
 .food-preview-img {
   @apply h-44 w-44 block mx-auto;
 }
