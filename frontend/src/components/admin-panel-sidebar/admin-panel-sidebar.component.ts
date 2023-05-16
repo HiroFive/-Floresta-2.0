@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterPathEnum } from '../../common/enums';
+import { NbMenuItem } from '@nebular/theme';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-panel-sidebar',
@@ -7,26 +9,32 @@ import { RouterPathEnum } from '../../common/enums';
   styleUrls: ['./admin-panel-sidebar.component.scss'],
 })
 export class AdminPanelSidebarComponent {
-  sideBarItems = [
+  sideBarItems: NbMenuItem[] = [
     {
       link: RouterPathEnum.Orders,
       icon: 'file-text-outline',
-      label: 'Замовлення',
+      title: 'Замовлення',
     },
     {
       link: RouterPathEnum.MapMarks,
       icon: 'pin-outline',
-      label: 'Мітки',
+      title: 'Мітки',
     },
     {
       link: RouterPathEnum.Products,
       icon: 'pricetags-outline',
-      label: 'Продукти',
+      title: 'Продукти',
     },
     {
       link: RouterPathEnum.Users,
       icon: 'people-outline',
-      label: 'Користувачі',
+      title: 'Користувачі',
     },
   ];
+
+  constructor(private readonly router: Router) {}
+
+  backToHomePage(): void {
+    this.router.navigate([RouterPathEnum.Home]);
+  }
 }

@@ -9,6 +9,7 @@ import { EditMapMarkerFormComponent } from '../../../components/forms/map-merker
 import { DeleteMapMarkerComponent } from '../../../components/delete-dialog';
 import { ModalService } from '../../../services';
 import { MapTypeEnum } from '../../../common/enums/map';
+import { TableTypeEnum } from '../../../common/enums';
 
 @Component({
   selector: 'app-map-mark-setting-page',
@@ -27,6 +28,7 @@ export class MapMarkSettingPageComponent implements OnInit, OnDestroy {
     scrollwheel: true,
     mapTypeId: 'hybrid',
     disableDoubleClickZoom: true,
+    streetViewControl: false,
   };
   mapTypeEnum = MapTypeEnum;
 
@@ -103,4 +105,6 @@ export class MapMarkSettingPageComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
     this.unsubscribe$.unsubscribe();
   }
+
+  protected readonly TableTypeEnum = TableTypeEnum;
 }

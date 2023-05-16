@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import {
   AuthWrapperService,
@@ -18,13 +18,16 @@ import { USER_PROFILE } from '../common/local-storage-keys';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy, OnInit {
+  isShowLoadingSpinner = false;
+
   private readonly unsubscribe$ = new Subject();
   constructor(
     private readonly authWrapperService: AuthWrapperService,
     private readonly store: Store<any>,
     private readonly userService: UserService,
     private readonly localStorageService: LocalStorageService,
-    public spinnerService: SpinnerService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly spinnerService: SpinnerService,
   ) {}
 
   ngOnInit() {
@@ -46,15 +49,24 @@ export class AppComponent implements OnDestroy, OnInit {
           this.localStorageService.setItem(USER_PROFILE, profile);
           this.store.dispatch(CartActions.getCartByUserId({ id: profile?.id }));
         }
+        this.cdr.detectChanges();
       });
 
     this.authWrapperService.authService.idTokenClaims$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((token) =>
+      .subscribe((token) => {
         this.store.dispatch(
           ProfileActions.getProfileInfoById({ id: token?.['sub'] }),
-        ),
-      );
+        );
+        this.cdr.detectChanges();
+      });
+
+    this.spinnerService.visibility
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((visibility) => {
+        this.isShowLoadingSpinner = visibility;
+        this.cdr.detectChanges();
+      });
   }
 
   ngOnDestroy() {

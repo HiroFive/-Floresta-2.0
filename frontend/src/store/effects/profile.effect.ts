@@ -50,4 +50,18 @@ export class ProfileEffects {
       ),
     ),
   );
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProfileActions.updateProfile),
+      mergeMap((action) =>
+        this.userService.updateUser(action?.id, action?.user).pipe(
+          map((user) => {
+            return ProfileActions.updateProfileSuccess({ user });
+          }),
+          catchError(() => of(ProfileActions.updateProfileFailed())),
+        ),
+      ),
+    ),
+  );
 }

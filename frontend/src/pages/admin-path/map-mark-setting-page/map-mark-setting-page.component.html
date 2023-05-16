@@ -1,15 +1,30 @@
-<app-google-map
-  [options]="mapsOptions"
-  [mapType]="mapTypeEnum.Admin"
-  [markerInfoWindowTemplate]="markerInfoWindowTemplate"
-></app-google-map>
-
+<section class="mx-4 mt-4">
+  <nb-card>
+    <div class="p-4">
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-medium text-gray-700">Мапа ділянок</h1>
+      </div>
+      <p class="mt-1 text-md font-light text-gray-500">
+        Натисніть два рази по екрані, щоб створити нову ділянку
+      </p>
+    </div>
+  </nb-card>
+  <nb-card>
+    <div class="rounded overflow-hidden m-4">
+      <app-google-map
+        [options]="mapsOptions"
+        [mapType]="mapTypeEnum.Admin"
+        [markerInfoWindowTemplate]="markerInfoWindowTemplate"
+      ></app-google-map>
+    </div>
+  </nb-card>
+</section>
 <ng-template #markerInfoWindowTemplate let-selectedMarker>
   <div class="flex p-2 gap-x-2">
     <app-button
       [icon]="selectedMarker?.hidden ? 'eye-outline' : 'eye-off-outline'"
       size="medium"
-      buttonStatus="info"
+      buttonStatus="warning"
       iconStatus="basic"
       (onClick)="updateMapMarkerVisibility(selectedMarker)"
     />

@@ -4,10 +4,8 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { finalize, Observable } from 'rxjs';
 import { SpinnerService } from '../services';
 
 @Injectable()
@@ -15,22 +13,13 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private spinnerService: SpinnerService) {}
 
   intercept(
-    req: HttpRequest<any>,
+    request: HttpRequest<unknown>,
     next: HttpHandler,
-  ): Observable<HttpEvent<any>> {
+  ): Observable<HttpEvent<unknown>> {
     this.spinnerService.show();
 
-    return next.handle(req).pipe(
-      tap(
-        (event: HttpEvent<any>) => {
-          if (event instanceof HttpResponse) {
-            this.spinnerService.hide();
-          }
-        },
-        (error) => {
-          this.spinnerService.hide();
-        },
-      ),
-    );
+    return next
+      .handle(request)
+      .pipe(finalize(() => this.spinnerService.hide()));
   }
 }

@@ -1,23 +1,61 @@
 <app-navbar></app-navbar>
 
-<section class="mt-20">
+<section class="profile-page-layout">
   <div
     class="container flex flex-col sm:flex-row gap-4 items-start justify-center px-5 mx-auto my-8"
   >
-    <nb-card class="w-full sm:w-72">
+    <nb-card class="min-w-full sm:min-w-[18rem]">
       <nb-menu [items]="items"> </nb-menu>
     </nb-card>
-    <div class="w-full sm:w-9/12">
-      <nb-accordion class="w-full">
-        <nb-accordion-item>
-          <nb-accordion-item-header>Product Details</nb-accordion-item-header>
-          <nb-accordion-item-body> Item Content </nb-accordion-item-body>
-        </nb-accordion-item>
-        <nb-accordion-item>
-          <nb-accordion-item-header>Product Details</nb-accordion-item-header>
-          <nb-accordion-item-body> Item Content </nb-accordion-item-body>
-        </nb-accordion-item>
-      </nb-accordion>
-    </div>
+
+    <nb-card class="w-full">
+      <div class="px-4 sm:px-8 py-6">
+        <div class="text-center">
+          <h1 class="text-xl font-semibold">Профіль користувача</h1>
+          <small class="text-gray-400"> #{{ profile.id }} </small>
+        </div>
+
+        <div class="flex items-center justify-center mx-auto w-full mt-4">
+          <form [formGroup]="userForm" novalidate>
+            <div class="-mx-3 flex flex-wrap">
+              <div class="w-full px-3 sm:w-1/2">
+                <div class="mb-5">
+                  <app-form-input
+                    placeholder="xxxxxx xxxxx"
+                    formControlName="name"
+                    label="Прізвище Ім'я"
+                  >
+                  </app-form-input>
+                </div>
+              </div>
+              <div class="w-full px-3 sm:w-1/2">
+                <div class="mb-5">
+                  <app-form-input
+                    placeholder="xxxxxx@xxx.xxx"
+                    formControlName="email"
+                    label="Пошта"
+                  >
+                  </app-form-input>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-center">
+              <app-button
+                class="w-full sm:w-6/12"
+                size="medium"
+                buttonStatus="primary"
+                iconStatus="basic"
+                label="Оновити дані"
+                (onClick)="updateProfile()"
+              >
+              </app-button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nb-card>
   </div>
+
+  <app-footer></app-footer>
 </section>

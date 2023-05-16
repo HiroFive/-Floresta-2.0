@@ -1,13 +1,12 @@
 <div class="block">
   <form [formGroup]="userForm" novalidate>
-    <div class="md:flex flex-row md:space-x-4 w-full text-xs pt-2 px-4">
+    <section class="food-form-body">
       <div class="mb-3 space-y-2 w-full text-sm">
         <app-form-input
           type="text"
           placeholder="email"
           formControlName="email"
           label="Email"
-          [disabled]="true"
         >
         </app-form-input>
       </div>
@@ -30,7 +29,8 @@
         >
         </app-select>
       </div>
-    </div>
+    </section>
+
     <div class="m-3 text-right md:space-x-3 flex flex-col-reverse">
       <span>
         <app-button

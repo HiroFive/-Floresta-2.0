@@ -1,0 +1,4 @@
+.catalog-page-layout {
+  @apply mt-20 flex flex-col justify-between;
+  height: calc(100% - 5rem);
+}

@@ -22,7 +22,7 @@ import {
   NbThemeModule,
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from 'src/components/navbar';
 import { ButtonComponent } from '../components/button/button.component';
 import { NavigationItemComponent } from '../components/navbar/navigation-item/navigation-item.component';
@@ -59,7 +59,6 @@ import {
 import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapComponent } from '../components/google-map/google-map.component';
 import { AdminPanelSidebarComponent } from '../components/admin-panel-sidebar/admin-panel-sidebar.component';
-import { SidebarItemsComponent } from '../components/admin-panel-sidebar/sidebar-items/sidebar-items.component';
 import { ModalComponent } from '../components/modal/modal.component';
 import {
   AddMapMarkerFormComponent,
@@ -95,6 +94,7 @@ import { OrderItemsComponent } from '../components/forms/order/edit-order-items/
 import { EditOrderItemsComponent } from '../components/forms/order/edit-order-items/edit-order-items.component';
 import { HeroSectionComponent } from '../components/hero-section/hero-section.component';
 import { FooterComponent } from '../components/footer/footer.component';
+import { LoadingInterceptor } from './loading.interseptor';
 
 @NgModule({
   declarations: [
@@ -105,7 +105,6 @@ import { FooterComponent } from '../components/footer/footer.component';
     ButtonComponent,
     GoogleMapComponent,
     AdminPanelSidebarComponent,
-    SidebarItemsComponent,
     CheckboxComponent,
     FormInputComponent,
     SelectComponent,
@@ -205,7 +204,13 @@ import { FooterComponent } from '../components/footer/footer.component';
     }),
     NgOptimizedImage,
   ],
-
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

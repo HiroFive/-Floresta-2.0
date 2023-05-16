@@ -33,3 +33,15 @@ export const getOrderHistorySuccess = createAction(
 export const getOrderHistoryFailed = createAction(
   '[Profile] get order history Failed',
 );
+
+export const updateProfile = createAction(
+  '[Profile] update Profile',
+  props<{ id: string; user: IUser }>(),
+);
+export const updateProfileSuccess = createAction(
+  '[Profile] update Profile Success',
+  props<{ user: IUser }>(),
+);
+export const updateProfileFailed = createAction(
+  '[Profile] update Profile Failed',
+);

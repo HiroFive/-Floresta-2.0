@@ -18,8 +18,13 @@ export class ButtonComponent {
   @Input() hero = false;
   @Input() shape: 'rectangle' | 'semi-round' | 'round' = 'round';
   @Input() size: 'giant' | 'large' | 'medium' | 'small' | 'tiny' = 'medium';
-  @Input() buttonStatus: 'primary' | 'success' | 'info' | 'warning' | 'danger' =
-    'primary';
+  @Input() buttonStatus:
+    | 'primary'
+    | 'success'
+    | 'info'
+    | 'warning'
+    | 'danger'
+    | 'control' = 'primary';
   @Input() isGhost = false;
   @Input() disabled = false;
   @Input() iconOnStart = true;

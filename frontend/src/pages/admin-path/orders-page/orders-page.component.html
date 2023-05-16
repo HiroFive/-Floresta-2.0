@@ -1,4 +1,9 @@
-<section class="m-4">
+<section class="mx-4 mt-4">
+  <nb-card>
+    <div class="flex justify-between items-center p-4">
+      <h1 class="text-3xl font-medium text-gray-700">Замовлення</h1>
+    </div>
+  </nb-card>
   <app-data-table
     [tableType]="tableTypeEnum.Products"
     [dataSource]="orders"
@@ -12,14 +17,15 @@
   <div class="button-container">
     <app-button
       icon="edit-2-outline"
-      iconStatus="info"
+      buttonStatus="info"
+      iconStatus="basic"
       size="medium"
       (onClick)="updatedSelectedOrder(selectedOrderData)"
     ></app-button>
     <app-button
-      icon="shopping-cart-outline"
+      icon="shopping-bag-outline"
       size="medium"
-      buttonStatus="danger"
+      buttonStatus="warning"
       iconStatus="basic"
       (onClick)="openOrderItemDialog(selectedOrderData)"
     />

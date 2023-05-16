@@ -31,7 +31,9 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<any> {
+    this.files.push(await this.getFileFromUrl(this.InjProduct.image));
+  }
 
   public onSelect(event: any) {
     this.files.shift();
@@ -50,8 +52,22 @@ export class EditProductComponent implements OnInit {
     }
 
     formData.append('data', JSON.stringify(this.productFormGroup.value));
+
     this.store.dispatch(
       ProductActions.updateProduct({ id: this.id, product: formData }),
     );
   };
+
+  async getFileFromUrl(
+    url: string,
+    name = 'default',
+    defaultType = 'image/jpeg',
+  ) {
+    const response = await fetch(url);
+    const data = await response.blob();
+
+    return new File([data], name, {
+      type: data.type || defaultType,
+    });
+  }
 }

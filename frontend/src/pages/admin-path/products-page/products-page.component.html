@@ -1,13 +1,16 @@
-<section class="m-4">
-  <div class="flex justify-end mb-2">
-    <app-button
-      icon="plus-outline"
-      iconStatus="basic"
-      size="medium"
-      label="Додати саджанець"
-      (onClick)="createNewProduct()"
-    ></app-button>
-  </div>
+<section class="mx-4 mt-4">
+  <nb-card>
+    <div class="flex justify-between items-center p-4">
+      <h1 class="text-3xl font-medium text-gray-700">Продукти</h1>
+      <app-button
+        icon="plus-outline"
+        iconStatus="basic"
+        size="medium"
+        label="Додати саджанець"
+        (onClick)="createNewProduct()"
+      ></app-button>
+    </div>
+  </nb-card>
 
   <app-data-table
     [tableType]="tableTypeEnum.Products"
@@ -19,28 +22,25 @@
 </section>
 
 <ng-template #buttonsTemplate let-selectedProductData="data">
-  <!--  <app-button-->
-  <!--    icon="plus-outline"-->
-  <!--    iconStatus="info"-->
-  <!--    size="medium"-->
-  <!--  ></app-button>-->
   <div class="button-container">
     <app-button
       [icon]="selectedProductData?.hidden ? 'eye-outline' : 'eye-off-outline'"
       size="medium"
-      buttonStatus="info"
+      buttonStatus="warning"
       iconStatus="basic"
       (onClick)="updateProductVisibility(selectedProductData)"
     />
     <app-button
       icon="edit-2-outline"
-      iconStatus="info"
+      buttonStatus="info"
+      iconStatus="basic"
       size="medium"
       (onClick)="updatedSelectedProduct(selectedProductData)"
     ></app-button>
     <app-button
       icon="trash-2-outline"
-      iconStatus="info"
+      buttonStatus="danger"
+      iconStatus="basic"
       size="medium"
       (onClick)="deleteSelectedUser(selectedProductData)"
     ></app-button>

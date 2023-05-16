@@ -1,4 +1,9 @@
-<section class="m-4">
+<section class="mx-4 mt-4">
+  <nb-card>
+    <div class="flex justify-between items-center p-4">
+      <h1 class="text-3xl font-medium text-gray-700">Користувачі</h1>
+    </div>
+  </nb-card>
   <app-data-table
     [tableType]="tableTypeEnum.Users"
     [dataSource]="users"
@@ -12,25 +17,24 @@
   <div class="button-container">
     <app-button
       icon="edit-2-outline"
-      iconStatus="info"
+      buttonStatus="info"
+      iconStatus="basic"
       size="medium"
-      [isGhost]="true"
       (onClick)="updatedSelectedUser(selectedUserData)"
-    ></app-button>
-    <app-button
-      icon="trash-2-outline"
-      iconStatus="info"
-      size="medium"
-      [isGhost]="true"
-      (onClick)="deleteSelectedUser(selectedUserData)"
     ></app-button>
     <app-button
       icon="shopping-cart-outline"
       size="medium"
       buttonStatus="danger"
       iconStatus="basic"
-      [isGhost]="true"
       (onClick)="cleanUserCart(selectedUserData)"
     />
+    <app-button
+      icon="trash-2-outline"
+      buttonStatus="danger"
+      iconStatus="basic"
+      size="medium"
+      (onClick)="deleteSelectedUser(selectedUserData)"
+    ></app-button>
   </div>
 </ng-template>

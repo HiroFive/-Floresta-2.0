@@ -1,6 +1,6 @@
 :host ::ng-deep {
   .button-container {
-    @apply flex;
+    @apply flex gap-2;
 
     app-button {
       @apply flex w-10;

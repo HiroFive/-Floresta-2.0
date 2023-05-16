@@ -34,6 +34,11 @@ const profileActionReducer = createReducer(
     ...state,
     orderHistory: action.orderHistory,
   })),
+  on(ProfileActions.updateProfileSuccess, (state, action) => ({
+    ...state,
+    name: action.user?.name,
+    email: action.user?.email,
+  })),
 );
 
 export const profileReducer = { profile: profileActionReducer };

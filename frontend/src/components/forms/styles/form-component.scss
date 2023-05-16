@@ -48,7 +48,7 @@
 }
 
 .food-form-body {
-  @apply px-6 max-h-96 overflow-y-scroll;
+  @apply p-6 max-h-96 overflow-y-auto;
 }
 .image-uploader-container {
   @apply block px-12 my-6;

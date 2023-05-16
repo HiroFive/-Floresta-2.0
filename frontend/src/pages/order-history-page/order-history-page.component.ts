@@ -30,7 +30,6 @@ export class OrderHistoryPageComponent implements OnInit, OnDestroy {
       )
       .subscribe((orderHistory) => {
         this.orderHistory = orderHistory;
-        console.log(orderHistory);
       });
   }
 

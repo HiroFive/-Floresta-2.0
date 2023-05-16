@@ -60,7 +60,11 @@ export class EditUserFormComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       UserActions.updateUser({
         id: this.injUser.id,
-        user: { name: formData?.name, roleId: formData?.role } as any,
+        user: {
+          name: formData?.name,
+          roleId: formData?.role,
+          email: formData?.email,
+        } as any,
       }),
     );
   };

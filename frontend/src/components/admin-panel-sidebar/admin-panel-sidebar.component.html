@@ -3,7 +3,7 @@
 >
   <a href="/" class="flex items-center">
     <img
-      src="assets/logo/Floresta_small_resolution.png"
+      src="assets/logo/Floresta_logo_white.png"
       class="mr-3 h-10"
       alt="Floresta Logo"
     />
@@ -12,17 +12,16 @@
   <div class="flex flex-col justify-between flex-1 mt-6">
     <nav class="-mx-3 space-y-6">
       <div class="space-y-3">
-        <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-400"
-          >Головна</label
+        <app-button
+          buttonStatus="control"
+          size="medium"
+          label="Повернутись на головну"
+          (onClick)="backToHomePage()"
         >
-
-        <app-sidebar-items
-          *ngFor="let sideBarItem of sideBarItems"
-          [label]="sideBarItem.label"
-          [link]="sideBarItem.link"
-          [icon]="sideBarItem.icon"
-        >
-        </app-sidebar-items>
+        </app-button>
+        <nb-card>
+          <nb-menu [items]="sideBarItems"> </nb-menu>
+        </nb-card>
       </div>
     </nav>
   </div>

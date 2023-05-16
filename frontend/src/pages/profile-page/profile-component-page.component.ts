@@ -3,8 +3,10 @@ import { Store } from '@ngrx/store';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { ProfileSelectors } from '../../store/selectors';
 import { NbMenuItem } from '@nebular/theme';
-import { ProfileActions } from '../../store/actions';
 import { profileMenuConstants } from '../../common/consts/profile-menu.constants';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IUser } from '../../common/interfaces';
+import { ProfileActions } from '../../store/actions';
 
 @Component({
   selector: 'app-profile-page',
@@ -13,21 +15,52 @@ import { profileMenuConstants } from '../../common/consts/profile-menu.constants
 })
 export class ProfilePageComponent implements OnInit, OnDestroy {
   items: NbMenuItem[] = profileMenuConstants;
+  userForm: FormGroup;
+  profile: IUser;
 
   private readonly unsubscribe$ = new Subject();
-  constructor(private readonly store: Store<any>) {}
+  constructor(private readonly store: Store<any>) {
+    this.userForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]),
+    });
+  }
   ngOnInit(): void {
-    this.store.dispatch(ProfileActions.getOrderHistory());
-
     this.store
-      .select(ProfileSelectors.getOrderHistory)
+      .select(ProfileSelectors.getProfile)
       .pipe(
-        filter((orderHistory) => !!orderHistory.length),
+        filter((profile) => !!profile),
         takeUntil(this.unsubscribe$),
       )
-      .subscribe((orderHistory) => {
-        console.log(orderHistory);
+      .subscribe((profile) => {
+        this.profile = profile;
+        this.prefillUserForm(profile);
       });
+  }
+
+  prefillUserForm(profile: IUser): void {
+    this.userForm.patchValue({ name: profile.name, email: profile.email });
+  }
+
+  updateProfile(): void {
+    const formData = this.userForm.value;
+    this.store.dispatch(
+      ProfileActions.updateProfile({
+        id: this.profile.id as string,
+        user: {
+          name: formData?.name,
+          email: formData?.email,
+        } as any,
+      }),
+    );
   }
 
   ngOnDestroy() {

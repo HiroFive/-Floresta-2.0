@@ -1,12 +1,13 @@
 <app-navbar></app-navbar>
 
-<section class="mt-20">
+<section class="profile-page-layout">
   <div
     class="container flex flex-col sm:flex-row gap-4 items-start justify-center px-5 mx-auto my-8"
   >
-    <nb-card class="w-full sm:w-72">
+    <nb-card class="min-w-full sm:min-w-[18rem]">
       <nb-menu [items]="items"> </nb-menu>
     </nb-card>
+
     <div class="w-full sm:w-9/12">
       <nb-accordion class="w-full">
         <nb-accordion-item *ngFor="let order of orderHistory">
@@ -63,3 +64,5 @@
     </div>
   </div>
 </section>
+
+<app-footer></app-footer>

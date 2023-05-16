@@ -2,7 +2,7 @@
   @apply fixed justify-center h-screen z-40 top-0 items-center bg-gray-200 bg-opacity-50 w-full antialiased;
 }
 .modal-container {
-  @apply flex flex-col absolute transform -translate-x-1/2 -translate-y-1/2 top-2/4 left-2/4 w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-lg;
+  @apply flex flex-col absolute transform -translate-x-1/2 -translate-y-1/2 top-2/4 left-2/4 w-11/12 sm:w-5/6 lg:w-1/2 max-w-xl mx-auto rounded-lg border border-gray-300 shadow-lg;
 }
 .modal-header {
   @apply flex flex-row justify-between p-4 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg;
