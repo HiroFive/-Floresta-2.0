@@ -30,6 +30,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(25),
+        Validators.email,
       ]),
     });
   }

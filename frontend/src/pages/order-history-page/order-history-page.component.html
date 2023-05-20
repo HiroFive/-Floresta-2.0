@@ -14,7 +14,7 @@
           <nb-accordion-item-header>
             <div class="flex justify-between items-center w-11/12">
               <div>Замовлення #{{ order.id }}</div>
-              <div>{{ order.total }} грн.</div>
+              <div class="text-primary-300">{{ order.total }} грн.</div>
             </div>
           </nb-accordion-item-header>
           <nb-accordion-item-body>
@@ -30,7 +30,7 @@
                   class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b"
                 >
                   <p class="text-gray-600">Сума:</p>
-                  <p>{{ order.total }} грн.</p>
+                  <p class="text-primary-300">{{ order.total }} грн.</p>
                 </div>
                 <div
                   class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b"

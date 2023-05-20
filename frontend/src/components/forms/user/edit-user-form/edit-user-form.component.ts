@@ -29,8 +29,15 @@ export class EditUserFormComponent implements OnInit, OnDestroy {
     private readonly modalService: ModalService,
   ) {
     this.userForm = new FormGroup({
-      name: new FormControl(this.injUser.name, [Validators.required]),
-      email: new FormControl(this.injUser.email, [Validators.required]),
+      name: new FormControl(this.injUser.name, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]),
+      email: new FormControl(this.injUser.email, [
+        Validators.required,
+        Validators.email,
+      ]),
       role: new FormControl(0),
     });
   }

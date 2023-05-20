@@ -65,6 +65,7 @@
       ></app-button>
       <app-button
         label="Додати"
+        [disabled]="productFormGroup.invalid"
         [size]="'medium'"
         (onClick)="submit()"
       ></app-button>

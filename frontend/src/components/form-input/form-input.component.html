@@ -13,4 +13,7 @@
     disabled="{{ disabled }}"
     required
   />
+  <p *ngIf="isShowError" class="text-red-500 text-xs">
+    {{ getError }}
+  </p>
 </div>

@@ -1,6 +1,8 @@
 <ng-container *ngIf="data.asButton; then asButton; else asLink"> </ng-container>
 <ng-template #asLink>
-  <a href="#" class="navigation-item" aria-current="page"> {{ data.label }} </a>
+  <a [href]="data.link" class="navigation-item" aria-current="page">
+    {{ data.label }}
+  </a>
 </ng-template>
 
 <ng-template #asButton>

@@ -1,5 +1,17 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  forwardRef,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-form-input',
@@ -13,7 +25,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class FormInputComponent implements ControlValueAccessor {
+export class FormInputComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit
+{
   @Input() type: 'text' | 'password' | 'number' = 'text';
   @Input() label = 'Some Label';
   @Input() placeholder = '';
@@ -22,6 +36,9 @@ export class FormInputComponent implements ControlValueAccessor {
   onChange!: any;
   onTouched!: any;
   private _value: any;
+  control: AbstractControl;
+
+  constructor(private inj: Injector) {}
 
   public get value() {
     return this._value;
@@ -36,6 +53,12 @@ export class FormInputComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.control = this.inj.get(NgControl)?.control as AbstractControl;
+  }
+
   writeValue(obj: any): void {
     this._value = obj;
   }
@@ -46,5 +69,26 @@ export class FormInputComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
+  }
+
+  get getError(): string {
+    const error = this.control?.errors;
+
+    if (error?.['required']) {
+      return `Обов'язкове поле`;
+    } else if (error?.['email']) {
+      return `Невірний формат емейлу`;
+    }
+
+    return '';
+  }
+  get isShowError(): boolean {
+    return (
+      (!!this.getError &&
+        this.control?.invalid &&
+        this.control?.dirty &&
+        this.control?.touched) ??
+      false
+    );
   }
 }

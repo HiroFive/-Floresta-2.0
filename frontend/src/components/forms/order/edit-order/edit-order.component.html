@@ -21,6 +21,7 @@
       ></app-button>
       <app-button
         label="Оновити"
+        [disabled]="orderFormGroup.invalid"
         [size]="'medium'"
         (onClick)="submit()"
       ></app-button>

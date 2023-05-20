@@ -47,6 +47,7 @@
                 buttonStatus="primary"
                 iconStatus="basic"
                 label="Оновити дані"
+                [disabled]="userForm.invalid"
                 (onClick)="updateProfile()"
               >
               </app-button>

@@ -2,28 +2,6 @@
   <form [formGroup]="markerForm" novalidate>
     <div class="md:flex flex-row md:space-x-4 w-full text-xs pt-2 px-4">
       <div class="mb-3 space-y-2 w-full text-sm">
-        <app-form-input
-          type="number"
-          placeholder="lat"
-          formControlName="lat"
-          label="lat"
-          [disabled]="true"
-        >
-        </app-form-input>
-      </div>
-
-      <div class="mb-3 space-y-2 w-full text-sm">
-        <app-form-input
-          type="number"
-          placeholder="lng"
-          formControlName="lng"
-          label="lng"
-          [disabled]="true"
-        >
-        </app-form-input>
-      </div>
-
-      <div class="mb-3 space-y-2 w-full text-sm">
         <app-select
           placeholder="products"
           formControlName="productIds"
@@ -48,6 +26,7 @@
       <app-button
         label="Save"
         [size]="'medium'"
+        [disabled]="markerForm.invalid"
         (onClick)="submit()"
       ></app-button>
     </div>

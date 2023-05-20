@@ -1,33 +1,28 @@
 <header>
   <nav class="navbar">
-    <div
-      class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl"
-    >
-      <div class="flex">
-        <a href="/" class="flex items-center">
-          <img
-            src="assets/logo/Floresta_small_resolution.png"
-            class="mr-3 h-10"
-            alt="Floresta Logo"
-          />
-        </a>
+    <div class="flex flex-wrap justify-between items-center mx-auto">
+      <a href="/" class="flex items-center">
+        <img
+          src="assets/logo/Floresta_small_resolution.png"
+          class="mr-3 h-10"
+          alt="Floresta Logo"
+        />
+      </a>
 
-        <div
-          class="hidden justify-between w-full lg:flex lg:w-auto lg:order-1"
-          id="mobile-menu-2"
+      <div
+        class="hidden justify-between w-full md:flex md:w-auto lg:order-1"
+        id="mobile-menu-2"
+      >
+        <ul
+          class="flex flex-col items-center mt-4 font-medium md:flex-row md:space-x-4 md:mt-0"
         >
-          <ul
-            class="flex flex-col items-center mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0"
-          >
-            <li *ngFor="let navigationItem of navigationMenuItems">
-              <app-navigation-item [data]="navigationItem">
-              </app-navigation-item>
-            </li>
-          </ul>
-        </div>
+          <li *ngFor="let navigationItem of navigationMenuItems">
+            <app-navigation-item [data]="navigationItem"> </app-navigation-item>
+          </li>
+        </ul>
       </div>
 
-      <div class="flex items-center gap-2 lg:order-2">
+      <div class="flex items-center justify-end gap-2 lg:order-2 md:w-44">
         <ng-container *ngIf="isUserAuthenticated; else LoginButton">
           <app-button
             nbContextMenuTag="user-context-menu"
@@ -36,6 +31,14 @@
             iconStatus="info"
             [isGhost]="true"
             [nbContextMenu]="contextMenuList"
+          />
+
+          <app-button
+            class="md:hidden"
+            icon="menu-outline"
+            size="medium"
+            iconStatus="info"
+            [isGhost]="true"
           />
         </ng-container>
       </div>

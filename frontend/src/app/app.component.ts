@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { CartActions, ProfileActions } from '../store/actions';
 import { ProfileSelectors } from '../store/selectors';
 import { isEmpty } from 'lodash';
-import { USER_PROFILE } from '../common/local-storage-keys';
+import { AUTH_TOKEN, USER_PROFILE } from '../common/local-storage-keys';
 
 @Component({
   selector: 'app-root',
@@ -47,6 +47,7 @@ export class AppComponent implements OnDestroy, OnInit {
 
         if (profile?.id) {
           this.localStorageService.setItem(USER_PROFILE, profile);
+          this.localStorageService.setItem(AUTH_TOKEN, idToken?.['__raw']);
           this.store.dispatch(CartActions.getCartByUserId({ id: profile?.id }));
         }
         this.cdr.detectChanges();

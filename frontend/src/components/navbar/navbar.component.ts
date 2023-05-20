@@ -21,14 +21,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     },
     {
       label: 'Доступні міста',
-      asButton: false,
-    },
-    {
-      label: 'Приєднатись до команди',
+      link: `${RouterPathEnum.Home}#google-map`,
       asButton: false,
     },
     {
       label: 'FAQ',
+      link: `${RouterPathEnum.Home}#FAQ`,
       asButton: false,
     },
   ];

@@ -41,6 +41,7 @@
 
       <app-button
         label="Зберегти"
+        [disabled]="userForm.invalid"
         [size]="'medium'"
         (onClick)="submit()"
       ></app-button>

@@ -7,3 +7,4 @@ export * from './role';
 export * from './api';
 export * from './params-type.enum';
 export * from './order-status.enum';
+export * from './http-methods.enum';

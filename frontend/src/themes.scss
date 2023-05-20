@@ -2,6 +2,7 @@
 @use '@nebular/theme/styles/theming' as *;
 @use '@nebular/theme/styles/themes/default';
 @import './consts.scss';
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
 
 $nb-themes: nb-register-theme(
   (
@@ -25,7 +26,8 @@ $nb-themes: nb-register-theme(
     checkbox-basic-checked-border-color: $band-main,
     checkbox-basic-hover-checked-background-color: #007242,
     checkbox-basic-hover-checked-border-color: #007242,
-    //button-filled-medium-padding:,,
+    select-medium-max-width: 100%,
+    font-family-primary: 'Nunito',
   ),
   corporateTheme,
   default

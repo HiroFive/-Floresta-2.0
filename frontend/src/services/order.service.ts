@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiSidePathEnum, RootApiPathEnum } from '../common/enums';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
-import { USER_PROFILE } from '../common/local-storage-keys';
+import { AUTH_TOKEN, USER_PROFILE } from '../common/local-storage-keys';
 import { IOrderDetails, IOrderDto } from '../common/interfaces';
 
 @Injectable({
@@ -16,28 +16,51 @@ export class OrderService {
   ) {}
 
   public getOrderDetails(orderNumber: number): Observable<IOrderDetails> {
+    const token = this.localStorageService.getItem(AUTH_TOKEN);
+
     return this.http.get<IOrderDetails>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}?orderNumber=${orderNumber}`,
+      {
+        headers: {
+          token,
+        },
+      },
     );
   }
 
   public getAllOrders(): Observable<Array<IOrderDetails>> {
+    const token = this.localStorageService.getItem(AUTH_TOKEN);
+
     return this.http.get<Array<IOrderDetails>>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.All}`,
+      {
+        headers: {
+          token,
+        },
+      },
     );
   }
 
   public getUserOrders(): Observable<Array<IOrderDetails>> {
+    const token = this.localStorageService.getItem(AUTH_TOKEN);
+
     const userId = JSON.parse(
       this.localStorageService.getItem(USER_PROFILE) || '{}',
     )?.id;
 
     return this.http.get<Array<IOrderDetails>>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.GetOrderHistory}?userId=${userId}`,
+      {
+        headers: {
+          token,
+        },
+      },
     );
   }
 
   public createOrder(orderDto: IOrderDto): Observable<any> {
+    const token = this.localStorageService.getItem(AUTH_TOKEN);
+
     const userId = JSON.parse(
       this.localStorageService.getItem(USER_PROFILE) || '{}',
     )?.id;
@@ -46,33 +69,66 @@ export class OrderService {
     return this.http.post<IOrderDto>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}`,
       bodyWithUserId,
+      {
+        headers: {
+          token,
+        },
+      },
     );
   }
 
   public updateOrderStatus(id: number, newStatus: string): Observable<any> {
+    const token = this.localStorageService.getItem(AUTH_TOKEN);
+
     return this.http.patch<IOrderDto>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}/${id}`,
       { status: newStatus },
+      {
+        headers: {
+          token,
+        },
+      },
     );
   }
 
   public updateOrderItem(id: number, quantity: number): Observable<any> {
+    const token = this.localStorageService.getItem(AUTH_TOKEN);
+
     return this.http.patch<IOrderDto>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.UpdateOrderItem}/${id}`,
       { quantity: quantity },
+      {
+        headers: {
+          token,
+        },
+      },
     );
   }
 
   public createOrderItem(orderItem: any): Observable<any> {
+    const token = this.localStorageService.getItem(AUTH_TOKEN);
+
     return this.http.post<IOrderDto>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.AddNewOrderItem}`,
       orderItem,
+      {
+        headers: {
+          token,
+        },
+      },
     );
   }
 
   public deleteOrderItem(id: number): Observable<any> {
+    const token = this.localStorageService.getItem(AUTH_TOKEN);
+
     return this.http.delete<any>(
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.DeleteOrderItem}/${id}`,
+      {
+        headers: {
+          token,
+        },
+      },
     );
   }
 }
