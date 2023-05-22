@@ -1,5 +1,8 @@
 <div>
-  <label class="input-label" for="{{ label }}"
+  <label
+    class="input-label"
+    [ngClass]="{ invalid: isShowError }"
+    for="{{ label }}"
     >{{ label }}<abbr title="required">*</abbr></label
   >
   <input
@@ -11,6 +14,7 @@
     placeholder="{{ placeholder }}"
     [(ngModel)]="value"
     disabled="{{ disabled }}"
+    [status]="isShowError ? 'danger' : status"
     required
   />
   <p *ngIf="isShowError" class="text-red-500 text-xs">

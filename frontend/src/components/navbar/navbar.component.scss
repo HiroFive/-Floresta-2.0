@@ -1,3 +1,8 @@
 .navbar {
-  @apply border-primary-100 bg-white px-4 py-2.5 border-b-2 fixed w-full z-50;
+  @apply border-white bg-white px-4 py-2.5 border-b-2 fixed w-full z-50;
+
+  &.navbar-inverse {
+    @apply border-primary-100;
+    transition: border-bottom-color 200ms linear;
+  }
 }

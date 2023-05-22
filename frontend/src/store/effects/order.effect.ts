@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { OrderService } from '../../services';
+import { ModalService, OrderService } from '../../services';
 import { CartActions, OrderActions } from '../actions';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ export class OrderEffects {
     private orderService: OrderService,
     private readonly store: Store<any>,
     private readonly router: Router,
+    private readonly modalService: ModalService,
   ) {}
 
   createOrder$ = createEffect(() =>
@@ -69,12 +70,16 @@ export class OrderEffects {
         this.orderService
           .updateOrderStatus(action?.id, `${action?.status}`)
           .pipe(
-            map(() =>
-              OrderActions.updateOrderStatusSuccess({
+            map(() => {
+              if (this.modalService?.isOpen) {
+                this.modalService.changeOpenState(false);
+              }
+
+              return OrderActions.updateOrderStatusSuccess({
                 id: action?.id,
                 status: action.status,
-              }),
-            ),
+              });
+            }),
             catchError(() => of(OrderActions.updateOrderStatusFailed())),
           ),
       ),
@@ -92,7 +97,13 @@ export class OrderEffects {
             quantity: action.quantity || 1,
           })
           .pipe(
-            map(() => OrderActions.createOrderItemSuccess()),
+            map(() => {
+              if (this.modalService?.isOpen) {
+                this.modalService.changeOpenState(false);
+              }
+
+              return OrderActions.createOrderItemSuccess();
+            }),
             tap(() => {
               this.store.dispatch(OrderActions.getAllOrderDetails());
             }),
@@ -107,13 +118,17 @@ export class OrderEffects {
       ofType(OrderActions.updateOrderItem),
       mergeMap((action) =>
         this.orderService.updateOrderItem(action.id, action.quantity).pipe(
-          map(() =>
-            OrderActions.updateOrderItemSuccess({
+          map(() => {
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+
+            return OrderActions.updateOrderItemSuccess({
               id: action.id,
               quantity: action.quantity,
               orderId: action.orderId,
-            }),
-          ),
+            });
+          }),
           catchError(() => of(OrderActions.updateOrderItemFailed())),
         ),
       ),
@@ -125,12 +140,16 @@ export class OrderEffects {
       ofType(OrderActions.deleteOrderItemById),
       mergeMap((action) =>
         this.orderService.deleteOrderItem(action.id).pipe(
-          map(() =>
-            OrderActions.deleteOrderItemByIdSuccess({
+          map(() => {
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+
+            return OrderActions.deleteOrderItemByIdSuccess({
               id: action.id,
               orderId: action.orderId,
-            }),
-          ),
+            });
+          }),
           catchError(() => of(CartActions.deleteCartItemByIdFailed())),
         ),
       ),

@@ -18,10 +18,20 @@
     </p>
   </div>
   <div class="button-container">
-    <app-button label="Скасувати" buttonStatus="info" (click)="closeModal()">
+    <app-button
+      class="modal-button"
+      label="Скасувати"
+      buttonStatus="info"
+      (click)="closeModal()"
+    >
     </app-button>
 
-    <app-button label="Видалити" buttonStatus="danger" (click)="delete()">
+    <app-button
+      class="modal-button"
+      label="Видалити"
+      buttonStatus="danger"
+      (click)="delete()"
+    >
     </app-button>
   </div>
 </section>

@@ -42,6 +42,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
       queryParams: { id: selectedMarker?.id },
     });
   }
+
   ngOnDestroy(): void {
     this.unsubscribe$.complete();
     this.unsubscribe$.unsubscribe();

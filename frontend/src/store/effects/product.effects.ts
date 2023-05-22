@@ -33,9 +33,12 @@ export class ProductEffects {
       ofType(ProductActions.createProduct),
       mergeMap(({ product }) =>
         this.productService.createProduct(product).pipe(
-          map((newProduct) =>
-            ProductActions.createProductSuccess({ product: newProduct }),
-          ),
+          map((newProduct) => {
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+            return ProductActions.createProductSuccess({ product: newProduct });
+          }),
           tap(() => {
             this.store.dispatch(ProductActions.getAllProduct());
           }),
@@ -50,9 +53,15 @@ export class ProductEffects {
       ofType(ProductActions.updateProductVisibility),
       mergeMap(({ id, isHidden }) =>
         this.productService.updateProductVisibility(id, isHidden).pipe(
-          map(() =>
-            ProductActions.updateProductVisibilitySuccess({ id, isHidden }),
-          ),
+          map(() => {
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+            return ProductActions.updateProductVisibilitySuccess({
+              id,
+              isHidden,
+            });
+          }),
           catchError(() => of(ProductActions.updateProductVisibilityFailed())),
         ),
       ),
@@ -65,7 +74,9 @@ export class ProductEffects {
       mergeMap((action) =>
         this.productService.updateProductById(action?.id, action?.product).pipe(
           map((product) => {
-            this.modalService.changeOpenState(false);
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
             return ProductActions.updateProductSuccess({ product });
           }),
           tap(() => {
@@ -82,7 +93,13 @@ export class ProductEffects {
       ofType(ProductActions.deleteProductById),
       mergeMap(({ id }) =>
         this.productService.deleteProductById(id).pipe(
-          map(() => ProductActions.deleteProductByIdSuccess({ id })),
+          map(() => {
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+
+            return ProductActions.deleteProductByIdSuccess({ id });
+          }),
           catchError(() => of(ProductActions.deleteProductByIdFailed())),
         ),
       ),

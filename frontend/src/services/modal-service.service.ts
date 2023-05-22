@@ -13,6 +13,10 @@ export class ModalService {
   });
   modalCurrentContent = this.modalSource.asObservable();
 
+  get isOpen(): boolean {
+    return this.modalSource.value.open;
+  }
+
   public changeModalContent(newContent: any) {
     this.modalSource.next({ ...this.modalSource.value, content: newContent });
   }

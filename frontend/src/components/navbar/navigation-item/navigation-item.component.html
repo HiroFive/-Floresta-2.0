@@ -1,10 +1,20 @@
 <ng-container *ngIf="data.asButton; then asButton; else asLink"> </ng-container>
 <ng-template #asLink>
-  <a [href]="data.link" class="navigation-item" aria-current="page">
+  <a
+    [routerLink]="data.link"
+    [fragment]="data.fragment"
+    class="navigation-item"
+    aria-current="page"
+  >
     {{ data.label }}
   </a>
 </ng-template>
 
 <ng-template #asButton>
-  <app-button [label]="data.label" size="small"> </app-button>
+  <app-button
+    [label]="data.label"
+    size="small"
+    (onClick)="router.navigate(['/home'], { fragment: data.fragment })"
+  >
+  </app-button>
 </ng-template>

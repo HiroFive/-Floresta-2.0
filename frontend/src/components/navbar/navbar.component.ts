@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { INavigationItem } from '../../common/interfaces';
 import { AuthWrapperService, LocalStorageService } from '../../services';
 import { Subject, takeUntil } from 'rxjs';
@@ -12,21 +12,27 @@ import { RouterPathEnum, UserRolesEnum } from '../../common/enums';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  isUserAuthenticated: boolean = false;
+  isUserAuthenticated = false;
+  isSubMenuOpen = false;
+  isTabletView = false;
 
   navigationMenuItems: Array<INavigationItem> = [
     {
       label: 'Посадити дерева',
+      link: `/${RouterPathEnum.Home}`,
+      fragment: 'google-map',
       asButton: true,
     },
     {
       label: 'Доступні міста',
-      link: `${RouterPathEnum.Home}#google-map`,
+      link: `/${RouterPathEnum.Home}`,
+      fragment: 'google-map',
       asButton: false,
     },
     {
       label: 'FAQ',
-      link: `${RouterPathEnum.Home}#FAQ`,
+      link: `/${RouterPathEnum.Home}`,
+      fragment: 'FAQ',
       asButton: false,
     },
   ];
@@ -42,6 +48,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.isTabletView = this.isTabletViewCalc;
     this.authWrapperService.isAuthenticated$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isAuthenticated) => {
@@ -66,6 +73,25 @@ export class NavbarComponent implements OnInit, OnDestroy {
             { title: 'Мій профіль', link: RouterPathEnum.Profile },
             { title: 'Вихід', link: RouterPathEnum.Logout },
           ];
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(_: any) {
+    this.isTabletView = this.isTabletViewCalc;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    let element = document.querySelector('.navbar') as HTMLElement;
+    if (window.pageYOffset > element.clientHeight) {
+      element.classList.add('navbar-inverse');
+    } else {
+      element.classList.remove('navbar-inverse');
+    }
+  }
+
+  get isTabletViewCalc(): boolean {
+    return window.innerWidth <= 1024;
   }
 
   ngOnDestroy() {

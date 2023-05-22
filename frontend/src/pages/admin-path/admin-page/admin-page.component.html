@@ -1,4 +1,20 @@
-<section class="flex">
+<section class="flex" [ngClass]="{ 'overflow-hidden': isGuardVisible }">
+  <section
+    *ngIf="isGuardVisible"
+    class="absolute flex flex-col justify-center items-center z-50 w-full h-full bg-primary-700"
+  >
+    <p class="text-white text-base sm:text-xl text-center">
+      Адмін панель не доступна на даному розширенні екрану
+    </p>
+    <app-button
+      class="mt-4"
+      buttonStatus="control"
+      size="medium"
+      label="Повернутись на головну"
+      (onClick)="backToHomePage()"
+    >
+    </app-button>
+  </section>
   <app-admin-panel-sidebar> </app-admin-panel-sidebar>
   <div class="w-full">
     <router-outlet></router-outlet>

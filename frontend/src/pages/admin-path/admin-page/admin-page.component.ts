@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../services';
+import { RouterPathEnum } from '../../../common/enums';
 
 @Component({
   selector: 'app-admin-page',
@@ -9,6 +10,8 @@ import { ModalService } from '../../../services';
 })
 export class AdminPageComponent implements OnInit {
   modalState: { content: any; open: boolean; injector: any };
+  innerWidth: number;
+
   constructor(
     private readonly router: Router,
     private readonly modalService: ModalService,
@@ -18,8 +21,23 @@ export class AdminPageComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
+
     this.modalService.modalSource.subscribe(
       (value: any) => (this.modalState = value),
     );
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+  }
+
+  get isGuardVisible(): boolean {
+    return this.innerWidth <= 680;
+  }
+
+  backToHomePage(): void {
+    this.router.navigate([RouterPathEnum.Home]);
   }
 }

@@ -32,6 +32,14 @@ export class FormInputComponent
   @Input() label = 'Some Label';
   @Input() placeholder = '';
   @Input() disabled = false;
+  @Input() status:
+    | 'basic'
+    | 'primary'
+    | 'success'
+    | 'info'
+    | 'warning'
+    | 'danger'
+    | 'control' = 'basic';
 
   onChange!: any;
   onTouched!: any;

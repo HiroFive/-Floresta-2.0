@@ -48,6 +48,10 @@ export class MapMarkersEffects {
               this.localStorageService.getItem(USER_PROFILE) || {},
             )?.role;
 
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+
             this.store.dispatch(
               MapMarkerActions.getMapMarkerByRoleId({ roleId: role }),
             );
@@ -66,7 +70,10 @@ export class MapMarkersEffects {
           .updateMapMarker(action?.id, action?.mapMarker)
           .pipe(
             map((marker) => {
-              this.modalService.changeOpenState(false);
+              if (this.modalService?.isOpen) {
+                this.modalService.changeOpenState(false);
+              }
+
               return MapMarkerActions.updateMarkerSuccess({
                 mapMarker: marker,
               });
@@ -107,7 +114,13 @@ export class MapMarkersEffects {
       ofType(MapMarkerActions.deleteMapMarker),
       mergeMap(({ id }) =>
         this.mapMarketService.deleteMapMarkerById(id).pipe(
-          map(() => MapMarkerActions.deleteMapMarkerSuccess({ id })),
+          map(() => {
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+
+            return MapMarkerActions.deleteMapMarkerSuccess({ id });
+          }),
           catchError(() => of(MapMarkerActions.deleteMapMarkerFailed())),
         ),
       ),

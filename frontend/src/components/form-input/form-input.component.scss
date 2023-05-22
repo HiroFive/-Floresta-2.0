@@ -1,0 +1,7 @@
+:host ::ng-deep {
+  .input-label {
+    &.invalid {
+      @apply text-red-500;
+    }
+  }
+}

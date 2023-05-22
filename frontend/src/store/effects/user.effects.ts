@@ -45,7 +45,10 @@ export class UserEffects {
       mergeMap((action) =>
         this.userService.updateUser(action?.id, action?.user).pipe(
           map((user) => {
-            this.modalService.changeOpenState(false);
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+
             return UserActions.updateUserSuccess({ user });
           }),
           tap(() => {
@@ -62,7 +65,13 @@ export class UserEffects {
       ofType(UserActions.deleteUserById),
       mergeMap(({ id }) =>
         this.userService.deleteUserById(id).pipe(
-          map(() => UserActions.deleteUserByIdSuccess({ id })),
+          map(() => {
+            if (this.modalService?.isOpen) {
+              this.modalService.changeOpenState(false);
+            }
+
+            return UserActions.deleteUserByIdSuccess({ id });
+          }),
           catchError(() => of(UserActions.deleteUserByIdFailed())),
         ),
       ),

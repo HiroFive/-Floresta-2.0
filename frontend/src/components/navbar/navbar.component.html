@@ -10,10 +10,11 @@
       </a>
 
       <div
-        class="hidden justify-between w-full md:flex md:w-auto lg:order-1"
+        class="justify-between w-full md:flex md:w-auto order-1 md:order-none"
         id="mobile-menu-2"
       >
         <ul
+          [ngClass]="{ hidden: !isSubMenuOpen && isTabletView }"
           class="flex flex-col items-center mt-4 font-medium md:flex-row md:space-x-4 md:mt-0"
         >
           <li *ngFor="let navigationItem of navigationMenuItems">
@@ -35,10 +36,11 @@
 
           <app-button
             class="md:hidden"
-            icon="menu-outline"
+            [icon]="isSubMenuOpen ? 'close-outline' : 'menu-outline'"
             size="medium"
             iconStatus="info"
             [isGhost]="true"
+            (onClick)="isSubMenuOpen = !isSubMenuOpen"
           />
         </ng-container>
       </div>
