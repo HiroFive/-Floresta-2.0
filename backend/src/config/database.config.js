@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-
+const dotenv = require('dotenv');
 dotenv.config();
 
 const {
@@ -16,7 +15,7 @@ const {
   DB_TEST_PORT,
 } = process.env;
 
-export default {
+module.exports = {
   development: {
     database: DB_NAME,
     username: DB_USERNAME,
