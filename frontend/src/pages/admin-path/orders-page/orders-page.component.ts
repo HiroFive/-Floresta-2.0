@@ -110,7 +110,7 @@ export class OrdersPageComponent implements OnInit, OnDestroy {
     this.modalService.openNewModal(
       EditOrderItemsComponent,
       injector,
-      'Змінити статус замовлення',
+      'Змінити склад замвлення',
     );
   }
 
