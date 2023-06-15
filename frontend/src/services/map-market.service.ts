@@ -22,7 +22,7 @@ export class MapMarketService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}?roleId=${roleId}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -35,7 +35,7 @@ export class MapMarketService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Marker}${ApiSidePathEnum.GetProducts}?id=${id}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -49,7 +49,7 @@ export class MapMarketService {
       body,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -63,7 +63,7 @@ export class MapMarketService {
       body,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );

@@ -22,7 +22,7 @@ export class CartService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Cart}?userId=${userId}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -35,7 +35,7 @@ export class CartService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Cart}/delete-by-userId/${userId}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );

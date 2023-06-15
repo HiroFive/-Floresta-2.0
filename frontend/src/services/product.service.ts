@@ -22,7 +22,7 @@ export class ProductService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Products}/${id}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -35,7 +35,7 @@ export class ProductService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Products}${ApiSidePathEnum.All}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -49,7 +49,7 @@ export class ProductService {
       body,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -66,7 +66,7 @@ export class ProductService {
       JSON.stringify({ data: { hidden: newVisibility } }),
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -80,7 +80,7 @@ export class ProductService {
       body,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -93,7 +93,7 @@ export class ProductService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Products}/${id}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );

@@ -46,6 +46,7 @@ export const initUserApi = (apiRouter: Router): Router => {
       const user = await userService.getUserBySubId(_req.params.subId);
       res.status(checkIsFound(user?.[0])).json(user?.[0] || {});
     } catch (error) {
+      console.log(error);
       res.status(HttpCode.NOT_FOUND).json({ message: error?.message });
     }
   });

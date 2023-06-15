@@ -30,7 +30,7 @@ export class UserService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.User}/${id}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -43,7 +43,7 @@ export class UserService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.User}${ApiSidePathEnum.All}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -56,7 +56,7 @@ export class UserService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Role}${ApiSidePathEnum.All}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -70,7 +70,7 @@ export class UserService {
       body,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -84,7 +84,7 @@ export class UserService {
       body,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -97,7 +97,7 @@ export class UserService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.User}/${id}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );

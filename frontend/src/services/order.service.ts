@@ -22,7 +22,7 @@ export class OrderService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}?orderNumber=${orderNumber}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -35,7 +35,7 @@ export class OrderService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.All}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -52,7 +52,7 @@ export class OrderService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.GetOrderHistory}?userId=${userId}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -71,7 +71,7 @@ export class OrderService {
       bodyWithUserId,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -85,7 +85,7 @@ export class OrderService {
       { status: newStatus },
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -99,7 +99,7 @@ export class OrderService {
       { quantity: quantity },
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -113,7 +113,7 @@ export class OrderService {
       orderItem,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -126,7 +126,7 @@ export class OrderService {
       `http://localhost:3001${RootApiPathEnum.Api}${RootApiPathEnum.Order}${ApiSidePathEnum.DeleteOrderItem}/${id}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );

@@ -19,7 +19,10 @@ export class ProfileEffects {
       mergeMap((action) =>
         this.userService.getUserById(action.id).pipe(
           map((user) => ProfileActions.getProfileInfoByIdSuccess({ user })),
-          catchError(() => of(ProfileActions.getProfileInfoByIdFailed())),
+          catchError((d) => {
+            console.log(d);
+            return of(ProfileActions.getProfileInfoByIdFailed());
+          }),
         ),
       ),
     ),

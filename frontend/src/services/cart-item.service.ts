@@ -27,7 +27,7 @@ export class CartItemService {
       data,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -41,7 +41,7 @@ export class CartItemService {
       data,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
@@ -56,7 +56,7 @@ export class CartItemService {
       }?id=${ids.join('&id=')}`,
       {
         headers: {
-          token,
+          token: token || '',
         },
       },
     );
