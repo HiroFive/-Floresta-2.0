@@ -55,7 +55,6 @@ export const initProductApi = (apiRouter: Router): Router => {
     userApiPathEnum.ROOT,
     verifyTokenMiddleware,
     authMiddleware([UserRolesEnum.Admin]),
-    productValidationMiddleware,
     upload.single('image'),
     async (_req, res) => {
       try {
@@ -68,6 +67,7 @@ export const initProductApi = (apiRouter: Router): Router => {
         res.status(HttpCode.OK).json(product);
       } catch (err) {
         const error = err?.errors?.[0];
+        console.log(err);
 
         await uploadImageService.deleteUploadedImage(
           error?.instance?.image || '',

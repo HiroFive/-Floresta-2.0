@@ -10,7 +10,7 @@ const createRoleModule = (orm: Sequelize): ModelCtor<roleInstance> => {
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         primaryKey: true,
       },

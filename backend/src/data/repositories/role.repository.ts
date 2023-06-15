@@ -10,4 +10,8 @@ export class RoleRepository {
   public getById(id: number): Promise<IRoleDto | null> {
     return roleModule.findByPk(id, getRoleParams());
   }
+
+  public create(body: IRoleDto): Promise<IRoleDto | null> {
+    return roleModule.create(body as any);
+  }
 }

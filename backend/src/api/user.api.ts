@@ -50,22 +50,19 @@ export const initUserApi = (apiRouter: Router): Router => {
     }
   });
 
-  userRouter.post(
-    userApiPathEnum.ROOT,
-    verifyTokenMiddleware,
-    userValidationMiddleware,
-    async (_req, res) => {
-      try {
-        const user = await userService.createNewUser(_req.body);
-        await cartService.createCartByUserId(user.id);
+  userRouter.post(userApiPathEnum.ROOT, async (_req, res) => {
+    try {
+      const user = await userService.createNewUser(_req.body);
+      await cartService.createCartByUserId(user.id);
 
-        res.status(HttpCode.OK).json(user);
-      } catch (err) {
-        const error = err?.errors?.[0] || 'error';
-        res.status(HttpCode.BAD_REQUEST).json({ message: error?.message });
-      }
-    },
-  );
+      res.status(HttpCode.OK).json(user);
+    } catch (err) {
+      const error = err?.errors?.[0] || 'error';
+
+      console.log(err);
+      res.status(HttpCode.BAD_REQUEST).json({ message: error?.message });
+    }
+  });
 
   userRouter.patch(
     userApiPathEnum.$ID,

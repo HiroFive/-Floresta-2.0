@@ -76,6 +76,8 @@ export const initOrderApi = (apiRouter: Router): Router => {
 
         res.status(HttpCode.OK).json(order?.[0]);
       } catch (err) {
+        console.log(err);
+
         const error = err?.errors?.[0] || 'error';
         res.status(HttpCode.BAD_REQUEST).json({ message: error?.message });
       }

@@ -28,10 +28,21 @@ export const initCartApi = (apiRouter: Router): Router => {
 
         res.status(HttpCode.OK).json(cart);
       } catch (error) {
+        console.log(error);
         res.status(HttpCode.NOT_FOUND).json({ message: error.message });
       }
     },
   );
+
+  cartRouter.post(cartApiPathEnum.ROOT, async (_req, res) => {
+    try {
+      const cartItem = await cartService.createCartByUserId(_req.body?.userId);
+
+      res.status(checkIsFound(cartItem)).json(cartItem);
+    } catch (error) {
+      res.status(HttpCode.BAD_REQUEST).json({ message: error.message });
+    }
+  });
 
   cartRouter.post(
     cartApiPathEnum.CreateCartItem,

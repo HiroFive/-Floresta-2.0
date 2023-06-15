@@ -6,6 +6,10 @@ export class RoleService {
     return roleRepository.getById(id);
   }
 
+  public create(body: IRoleDto): Promise<IRoleDto> {
+    return roleRepository.create(body);
+  }
+
   public getAllRoles(): Promise<Array<IRoleDto>> {
     return roleRepository.getAll();
   }

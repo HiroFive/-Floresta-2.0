@@ -24,6 +24,7 @@ export const initRoleApi = (apiRouter: Router): Router => {
         const role = await roleService.getById(Number(_req?.query?.id || 0));
         res.status(checkIsFound(role)).json(role);
       } catch (error) {
+        console.log(error);
         res.status(HttpCode.NOT_FOUND).json({ message: error.message });
       }
     },
@@ -38,10 +39,21 @@ export const initRoleApi = (apiRouter: Router): Router => {
         const roles = await roleService.getAllRoles();
         res.status(checkIsFound(roles)).json(roles);
       } catch (error) {
+        console.log(error);
         res.status(HttpCode.INTERNAL_SERVER_ERROR).json([]);
       }
     },
   );
+
+  roleRouter.post(roleApiPathenum.ROOT, async (_req, res) => {
+    try {
+      const role = await roleService.create(_req.body);
+      res.status(checkIsFound(role)).json(role);
+    } catch (error) {
+      console.log(error);
+      res.status(HttpCode.INTERNAL_SERVER_ERROR).json([]);
+    }
+  });
 
   return roleRouter;
 };

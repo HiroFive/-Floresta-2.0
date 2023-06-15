@@ -24,6 +24,12 @@ module.exports = {
     port: DB_PORT,
     dialect: DB_DIALECT,
     logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   },
   test: {
     database: DB_TEST_NAME,
@@ -42,5 +48,11 @@ module.exports = {
     port: DB_PORT,
     dialect: DB_DIALECT,
     logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   },
 };

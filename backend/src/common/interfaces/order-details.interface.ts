@@ -4,7 +4,7 @@ import { IProductDto } from './product.interface';
 export interface IOrderDetailsDto {
   id?: number;
   total: string;
-  userId: number;
+  userId: string;
   paymentId?: number;
   mapMarkerId: number;
   isAnonymous: boolean;

@@ -10,20 +10,32 @@ module.exports = {
         queryInterface.sequelize.transaction((transaction) =>
           Promise.all([
             queryInterface.createTable(
-              'cart',
+              'user',
               {
                 id: {
-                  type: DataTypes.INTEGER,
-                  autoIncrement: true,
+                  type: DataTypes.UUID,
+                  defaultValue: DataTypes.UUIDV4,
                   allowNull: false,
                   primaryKey: true,
                 },
-                product_ids: {
-                  type: DataTypes.ARRAY(DataTypes.INTEGER),
-                  defaultValue: [],
+                name: {
+                  allowNull: false,
+                  type: DataTypes.STRING,
                 },
-                user_id: {
-                  type: DataTypes.UUID,
+                email: {
+                  allowNull: false,
+                  type: DataTypes.STRING,
+                  unique: true,
+                },
+                sub_id: {
+                  allowNull: false,
+                  type: DataTypes.STRING,
+                  unique: true,
+                },
+                role_id: {
+                  allowNull: false,
+                  type: DataTypes.INTEGER,
+                  defaultValue: 1,
                 },
                 created_at: DataTypes.DATE,
                 updated_at: DataTypes.DATE,
@@ -36,7 +48,7 @@ module.exports = {
 
   down: async (queryInterface) => {
     return queryInterface.sequelize.transaction((transaction) => {
-      return Promise.all([queryInterface.dropTable('cart', { transaction })]);
+      return Promise.all([queryInterface.dropTable('user', { transaction })]);
     });
   },
 };

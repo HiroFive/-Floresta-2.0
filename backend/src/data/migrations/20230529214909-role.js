@@ -10,7 +10,7 @@ module.exports = {
         queryInterface.sequelize.transaction((transaction) =>
           Promise.all([
             queryInterface.createTable(
-              'cart',
+              'role',
               {
                 id: {
                   type: DataTypes.INTEGER,
@@ -18,12 +18,9 @@ module.exports = {
                   allowNull: false,
                   primaryKey: true,
                 },
-                product_ids: {
-                  type: DataTypes.ARRAY(DataTypes.INTEGER),
-                  defaultValue: [],
-                },
-                user_id: {
-                  type: DataTypes.UUID,
+                name: {
+                  allowNull: false,
+                  type: DataTypes.STRING,
                 },
                 created_at: DataTypes.DATE,
                 updated_at: DataTypes.DATE,
@@ -36,7 +33,7 @@ module.exports = {
 
   down: async (queryInterface) => {
     return queryInterface.sequelize.transaction((transaction) => {
-      return Promise.all([queryInterface.dropTable('cart', { transaction })]);
+      return Promise.all([queryInterface.dropTable('role', { transaction })]);
     });
   },
 };

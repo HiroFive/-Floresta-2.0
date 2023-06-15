@@ -22,6 +22,10 @@ const createCartItemModule = (orm: Sequelize): ModelCtor<cartItemInstance> => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      cartId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
