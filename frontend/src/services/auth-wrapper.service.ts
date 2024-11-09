@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthWrapperService {
   isAuthenticated$: Observable<boolean>;
+
   constructor(public auth: AuthService) {
     this.isAuthenticated$ = this.auth.isAuthenticated$;
   }

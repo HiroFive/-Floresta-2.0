@@ -16,6 +16,9 @@ const createOrderDetailsModule = (
         allowNull: false,
         primaryKey: true,
       },
+      type: {
+        type: DataTypes.STRING,
+      },
       userId: {
         type: DataTypes.UUID,
         allowNull: false,

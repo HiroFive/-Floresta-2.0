@@ -27,6 +27,7 @@ export class EditOrderComponent implements OnInit {
     this.id = InjProduct.id || 0;
     this.orderFormGroup = new FormGroup({
       status: new FormControl(0),
+      type: new FormControl(InjProduct.type),
     });
   }
 

@@ -1,6 +1,3 @@
-const dotenv = require('dotenv');
-dotenv.config();
-
 const {
   DB_NAME,
   DB_USERNAME,
@@ -13,7 +10,18 @@ const {
   DB_TEST_PASSWORD,
   DB_TEST_HOST,
   DB_TEST_PORT,
+  USE_SSL,
 } = process.env;
+
+const dialectOptions =
+  USE_SSL === 'true'
+    ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      }
+    : {};
 
 module.exports = {
   development: {
@@ -24,12 +32,7 @@ module.exports = {
     port: DB_PORT,
     dialect: DB_DIALECT,
     logging: false,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    },
+    dialectOptions,
   },
   test: {
     database: DB_TEST_NAME,
@@ -39,6 +42,7 @@ module.exports = {
     port: DB_TEST_PORT,
     dialect: DB_DIALECT,
     logging: false,
+    dialectOptions,
   },
   production: {
     database: DB_NAME,
@@ -48,11 +52,6 @@ module.exports = {
     port: DB_PORT,
     dialect: DB_DIALECT,
     logging: false,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    },
+    dialectOptions,
   },
 };

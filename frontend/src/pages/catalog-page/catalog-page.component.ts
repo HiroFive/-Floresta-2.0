@@ -25,6 +25,8 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   idsForCartItemDelete: Array<number>;
   cart: ICart;
   markerId = 0;
+  orderType: string = '';
+  serviceCost = 100;
 
   private readonly unsubscribe$ = new Subject();
   constructor(
@@ -35,14 +37,16 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     private readonly localStorageService: LocalStorageService,
     private inj: Injector,
   ) {}
+
   ngOnInit(): void {
     this.activatedRoute.queryParams
       .pipe(
         take(1),
         filter((params) => !!params?.['id']),
       )
-      .subscribe(({ id }) => {
+      .subscribe(({ id, orderType }) => {
         this.markerId = Number(id);
+        this.orderType = orderType || 'general'; // Зберігаємо тип замовлення
         this.store.dispatch(ProductActions.getCatalog({ id }));
       });
 
@@ -72,6 +76,11 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
     this.modalService.modalSource.subscribe(
       (value: any) => (this.modalState = value),
     );
+  }
+
+  onOrderTypeChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.orderType = selectElement.value;
   }
 
   showWarningDialog(): void {
@@ -106,12 +115,16 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
   }
 
   get productsSubTotal(): number {
-    return (
-      this.cart?.items?.reduce(
-        (sum, product) => sum + product.price * product.quantity,
-        0,
-      ) || 0
+    const productsCost = this.cart?.items?.reduce(
+      (sum, product) => sum + product.price * product.quantity,
+      0,
     );
+
+    if (this.orderType === 'custom') {
+      return productsCost || 0;
+    }
+
+    return productsCost + this.serviceCost || 0;
   }
 
   get isDisableCheckoutButton(): boolean {
@@ -120,7 +133,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy {
 
   navigateToCheckout(): void {
     this.router.navigate([RouterPathEnum.Checkout], {
-      queryParams: { id: this.markerId },
+      queryParams: { id: this.markerId, orderType: this.orderType },
     });
   }
 

@@ -27,6 +27,11 @@ export class AddProductComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(25),
       ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ]),
       hidden: new FormControl(false),
       price: new FormControl(1, [Validators.required]),
     });

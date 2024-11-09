@@ -5,6 +5,7 @@ export abstract class BaseProduct {
     public image: string,
     public hidden: boolean,
     public price: number,
+    public description?: string,
   ) {}
 }
 

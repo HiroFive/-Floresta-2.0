@@ -5,6 +5,7 @@ export abstract class BaseOrder {
     public status: OrderStatusEnum = OrderStatusEnum.Created,
     public id: number = 0,
     public markerId: number = 0,
+    public type?: string,
   ) {}
 }
 

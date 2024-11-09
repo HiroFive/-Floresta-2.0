@@ -11,12 +11,6 @@ const sequelize = new Sequelize({
   ...db,
   port: Number(db.port),
   dialect: db.dialect as Dialect,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
 });
 
 export { sequelize };

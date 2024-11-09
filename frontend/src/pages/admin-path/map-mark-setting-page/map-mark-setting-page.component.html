@@ -20,27 +20,32 @@
   </nb-card>
 </section>
 <ng-template #markerInfoWindowTemplate let-selectedMarker>
-  <div class="flex p-2 gap-x-2">
-    <app-button
-      [icon]="selectedMarker?.hidden ? 'eye-outline' : 'eye-off-outline'"
-      size="medium"
-      buttonStatus="warning"
-      iconStatus="basic"
-      (onClick)="updateMapMarkerVisibility(selectedMarker)"
-    />
-    <app-button
-      icon="edit-2-outline"
-      size="medium"
-      buttonStatus="info"
-      iconStatus="basic"
-      (onClick)="editMarker(selectedMarker)"
-    />
-    <app-button
-      icon="trash-outline"
-      size="medium"
-      buttonStatus="danger"
-      iconStatus="basic"
-      (onClick)="deleteMapMarker(selectedMarker)"
-    />
+  <div class="flex flex-col p-2 gap-2 max-w-xs">
+    <h1 class="text-lg">{{ selectedMarker?.label?.text }}</h1>
+    <span>{{ selectedMarker?.description }}</span>
+
+    <div class="flex p-2 gap-x-2 justify-center">
+      <app-button
+        [icon]="selectedMarker?.hidden ? 'eye-outline' : 'eye-off-outline'"
+        size="medium"
+        buttonStatus="warning"
+        iconStatus="basic"
+        (onClick)="updateMapMarkerVisibility(selectedMarker)"
+      />
+      <app-button
+        icon="edit-2-outline"
+        size="medium"
+        buttonStatus="info"
+        iconStatus="basic"
+        (onClick)="editMarker(selectedMarker)"
+      />
+      <app-button
+        icon="trash-outline"
+        size="medium"
+        buttonStatus="danger"
+        iconStatus="basic"
+        (onClick)="deleteMapMarker(selectedMarker)"
+      />
+    </div>
   </div>
 </ng-template>

@@ -81,18 +81,26 @@ export const initProductApi = (apiRouter: Router): Router => {
     userApiPathEnum.$ID,
     verifyTokenMiddleware,
     authMiddleware([UserRolesEnum.Admin]),
-    productValidationMiddleware,
+    // productValidationMiddleware,
     upload.single('image'),
     async (_req, res) => {
       try {
+        let newImage = '';
         if (_req.file) {
           await uploadImageService.deleteUploadedImage(_req.body.image);
-          _req.body.image = await uploadImageService.uploadImage(_req.file);
+          newImage = await uploadImageService.uploadImage(_req.file);
         }
 
         const product = await productService.updateProduct(
           Number(_req.params.id),
-          JSON.parse(_req?.body?.data || '{}'),
+          JSON.parse(
+            _req.body.data
+              ? JSON.stringify({
+                  ...JSON.parse(_req.body.data),
+                  image: newImage,
+                })
+              : '{}',
+          ),
         );
 
         res.status(checkIsFound(product)).json(product?.[0]);

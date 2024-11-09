@@ -66,6 +66,7 @@ export class MapMarkSettingPageComponent implements OnInit, OnDestroy {
   }
 
   editMarker(selectedMarker: any) {
+    console.log(selectedMarker);
     const injector: Injector = Injector.create({
       providers: [
         {
@@ -76,6 +77,8 @@ export class MapMarkSettingPageComponent implements OnInit, OnDestroy {
             selectedMarker.hidden,
             selectedMarker.id,
             selectedMarker.productIds,
+            selectedMarker?.label?.text,
+            selectedMarker?.description,
           ),
         },
       ],

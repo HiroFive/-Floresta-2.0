@@ -21,6 +21,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
   tableColumns = [
     { dataField: 'image', dataType: 'picture' },
     { dataField: 'name', dataType: 'string' },
+    { dataField: 'description', dataType: 'string' },
     { dataField: 'price', dataType: 'number' },
     { dataField: 'hidden', dataType: 'boolean' },
   ];
@@ -72,6 +73,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
             productData.image,
             productData.hidden,
             productData.price,
+            productData?.description,
           ),
         },
       ],

@@ -27,6 +27,11 @@ export class EditProductComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(25),
       ]),
+      description: new FormControl(InjProduct?.description || '', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ]),
       image: new FormControl(InjProduct.image),
       hidden: new FormControl(InjProduct.hidden),
       price: new FormControl(InjProduct.price, [Validators.required]),

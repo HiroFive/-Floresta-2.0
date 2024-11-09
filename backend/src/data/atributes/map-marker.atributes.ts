@@ -2,7 +2,15 @@ import { ParamsTypeEnum, UserRolesEnum } from '~/common/enums';
 import { productModule } from '~/data/models';
 import { productAttribute } from '~/data/atributes/product.atribute';
 
-export const mapMarkerAttribute = ['id', 'lat', 'lng', 'hidden', 'productIds'];
+export const mapMarkerAttribute = [
+  'id',
+  'lat',
+  'lng',
+  'hidden',
+  'productIds',
+  'name',
+  'description',
+];
 
 const getParamsByRole = (roleId = UserRolesEnum.Customer) => {
   const paramsByRole: any = {

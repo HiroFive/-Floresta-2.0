@@ -30,6 +30,8 @@ export class EditMapMarkerFormComponent implements OnInit {
   ) {
     this.mapMarketId = injMarker.id || 0;
     this.markerForm = new FormGroup({
+      name: new FormControl(injMarker.name, [Validators.required]),
+      description: new FormControl(injMarker.description, []),
       lat: new FormControl(injMarker.lat, [Validators.required]),
       lng: new FormControl(injMarker.lng, [Validators.required]),
       productIds: new FormControl([], [Validators.required]),
@@ -74,6 +76,7 @@ export class EditMapMarkerFormComponent implements OnInit {
       MapMarkerActions.updateMarker({
         id: this.mapMarketId,
         mapMarker: {
+          name: !!formData?.name ? formData?.name : 'Без назви',
           hidden: formData.hidden,
           lat: formData.lat,
           lng: formData.lng,

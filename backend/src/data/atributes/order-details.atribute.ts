@@ -8,6 +8,7 @@ import { productAttribute } from '~/data/atributes/product.atribute';
 
 export const orderDetailsAttribute = [
   'id',
+  'type',
   'isAnonymous',
   'total',
   'status',

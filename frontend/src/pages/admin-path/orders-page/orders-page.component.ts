@@ -23,6 +23,7 @@ export class OrdersPageComponent implements OnInit, OnDestroy {
   orders: Array<any>;
   tableColumns = [
     { dataField: 'status', dataType: 'string' },
+    { dataField: 'type', dataType: 'string' },
     { dataField: 'mapMarker', dataType: 'number' },
     { dataField: 'payment', dataType: 'string' },
     { dataField: 'total', dataType: 'number' },
@@ -85,7 +86,7 @@ export class OrdersPageComponent implements OnInit, OnDestroy {
       providers: [
         {
           provide: BaseOrder,
-          useValue: new Order(order.status, order.id),
+          useValue: new Order(order.status, order.id, 0, order?.type),
         },
       ],
       parent: this.inj,
@@ -102,7 +103,12 @@ export class OrdersPageComponent implements OnInit, OnDestroy {
       providers: [
         {
           provide: BaseOrder,
-          useValue: new Order(order.status, order.id, order.mapMarker),
+          useValue: new Order(
+            order.status,
+            order.id,
+            order.mapMarker,
+            order?.type,
+          ),
         },
       ],
       parent: this.inj,

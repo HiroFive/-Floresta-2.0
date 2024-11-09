@@ -8,7 +8,11 @@
   @apply text-center p-5 flex-auto justify-center;
 }
 .button-container {
-  @apply p-3 mt-2 text-center space-x-4 md:block;
+  @apply p-3 mt-2 text-center flex gap-2 flex-row max-sm:flex-col;
+
+  & app-button {
+    @apply w-1/2;
+  }
 }
 .delete-message {
   @apply text-sm text-gray-500 px-8;

@@ -1,9 +1,27 @@
 <div class="block">
   <form [formGroup]="markerForm" novalidate>
-    <div class="md:flex flex-row md:space-x-4 w-full text-xs pt-2 px-4">
-      <div class="mb-3 space-y-2 w-full text-sm">
+    <div class="md:flex flex-col w-full text-xs pt-2 px-4">
+      <div class="mb-3 w-full text-sm">
+        <app-form-input
+          type="text"
+          placeholder="Новий сад"
+          formControlName="name"
+          label="Назва ділянки"
+        >
+        </app-form-input>
+      </div>
+      <div class="mb-3 w-full text-sm">
+        <app-form-input
+          type="text"
+          placeholder="Опис"
+          formControlName="description"
+          label="Опис ділянки"
+        >
+        </app-form-input>
+      </div>
+      <div class="mb-3 w-full text-sm">
         <app-select
-          placeholder="products"
+          placeholder="Продукти"
           formControlName="productIds"
           label="Доступні продукти"
           [multiple]="true"

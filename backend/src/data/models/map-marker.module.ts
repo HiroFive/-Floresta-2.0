@@ -16,6 +16,12 @@ const createMapMarkerModule = (
         allowNull: false,
         primaryKey: true,
       },
+      name: {
+        type: DataTypes.STRING,
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
       hidden: {
         type: DataTypes.BOOLEAN,
       },

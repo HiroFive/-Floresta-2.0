@@ -50,19 +50,27 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
           id: mapMarker.id,
           hidden: mapMarker.hidden,
           productIds: mapMarker.productIds,
+          description: mapMarker.description,
           position: {
             lat: mapMarker.lat,
             lng: mapMarker.lng,
           },
           label: {
             color: 'white',
-            text: 'Мітку #' + mapMarker.id,
+            text: this.generateMarkerName(mapMarker),
           },
           options: {
             animation: google.maps.Animation.DROP,
           },
         }));
       });
+  }
+
+  generateMarkerName(marker: IMapMarker) {
+    if (!marker?.name) {
+      return `Мітку #${marker.id}`;
+    }
+    return marker.name;
   }
 
   addMarker(event: google.maps.MapMouseEvent) {

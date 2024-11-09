@@ -3,6 +3,7 @@ import * as yup from 'yup';
 export const postOrderSchema = yup
   .object()
   .shape({
+    type: yup.string().required(),
     isAnonymous: yup.boolean().required(),
     mapMarkerId: yup.number().required(),
     userId: yup.string().required(),
@@ -15,6 +16,7 @@ export const postOrderSchema = yup
 export const patchOrderSchema = yup
   .object()
   .shape({
+    type: yup.string().required(),
     status: yup.string().required(),
   })
   .noUnknown();

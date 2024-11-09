@@ -18,6 +18,9 @@ const createProductModule = (orm: Sequelize): ModelCtor<productInstance> => {
         allowNull: false,
         type: DataTypes.STRING,
       },
+      description: {
+        type: DataTypes.STRING,
+      },
       image: {
         allowNull: false,
         type: DataTypes.STRING,

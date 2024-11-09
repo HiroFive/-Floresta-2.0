@@ -4,7 +4,7 @@
   <div
     class="container flex flex-col items-center justify-center px-5 mx-auto my-8"
   >
-    <div class="max-w-5xl">
+    <div class="max-w-5xl flex flex-col items-center justify-center gap-2">
       <h2 class="mb-2 font-extrabold text-center text-3xl dark:text-gray-600">
         Створено заволення #{{ orderNumber }}
       </h2>
@@ -27,17 +27,17 @@
               </app-order-details-product>
             </ng-container>
           </section>
-
-          <app-button
-            class="w-full"
-            [iconOnStart]="false"
-            iconStatus="basic"
-            size="medium"
-            label="Назад на головну"
-            (onClick)="navigateToHome()"
-          ></app-button>
         </div>
       </div>
+
+      <app-button
+        class="min-w-96"
+        [iconOnStart]="false"
+        iconStatus="basic"
+        size="medium"
+        label="Назад на головну"
+        (onClick)="navigateToHome()"
+      ></app-button>
     </div>
   </div>
 

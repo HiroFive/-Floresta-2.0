@@ -53,7 +53,7 @@ export const initMapMarkerApi = (apiRouter: Router): Router => {
     mapMarkerApiPathEnum.ROOT,
     verifyTokenMiddleware,
     authMiddleware([UserRolesEnum.Admin]),
-    mapMarkerValidationMiddleware,
+    // mapMarkerValidationMiddleware,
     async (_req, res) => {
       try {
         const createdMapMarker = await mapMarkerService.createMapMarker(
@@ -72,7 +72,7 @@ export const initMapMarkerApi = (apiRouter: Router): Router => {
     mapMarkerApiPathEnum.$ID,
     verifyTokenMiddleware,
     authMiddleware([UserRolesEnum.Admin]),
-    mapMarkerValidationMiddleware,
+    // mapMarkerValidationMiddleware,
     async (_req, res) => {
       try {
         const mapMarker = await mapMarkerService.updateMapMarker(

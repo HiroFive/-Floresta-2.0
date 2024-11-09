@@ -22,6 +22,8 @@ export class AddMapMarkerFormComponent implements OnInit {
     private readonly modalService: ModalService,
   ) {
     this.markerForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      description: new FormControl('', []),
       lat: new FormControl(injMarker.lat, [Validators.required]),
       lng: new FormControl(injMarker.lng, [Validators.required]),
       productIds: new FormControl([], [Validators.required]),
@@ -47,6 +49,8 @@ export class AddMapMarkerFormComponent implements OnInit {
     this.store.dispatch(
       MapMarkerActions.createMapMarker({
         mapMarker: {
+          name: formData.name,
+          description: formData.description,
           hidden: formData.hidden,
           lat: formData.lat,
           lng: formData.lng,

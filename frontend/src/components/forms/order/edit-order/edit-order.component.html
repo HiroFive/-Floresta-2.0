@@ -3,6 +3,15 @@
     <section class="base-form-body">
       <div class="mb-3 space-y-2 w-full text-sm">
         <app-select
+          placeholder="Тип"
+          formControlName="type"
+          label="Тип"
+          [selectOptions]="statsOptions"
+        >
+        </app-select>
+      </div>
+      <div class="mb-3 space-y-2 w-full text-sm">
+        <app-select
           placeholder="Статус"
           formControlName="status"
           label="Статус"

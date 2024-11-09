@@ -11,6 +11,7 @@ export interface IOrderDetails {
   total: string;
   status: number;
   createdAt: string;
+  type?: string;
 }
 
 export interface IOrderDto {
@@ -19,6 +20,7 @@ export interface IOrderDto {
   items: Array<{ id: number; name: string; quantity: number }>;
   total: number;
   payment: { provider: PaymentProvideEnum };
+  type?: string;
 }
 
 export interface IOrderItem {

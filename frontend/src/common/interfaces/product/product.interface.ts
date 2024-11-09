@@ -4,4 +4,5 @@ export interface IProduct {
   image: string;
   hidden: boolean;
   price: number;
+  description?: string;
 }

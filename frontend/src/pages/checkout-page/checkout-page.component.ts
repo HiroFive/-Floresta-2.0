@@ -25,6 +25,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
   form: FormGroup;
   markerId = 0;
   orderItems: Array<ICartItem> = [];
+  orderType = '';
 
   anonymousControl = new FormControl(false);
 
@@ -41,8 +42,9 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
         take(1),
         filter((params) => !!params?.['id']),
       )
-      .subscribe(({ id }) => {
+      .subscribe(({ id, orderType }) => {
         this.markerId = Number(id);
+        this.orderType = orderType || 'general';
       });
 
     this.form = this.fb.group({
@@ -79,6 +81,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
   onSubmit() {
     const orderDto = {
       total: this.orderTotal,
+      type: this.orderType,
       mapMarkerId: this.markerId,
       isAnonymous: this.anonymousControl.value || false,
       items: this.orderItems.map(({ productId, name, quantity }) => ({
@@ -92,8 +95,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(OrderActions.createOrder({ orderDto }));
-
-    console.log(orderDto);
   }
 
   navigateToCatalog(): void {
